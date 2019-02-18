@@ -64,31 +64,6 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full'
-      },
-      {
-        path: 'tab2',
-        redirectTo: '/tabs/tab2',
-        pathMatch: 'full'
-      },
-      {
-        path: 'tab3',
-        redirectTo: '/tabs/tab3',
-        pathMatch: 'full'
-      },
-      {
-        path: 'tab4',
-        redirectTo: '/tabs/tab4',
-        pathMatch: 'full'
-      },
-      {
-        path: 'tab5',
-        redirectTo: '/tabs/tab5',
-        pathMatch: 'full'
-      },
-      {
         path: '',
         loadChildren: '../product/product.module#ProductPageModule'
       }
