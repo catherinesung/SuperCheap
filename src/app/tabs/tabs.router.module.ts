@@ -60,6 +60,16 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'product',
+    component: TabsPage,
+    children: [
+      {
+        path: '',
+        loadChildren: '../product/product.module#ProductPageModule'
+      }
+    ]
+  },
+  {
     path: '',
     redirectTo: '/tabs/tab1',
     pathMatch: 'full'
