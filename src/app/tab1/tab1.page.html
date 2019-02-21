@@ -1,11 +1,42 @@
 <ion-header>
   <ion-toolbar>
-      <ion-searchbar cancelButtonText="Custom Cancel" [placeholder]="Search the product here..."> </ion-searchbar>
+      <ion-searchbar cancelButtonText="Custom Cancel" > </ion-searchbar>
       <ion-button  (click)="scanCode()" slot="primary"><ion-icon name="barcode"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-card>
+        <ion-item>
+            <ion-img src="https://www.parknshop.com/medias/sys_master/ha6/hd4/9177981452318.png"></ion-img>
+        </ion-item>
+    </ion-card>
+
+    <ion-card>
+        <ion-item>
+            <ion-img src="https://www.wellcome.com.hk/wd2shop/docroot/zh/images/banner/12186_wk1%20$8%20banner%20OP.jpg"></ion-img>
+        </ion-item>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-img src="https://www.wellcome.com.hk/wd2shop/docroot/zh/images/banner/chi_WD_Household_Web-Banner_WK7.jpg"></ion-img>
+        </ion-item>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-img src="https://www.wellcome.com.hk/wd2shop/docroot/zh/images/banner/chi_WD_Household_Web-Banner_WK7.jpg"></ion-img>
+        </ion-item>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-img src="https://www.parknshop.com/medias/sys_master/hdc/he5/9165240926238/hotpot-banner-DC.png"></ion-img>
+        </ion-item>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-img src="https://www.wellcome.com.hk/wd2shop/docroot/zh/images/banner/02007_WK7%20wcl%20low%20low%20price%20web%20banner_chi.jpg"></ion-img>
+        </ion-item>
+    </ion-card>
     <div *ngIf="scannedData">
         <p>Scanned Code Text : <b>{{scannedData['text']}}</b></p>
         <p>Scanned Code Format : <b>{{scannedData['format']}}</b></p>
