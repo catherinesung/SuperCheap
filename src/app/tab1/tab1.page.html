@@ -1,12 +1,11 @@
 <ion-header>
   <ion-toolbar>
-      <ion-searchbar cancelButtonText="Custom Cancel"> </ion-searchbar>
+      <ion-searchbar cancelButtonText="Custom Cancel" [placeholder]="Search the product here..."> </ion-searchbar>
       <ion-button  (click)="scanCode()" slot="primary"><ion-icon name="barcode"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
     <div *ngIf="scannedData">
         <p>Scanned Code Text : <b>{{scannedData['text']}}</b></p>
         <p>Scanned Code Format : <b>{{scannedData['format']}}</b></p>
