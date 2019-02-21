@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab5Page } from './tab5.page';
 
+
+
 @NgModule({
   imports: [
     IonicModule,
@@ -14,4 +16,6 @@ import { Tab5Page } from './tab5.page';
   ],
   declarations: [Tab5Page]
 })
-export class Tab5PageModule {}
+
+export class Tab5PageModule {
+}
