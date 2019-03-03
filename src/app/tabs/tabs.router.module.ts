@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
@@ -58,7 +58,8 @@ const routes: Routes = [
         pathMatch: 'full'
       }
     ]
-  },{
+  },
+  {
     path: 'product',
     component: TabsPage,
     children: [
@@ -103,7 +104,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]
 })

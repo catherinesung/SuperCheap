@@ -8,14 +8,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-
+import { FormsModule } from '@angular/forms';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ItemComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule],
   providers: [
     StatusBar,
     SplashScreen,
