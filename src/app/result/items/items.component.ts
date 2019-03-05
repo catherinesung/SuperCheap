@@ -11,15 +11,9 @@ export class ItemsComponent implements OnInit {
   selectedItem: Item;
   constructor() { }
 
-  ngOnInit() {
-    this.getItems();
-  }
+  ngOnInit() {}
   onSelect(item: Item): void {
     this.selectedItem = item;
-  }
-  getItems(): void {
-    this.ItemService.getItems()
-        .subscribe(items => this.items = items);
   }
 
 }
