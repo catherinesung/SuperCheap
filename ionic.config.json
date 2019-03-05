@@ -1,6 +1,8 @@
 {
   "name": "SuperCheap",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "c33769c3"
 }

@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Location
+      <ion-searchbar #bar cancelButtonText="Custom Cancel" (keyup.ebter)="search(bar.value)" > </ion-searchbar>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>{{velues}}</ion-content>

@@ -58,8 +58,7 @@ const routes: Routes = [
         pathMatch: 'full'
       }
     ]
-  },
-  {
+  },{
     path: 'product',
     component: TabsPage,
     children: [
@@ -94,6 +93,7 @@ const routes: Routes = [
       }
     ]
   },
+
   {
     path: '',
     redirectTo: '/tabs/tab1',
