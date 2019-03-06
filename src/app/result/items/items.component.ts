@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ITEMS} from '../../Items';
 import {Item} from '../../Item';
+import { ActivatedRoute } from '@angular/router';
+
+
 @Component({
   selector: 'app-items',
   templateUrl: './items.component.html',
@@ -9,9 +12,8 @@ import {Item} from '../../Item';
 export class ItemsComponent implements OnInit {
   items = ITEMS;
   selectedItem: Item;
-  constructor() { }
-
-  ngOnInit() {}
+  ngOnInit() {
+  }
   onSelect(item: Item): void {
     this.selectedItem = item;
   }
