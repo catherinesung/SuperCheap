@@ -1,4 +1,5 @@
 import { Component} from '@angular/core';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -7,4 +8,8 @@ import { Component} from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  constructor(private router: Router) { }
+  Search(value: string) {
+    this.router.navigate(['/result'], {queryParams: { keywords: value}});
+  }
 }

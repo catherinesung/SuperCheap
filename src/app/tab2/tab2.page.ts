@@ -16,6 +16,6 @@ import {Router} from '@angular/router';
   export class Tab2Page {
   constructor(private router: Router) { }
   Search(value: string) {
-    this.router.navigate(['/result'], {queryParams: { keywords: value}, queryParamsHandling: 'merge' });
+    this.router.navigate(['/result'], {queryParams: { keywords: value}});
       }
     }

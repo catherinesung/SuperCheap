@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ITEMS} from '../../Items';
 import {Item} from '../../Item';
-import { ActivatedRoute } from '@angular/router';
+
 
 
 @Component({
