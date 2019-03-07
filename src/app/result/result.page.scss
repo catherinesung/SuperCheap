@@ -1,3 +1,30 @@
+ion-item{
+  position: relative;
+  height:15%;
+  width: 100%;
+}
+.b{
+  position: relative;
+  width: 30%;
+  height: 100%;
+  left: 0%;
+}
+.c{
+  position: relative;
+  width: 70%;
+  height: 100%;
+  right: 0%;
+}
 ion-list{
-  height:20%;
+  position: relative;
+  height: 90%;
+  width: 100%;
+}
+
+ion-content{
+  position: relative;
+}
+ion-img{
+  position: absolute;
+  height: 100%;
 }
