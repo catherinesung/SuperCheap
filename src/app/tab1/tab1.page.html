@@ -1,41 +1,45 @@
+
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      homepage
-    </ion-title>
+      <ion-searchbar #box  cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)"> </ion-searchbar>
+      <ion-button  (click)="scanCode()" slot="primary"><ion-icon name="barcode"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card class="welcome-card">
-      <ion-img src="/assets/shapes.svg"></ion-img>
-      <ion-card-header>
-        <ion-card-subtitle>Get Started</ion-card-subtitle>
-        <ion-card-title>Welcome to Ionic</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
-      </ion-card-content>
+    <ion-card>sea
+        <ion-item>
+            <ion-img src="https://www.parknshop.com/medias/sys_master/ha6/hd4/9177981452318.png"></ion-img>
+        </ion-item>
     </ion-card>
-    <ion-list lines="none">
-      <ion-list-header>
-        <ion-label>Resources</ion-label>
-      </ion-list-header>
-      <ion-item href="https://ionicframework.com/docs/">
-        <ion-icon slot="start" color="medium" name="book"></ion-icon>
-        <ion-label>Ionic Documentation</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/building/scaffolding">
-        <ion-icon slot="start" color="medium" name="build"></ion-icon>
-        <ion-label>Scaffold Out Your App</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/layout/structure">
-        <ion-icon slot="start" color="medium" name="grid"></ion-icon>
-        <ion-label>Change Your App Layout</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/theming/basics">
-        <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
-        <ion-label>Theme Your App</ion-label>
-      </ion-item>
-    </ion-list>
+
+    <ion-card>
+        <ion-item>
+            <ion-img src="https://www.wellcome.com.hk/wd2shop/docroot/zh/images/banner/12186_wk1%20$8%20banner%20OP.jpg"></ion-img>
+        </ion-item>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-img src="https://www.wellcome.com.hk/wd2shop/docroot/zh/images/banner/chi_WD_Household_Web-Banner_WK7.jpg"></ion-img>
+        </ion-item>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-img src="https://www.wellcome.com.hk/wd2shop/docroot/zh/images/banner/chi_WD_Household_Web-Banner_WK7.jpg"></ion-img>
+        </ion-item>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-img src="https://www.parknshop.com/medias/sys_master/hdc/he5/9165240926238/hotpot-banner-DC.png"></ion-img>
+        </ion-item>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-img src="https://www.wellcome.com.hk/wd2shop/docroot/zh/images/banner/02007_WK7%20wcl%20low%20low%20price%20web%20banner_chi.jpg"></ion-img>
+        </ion-item>
+    </ion-card>
+    <div *ngIf="scannedData">
+        <p>Scanned Code Text : <b>{{scannedData['text']}}</b></p>
+        <p>Scanned Code Format : <b>{{scannedData['format']}}</b></p>
+    </div>
 </ion-content>

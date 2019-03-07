@@ -1,0 +1,12 @@
+<ion-header>
+    result
+</ion-header>
+<ion-list *ngFor="let item of fitems"
+          [class.selected]="item === selectedItem"
+          (click)="onSelect(item)">
+    <span>{{item.id}}</span> {{item.name}}
+</ion-list>
+
+<ion-app>
+    <ion-router-outlet></ion-router-outlet>
+</ion-app>

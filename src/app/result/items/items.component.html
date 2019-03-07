@@ -1,0 +1,17 @@
+<ion-header>{{keywords}}</ion-header>
+<ion-list *ngFor="let item of items"
+    [class.selected]="item === selectedItem"
+    (click)="onSelect(item)">
+  <span>{{item.id}}</span> {{item.name}}
+</ion-list>
+  <div *ngIf="selectedItem">
+
+    <h2>{{selectedItem.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{selectedItem.id}}</div>
+    <div>
+      <label>name:
+        <input [(ngModel)]="selectedItem.name" placeholder="name">
+      </label>
+    </div>
+
+  </div>

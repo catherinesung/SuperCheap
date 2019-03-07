@@ -1,9 +1,8 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      <ion-searchbar cancelButtonText="Custom Cancel" > </ion-searchbar>
+      <ion-searchbar #box  cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)"  > </ion-searchbar>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
