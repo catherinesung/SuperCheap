@@ -14,9 +14,11 @@ export class Tab4Page implements OnInit{
   constructor(private cartService: CartService, private router: Router){}
 
   ngOnInit(){
-    this.cartService.addProduct({id: 0, name: 'product1', price: '8'});
+    this.cartService.addProduct({id: 1, name: 'product1', price_a: 8, price_b: 9, price_c: 8, price_d: 11, price_e: 12, price_f: 13, price_g: 14});
+    this.cartService.addProduct({id: 2, name: 'product2', price_a: 4, price_b: 5, price_c: 4, price_d: 7, price_e: 8, price_f: 9, price_g: 10});
     this.cart = this.cartService.getCart();
     this.items = this.cartService.getProducts();
     console.log(this.cart);
+    this.cartService.solutionPricePerProduct();
   }
 }

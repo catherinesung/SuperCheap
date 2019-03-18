@@ -13,7 +13,6 @@ export class CartService {
 
   private data = ITEMS;
 
-
   private cart = [];
 
   constructor() { }
@@ -28,5 +27,30 @@ export class CartService {
 
   addProduct(product){
     this.cart.push(product);
+  }
+
+  solutionPricePerProduct(){
+    let product, supermarket;
+    let supermarketList = ['price_a', 'price_b', 'price_c', 'price_d', 'price_e', 'price_f', 'price_g'];
+
+    for (product of this.cart){
+      var minPrice = 99999;
+      var minPriceList = [];
+      for(supermarket of supermarketList){
+        if (product[supermarket] < minPrice){
+          // console.log(product[supermarket] + '<' + minPrice);
+          minPrice = product[supermarket];
+          minPriceList.push(supermarket);
+        }
+        else if(product[supermarket] === minPrice){
+          minPriceList.push(supermarket);
+        }
+      }
+      console.log(minPriceList);
+    }
+  }
+
+  solutionPricePerSupermarket(){
+
   }
 }
