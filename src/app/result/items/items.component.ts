@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ITEMS} from '../../Items';
-import {Item} from '../../Item';
+import { ITEMS } from '../../Items';
+import { Item } from '../../item';
 
 
 
