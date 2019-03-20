@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import {FormsModule} from '@angular/forms';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
