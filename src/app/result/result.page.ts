@@ -13,24 +13,18 @@ export class ResultPage implements OnInit {
   keywords: string;
   items = ITEMS;
   fitems = fitems;
+  items_details: string;
   public ngOnInit() {
     this.fitems = [];
     for (const item of this.items) {
-      if (item.name === this.keywords) {
-        this.fitems.push(item);
-      } else if (item.id.toString() === this.keywords) {
-        this.fitems.push(item);
-      } else if (item.category.toString() === this.keywords) {
+      this.items_details = item.name + ' ' + item.category;
+      if (this.items_details.toLowerCase().toString().includes(this.keywords.toLowerCase())) {
         this.fitems.push(item);
       }
     }
-
 }
   constructor(private route: ActivatedRoute) {console.log('Called Constructor');
     this.route.queryParams.subscribe(params => {
       this.keywords = params['keywords']; });
   }
-
-
-
 }

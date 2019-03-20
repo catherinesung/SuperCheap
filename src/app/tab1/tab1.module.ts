@@ -20,12 +20,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   declarations: [Tab1Page]
 })
 export class Tab1PageModule {
-  scannedData: {};
   constructor(
       private platform: Platform,
       private splashScreen: SplashScreen,
       private statusBar: StatusBar,
-      private barcodeScanner: BarcodeScanner
   ) {
     this.initializeApp();
   }
@@ -33,15 +31,6 @@ export class Tab1PageModule {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-    });
-  }
-
-  scanCode() {
-    this.barcodeScanner.scan().then(barcodeData => {
-      alert('Barcode data ' + JSON.stringify(barcodeData));
-      this.scannedData = barcodeData;
-    }).catch(err => {
-      console.log('Error', err);
     });
   }
 }
