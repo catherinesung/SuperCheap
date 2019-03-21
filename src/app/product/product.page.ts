@@ -12,19 +12,20 @@ export class ProductPage implements OnInit {
   }
 
   items: Item[];
-  display: string;
+  display: Item;
   error = '';
   success = '';
 
   ngOnInit(): void {
-    this.getItems();
-    this.display = this.items.find(x => x.barcode === '0000021072758').brand_en;
+    this.getItems('0000021930041');
   }
 
-  getItems(): void {
+  getItems(key: string): void {
     this.itemservice.getAll().subscribe(
         (res: Item[]) => {
           this.items = res;
+          this.display = this.items.find(x => x.barcode === key);
+          console.log(this.display);
         },
         (err) => {
           this.error = err;
