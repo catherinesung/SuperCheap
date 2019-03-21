@@ -6,12 +6,12 @@ export class Item {
         brand_en: string;
         type_tc: string;
         type_en: string;
-        price_aeon: string;
-        price_dch: string;
-        price_marketplace: string;
-        price_parknshop: string;
-        price_wellcome: string;
-        price_waston: string;
+        price_aeon: number;
+        price_dch: number;
+        price_marketplace: number;
+        price_parknshop: number;
+        price_wellcome: number;
+        price_waston: number;
         remark_tc_aeon: string;
         remark_tc_dch: string;
         remark_tc_marketplace: string;
