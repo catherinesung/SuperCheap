@@ -28,6 +28,7 @@ export class CartService {
 
   addProduct(product: Item){
     this.cart.push(product);
+    console.log('add '+ product.name_en);
   }
 
   solutionPricePerProduct(){
