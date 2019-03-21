@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ITEMS} from './Items';
+import {Item} from './item';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class CartService {
     return this.cart;
   }
 
-  addProduct(product){
+  addProduct(product: Item){
     this.cart.push(product);
   }
 
