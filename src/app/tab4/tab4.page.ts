@@ -27,7 +27,7 @@ export class Tab4Page implements OnInit{
       type_en:'Honey \/ Syrup',
       price_aeon:null,
       price_dch:'28.90',
-      price_marketplace:'34.90',
+      price_marketplace:'24.90',
       price_parknshop:'62.90',
       price_wellcome:'30.90',
       price_waston:'799.00',

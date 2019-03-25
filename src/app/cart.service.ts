@@ -33,19 +33,21 @@ export class CartService {
 
   solutionPricePerProduct(){
     let product, supermarket;
-    let supermarketList = ['price_a', 'price_b', 'price_c', 'price_d', 'price_e', 'price_f', 'price_g'];
+    let supermarketList = ['price_aeon', 'price_dch', 'price_marketplace', 'price_parknshop', 'price_wellcome', 'price_waston'];
 
     for (product of this.cart){
       var minPrice = 99999;
       var minPriceList = [];
       for(supermarket of supermarketList){
-        if (product[supermarket] < minPrice){
-          // console.log(product[supermarket] + '<' + minPrice);
-          minPrice = product[supermarket];
-          minPriceList.push(supermarket);
-        }
-        else if(product[supermarket] === minPrice){
-          minPriceList.push(supermarket);
+        if(product[supermarket] != null && product[supermarket] != ''){
+          if (product[supermarket] < minPrice){
+            // console.log(product[supermarket] + '<' + minPrice);
+            minPrice = product[supermarket];
+            minPriceList.push(supermarket);
+          }
+          else if(product[supermarket] === minPrice){
+            minPriceList.push(supermarket);
+          }
         }
       }
       console.log(minPriceList);
