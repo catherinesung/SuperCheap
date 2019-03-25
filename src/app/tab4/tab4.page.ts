@@ -18,7 +18,7 @@ export class Tab4Page implements OnInit{
 
   ngOnInit(){
     this.cartService.addProduct({
-      barcode: '',
+      barcode: '1234',
       name_tc: '\u7d14\u91ce\u82b1\u8702\u871c Wildflower 500\u514b',
       name_en:'Wildflower Honey 500g',
       brand_tc:'\u871c\u5712\u724c Sweet Meadow',
@@ -26,11 +26,11 @@ export class Tab4Page implements OnInit{
       type_tc:'\u8702\u871c \/ \u871c\u7cd6 \/ \u7cd6\u6f3f',
       type_en:'Honey \/ Syrup',
       price_aeon:null,
-      price_dch:'28.90',
-      price_marketplace:'24.90',
-      price_parknshop:'62.90',
-      price_wellcome:'30.90',
-      price_waston:'799.00',
+      price_dch:24.90,
+      price_marketplace:24.90,
+      price_parknshop:62.90,
+      price_wellcome:30.90,
+      price_waston:799.00,
       remark_tc_aeon:null,
       remark_tc_dch:'',
       remark_tc_marketplace:'',
@@ -45,7 +45,7 @@ export class Tab4Page implements OnInit{
       remark_en_waston:''});
 
     this.cartService.addProduct({
-      barcode: '',
+      barcode: '5678',
       name_tc: 'test product 2',
       name_en:'Wtest product 2',
       brand_tc:'fyp',
@@ -53,11 +53,11 @@ export class Tab4Page implements OnInit{
       type_tc:'',
       type_en:'',
       price_aeon:null,
-      price_dch:'1',
-      price_marketplace:'2',
-      price_parknshop:'3',
-      price_wellcome:'4',
-      price_waston:'5',
+      price_dch:1,
+      price_marketplace:2,
+      price_parknshop:3,
+      price_wellcome:4,
+      price_waston:5,
       remark_tc_aeon:null,
       remark_tc_dch:'',
       remark_tc_marketplace:'',
