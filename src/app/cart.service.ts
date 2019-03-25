@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {ITEMS} from './Items';
 import {Item} from './item';
 
 @Injectable({
@@ -12,7 +11,7 @@ export class CartService {
     {id: 2, name: 'product1', price: '8'}
   ];*/
 
-  private data = ITEMS;
+  private data = [];
 
   private cart = [];
 
@@ -28,7 +27,7 @@ export class CartService {
 
   addProduct(product: Item){
     this.cart.push(product);
-    console.log('add '+ product.name_en);
+    console.log('add ' + product.name_en);
   }
 
   solutionPricePerProduct(){
