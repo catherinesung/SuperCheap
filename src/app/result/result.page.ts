@@ -14,7 +14,7 @@ export class ResultPage implements OnInit {
   items = ITEMS;
   fitems = fitems;
   public ngOnInit() {
-    this.fitems = [];
+    /*this.fitems = [];
     for (const item of this.items) {
       if (item.name === this.keywords) {
         this.fitems.push(item);
@@ -23,8 +23,7 @@ export class ResultPage implements OnInit {
       } else if (item.category.toString() === this.keywords) {
         this.fitems.push(item);
       }
-    }
-
+    }*/
 }
   constructor(private route: ActivatedRoute) {console.log('Called Constructor');
     this.route.queryParams.subscribe(params => {

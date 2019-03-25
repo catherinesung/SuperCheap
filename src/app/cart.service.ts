@@ -39,7 +39,7 @@ export class CartService {
       var minPrice = 99999;
       var minPriceList = [];
       for(supermarket of supermarketList){
-        if(product[supermarket] != null && product[supermarket] != ''){
+        if(product[supermarket] != null && product[supermarket] !== ''){
           if (product[supermarket] < minPrice){
             // console.log(product[supermarket] + '<' + minPrice);
             minPrice = product[supermarket];
