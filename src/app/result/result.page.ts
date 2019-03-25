@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ITEMS} from '../Items';
 import {fitems} from '../fitems';
-import {Item} from '../Item';
+import {Item} from '../item';
 
 @Component({
   selector: 'app-result',
