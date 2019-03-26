@@ -12,13 +12,10 @@
             <div class="b"><ion-img src={{item.picture}}></ion-img></div>
             <div class="c"><table>
                 <tr>
-                    <td>name: {{item.name}}</td>
+                    <td>name: {{item.name_tc}}</td><td><ion-button (click)="view()"><ion-icon name="cart"></ion-icon></ion-button></td>
                 </tr>
                 <tr>
-                    <td>category: {{item.category}}</td>
-                </tr>
-                <tr>
-                    <td><img class="mainpic" src="./assets/image/marketplace.jpg"> price: {{item.price}}</td>
+                    <td><img class="mainpic" src="./assets/image/marketplace.jpg"> price: {{item.price_aeon}}</td>
                 </tr>
             </table></div>
         </ion-item>

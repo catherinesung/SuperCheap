@@ -8,28 +8,28 @@ import { ItemService } from '../item.service';
   styleUrls: ['./product.page.scss'],
 })
 export class ProductPage implements OnInit {
-  constructor(private itemservice: ItemService) {
-  }
+    constructor(private itemservice: ItemService) {
+    }
 
-  items: Item[];
-  display: Item;
-  error = '';
-  success = '';
+    items: Item[];
+    display: Item;
+    error = '';
+    success = '';
 
-  ngOnInit(): void {
-    this.getItems('0000021930041');
-  }
+    ngOnInit(): void {
+        this.getItems('0000021930041');
+    }
 
-  getItems(key: string): void {
-    this.itemservice.getAll().subscribe(
-        (res: Item[]) => {
-          this.items = res;
-          this.display = this.items.find(x => x.barcode === key);
-          console.log(this.display);
-        },
-        (err) => {
-          this.error = err;
-        }
-    );
-  }
+    getItems(key: string): void {
+        this.itemservice.getAll().subscribe(
+            (res: Item[]) => {
+                this.items = res;
+                this.display = this.items.find(x => x.barcode === key);
+                console.log(this.display);
+            },
+            (err) => {
+                this.error = err;
+            }
+        );
+    }
 }
