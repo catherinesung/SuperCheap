@@ -7,19 +7,26 @@ import {Item} from './item';
 export class CartService {
 
   private data = [];
+
   private cart = [];
+
   private optimalSol = [];
+
   constructor() { }
+
   getProducts() {
     return this.data;
   }
+
   getCart() {
     return this.cart;
   }
+
   addProduct(product: Item) {
     this.cart.push(product);
     console.log('add ' + product.name_en);
   }
+
   solutionPricePerProduct() {
     let product;
     for (product of this.cart) {
@@ -28,16 +35,10 @@ export class CartService {
     console.log(this.optimalSol);
   }
 
-  solutionPricePerProduct() {
-    let product, supermarket;
-    let supermarketList = ['price_a', 'price_b', 'price_c', 'price_d', 'price_e', 'price_f', 'price_g'];
+  solutionPricePerSupermarket() {
 
-    for (product of this.cart) {
-      var minPrice = 99999;
-      var minPriceList = [];
-      for(supermarket of supermarketList){
-        if (product[supermarket] < minPrice){
-          // console.log(product[supermarket] + '<' + minPrice);
+  }
+
   // take Item as parameter, return a array
   comparePrice(product: Item) {
     let supermarket;
@@ -51,8 +52,6 @@ export class CartService {
         if (product[supermarket] < minPrice) {
           minPrice = product[supermarket];
         }
-        else if (product[supermarket] === minPrice){
-          minPriceList.push(supermarket);
       }
     }
 
@@ -66,5 +65,4 @@ export class CartService {
     }
     return minPriceArr; // return minPriceArr with the structure of [{name of supermarket,price},{...},{...}]
   }
-  solutionPricePerSupermarket() {
-  }
+}
