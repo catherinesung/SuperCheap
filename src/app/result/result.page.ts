@@ -23,6 +23,12 @@ export class ResultPage implements OnInit {
       } else if (item.category.toString() === this.keywords) {
         this.fitems.push(item);
       }*/
+      /*}
+    }*/
+}
+  constructor(private route: ActivatedRoute) {console.log('Called Constructor');
+    this.route.queryParams.subscribe(params => {
+      this.keywords = params['keywords']; });
   }
 
 }
