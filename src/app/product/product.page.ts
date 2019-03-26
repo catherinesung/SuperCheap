@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -8,28 +9,26 @@ import { ItemService } from '../item.service';
   styleUrls: ['./product.page.scss'],
 })
 export class ProductPage implements OnInit {
-  constructor(private itemservice: ItemService) {
-  }
+    items: Item[];
+    display: Item;
+    prodbarcode: string;
 
-  items: Item[];
-  display: Item;
-  error = '';
-  success = '';
+    constructor(private itemservice: ItemService, private route: ActivatedRoute) {
+        this.route.queryParams.subscribe(params => {
+            this.prodbarcode = '089782040015'; });
+    }
 
-  ngOnInit(): void {
-    this.getItems('0000021930041');
-  }
+    ngOnInit(): void {
+        this.getItems(this.prodbarcode);
+    }
 
-  getItems(key: string): void {
-    this.itemservice.getAll().subscribe(
-        (res: Item[]) => {
-          this.items = res;
-          this.display = this.items.find(x => x.barcode === key);
-          console.log(this.display);
-        },
-        (err) => {
-          this.error = err;
-        }
-    );
-  }
+    getItems(prodbarcode: string): void {
+        this.itemservice.getAll().subscribe(
+            (res: Item[]) => {
+            this.items = res;
+            this.display = this.items.find(x => x.barcode === prodbarcode);
+            console.log(this.display);
+            }
+        );
+    }
 }

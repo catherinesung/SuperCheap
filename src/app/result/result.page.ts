@@ -10,11 +10,11 @@ import {Item} from '../item';
   styleUrls: ['./result.page.scss'],
 })
 export class ResultPage implements OnInit {
-  keywords: string;
-  items = ITEMS;
-  fitems = fitems;
+  //keywords: string;
+  //items = ITEMS;
+  //fitems = fitems;
   public ngOnInit() {
-    this.fitems = [];
+    /*this.fitems = [];
     for (const item of this.items) {
       if (item.name === this.keywords) {
         this.fitems.push(item);
@@ -22,15 +22,14 @@ export class ResultPage implements OnInit {
         this.fitems.push(item);
       } else if (item.category.toString() === this.keywords) {
         this.fitems.push(item);
-      }
-    }
-
-}
-  constructor(private route: ActivatedRoute) {console.log('Called Constructor');
-    this.route.queryParams.subscribe(params => {
-      this.keywords = params['keywords']; });
+      }*/
   }
 
-
+}
+/*constructor(private route: ActivatedRoute){console.log('Called Constructor');
+  this.route.queryParams.subscribe(params => {
+    this.keywords = params['keywords']; });
+}*/
+//}
 
 }
