@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { ItemService } from '../item.service';
 import {Item} from '../item';
-import {ActivatedRoute} from '@angular/router';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-result',
@@ -10,7 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./result.page.scss'],
 })
 export class ResultPage implements OnInit {
-  constructor(private itemservice: ItemService, private route: ActivatedRoute, private routers: Router) {
+  constructor(private itemservice: ItemService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
       this.keywords = params['keywords']; });
   }
@@ -25,7 +24,7 @@ export class ResultPage implements OnInit {
     this.getItems('0000021930041');
   }
 
-  getItems(key: string): void {
+  getItems(): void {
     this.itemservice.getAll().subscribe(
         (res: Item[]) => {
           this.items = res;
@@ -36,7 +35,7 @@ export class ResultPage implements OnInit {
               this.fitems.push(item);
             }
           }
-          this.display = this.items.find(x => x.barcode === key);
+          this.display = this.items.find(x => x.barcode === this.keywords);
           console.log(this.display);
         },
         (err) => {
@@ -45,7 +44,6 @@ export class ResultPage implements OnInit {
     );
   }
   view() {
-    console.log('view');
-    this.routers.navigate(['/product'], { queryParams: { probarcode: this.item.barcode}});
+    this.router.navigate(['product'], { queryParams: { probarcode: this.display.barcode}});
   }
 }
