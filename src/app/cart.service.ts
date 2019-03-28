@@ -10,7 +10,7 @@ export class CartService {
 
   private cart = [];
 
-  private optimalSol = [];
+  private cartInfo = [];
 
   constructor() { }
 
@@ -22,17 +22,24 @@ export class CartService {
     return this.cart;
   }
 
-  addProduct(product: Item) {
+  addProduct(product: Item, quantity: number) {
     this.cart.push(product);
-    console.log('add ' + product.name_en);
+    console.log('added ' + product.name_en);
+  }
+
+  clearCart() {
+    while(this.cart.length > 0 ){
+      this.cart.pop();
+    }
+    console.log('Cart is cleared!');
   }
 
   solutionPricePerProduct() {
     let product;
     for (product of this.cart) {
-      this.optimalSol.push({barcode: product.barcode, minPrice: this.comparePrice(product)});
+      this.cartInfo.push({barcode: product.barcode, minPrice: this.comparePrice(product)});
     }
-    console.log(this.optimalSol);
+    console.log(this.cartInfo);
   }
 
   solutionPricePerSupermarket(supermarket: string) {

@@ -2,10 +2,24 @@
   <ion-toolbar>
     <ion-searchbar cancelButtonText="Custom Cancel" > </ion-searchbar>
   </ion-toolbar>
-
-  <ion-content>
-    hi
-  </ion-content>
-
 </ion-header>
 
+<ion-content body>
+  <ion-grid>
+    <ion-row><ion-button (click)="this.cartService.clearCart()">Clear Cart</ion-button></ion-row>
+    <ion-row><ion-button (click)="addToCart(testProduct1)">Product 1</ion-button></ion-row>
+    <ion-row><ion-button (click)="addToCart(testProduct2)">Product 2</ion-button></ion-row>
+  </ion-grid>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let products of cart">
+      <ion-item>
+        <ion-text class="name">{{products.name_en}}</ion-text>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>
