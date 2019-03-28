@@ -14,8 +14,6 @@ export class Tab4Page implements OnInit {
   items = [];
   boughtItem: Item;
 
-  constructor(private cartService: CartService) {}
-
   constructor(private itemservice: ItemService, private cartService: CartService, private router: Router) {}
 
   ngOnInit() {
