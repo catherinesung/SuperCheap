@@ -21,7 +21,7 @@ export class ResultPage implements OnInit {
   success = '';
   itemd: string;
   ngOnInit(): void {
-    this.getItems('0000021930041');
+    this.getItems();
   }
 
   getItems(): void {
@@ -43,7 +43,7 @@ export class ResultPage implements OnInit {
         }
     );
   }
-  view() {
+    onSelect() {
     this.router.navigate(['product'], { queryParams: { probarcode: this.display.barcode}});
   }
 }
