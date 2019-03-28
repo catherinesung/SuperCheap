@@ -14,8 +14,6 @@ export class Tab4Page implements OnInit {
   items = [];
   boughtItem: Item;
 
-  constructor(private cartService: CartService) {}
-
   constructor(private itemservice: ItemService, private cartService: CartService, private router: Router) {}
 
   ngOnInit() {
@@ -76,6 +74,7 @@ export class Tab4Page implements OnInit {
     this.items = this.cartService.getProducts();
     console.log(this.cart);
     this.cartService.solutionPricePerProduct();
+    this.cartService.solutionPricePerSupermarket('price_parknshop');
   }
 
   buyItems(key: string): void {

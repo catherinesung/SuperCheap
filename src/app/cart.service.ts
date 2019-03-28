@@ -35,8 +35,15 @@ export class CartService {
     console.log(this.optimalSol);
   }
 
-  solutionPricePerSupermarket() {
-
+  solutionPricePerSupermarket(supermarket: string) {
+    let product, numberOfProduct = 0, totalPrice = 0;
+    for (product of this.cart) {
+      if (product[supermarket] !== null && product[supermarket] !== '') {
+        numberOfProduct ++;
+        totalPrice += product[supermarket];
+      }
+    }
+    console.log(totalPrice, numberOfProduct);
   }
 
   // take Item as parameter, return a array
