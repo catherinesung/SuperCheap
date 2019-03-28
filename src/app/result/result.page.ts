@@ -20,6 +20,7 @@ export class ResultPage implements OnInit {
   error = '';
   success = '';
   itemd: string;
+  selected: Item;
   ngOnInit(): void {
     this.getItems();
   }
@@ -35,15 +36,13 @@ export class ResultPage implements OnInit {
               this.fitems.push(item);
             }
           }
-          this.display = this.items.find(x => x.barcode === this.keywords);
-          console.log(this.display);
         },
         (err) => {
           this.error = err;
         }
     );
   }
-    onSelect() {
-    this.router.navigate(['product'], { queryParams: { probarcode: this.display.barcode}});
+    onSelect(fitem: Item) {
+    this.router.navigate(['product'], { queryParams: { prodbarcode: fitem}});
   }
 }

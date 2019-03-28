@@ -14,7 +14,7 @@
                     </ion-item>
                 </ion-col>
                 <ion-col>
-                    <ion-button (click)="onSelect()">view more</ion-button>
+                    <button [class.selected]="fitem === selected" (click)="onSelect(fitem)"></button>
                 </ion-col>
             </ion-row>
         </ion-grid>
