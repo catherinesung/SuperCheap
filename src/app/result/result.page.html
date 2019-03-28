@@ -5,23 +5,19 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-list >
-        <ion-item *ngFor="let item of fitems"
-                  [class.selected]="item === selectedItem"
-                  (click)="onSelect(item)" >
-            <div class="b"><ion-img src={{item.picture}}></ion-img></div>
-            <div class="c"><table>
-                <tr>
-                    <td>name: {{item.name_tc}}</td><td><ion-button (click)="view()"><ion-icon name="cart"></ion-icon></ion-button></td>
-                </tr>
-                <tr>
-                    <td><img class="mainpic" src="./assets/image/marketplace.jpg"> price: {{item.price_aeon}}</td>
-                </tr>
-            </table></div>
-        </ion-item>
+    <ion-list *ngFor="let fitem of fitems">
+        <ion-grid>
+            <ion-row>
+                <ion-col>picture</ion-col>
+                <ion-col>
+                    <ion-item >name: {{fitem.name_tc}} <br> price: {{fitem.price_aeon}}
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <button [class.selected]="fitem === selected" (click)="onSelect(fitem)">view more</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
     </ion-list>
 </ion-content>
-
-<ion-app>
-    <ion-router-outlet></ion-router-outlet>
-</ion-app>
