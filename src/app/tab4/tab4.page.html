@@ -1,25 +1,53 @@
 <ion-header>
   <ion-toolbar>
-    <ion-searchbar cancelButtonText="Custom Cancel" > </ion-searchbar>
+    <ion-title>
+      Shopping Cart
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content body>
   <ion-grid>
-    <ion-row><ion-button (click)="this.cartService.clearCart()">Clear Cart</ion-button></ion-row>
+    <ion-row><ion-button (click)="emptyCart()">Clear Cart</ion-button></ion-row>
     <ion-row><ion-button (click)="addToCart(testProduct1)">Product 1</ion-button></ion-row>
     <ion-row><ion-button (click)="addToCart(testProduct2)">Product 2</ion-button></ion-row>
+    <ion-row><ion-button (click)="checkPriceByProduct()">minPricePerProduct</ion-button></ion-row>
+    <ion-row><ion-button (click)="this.cartService.solutionPricePerSupermarket('price_parknshop')">priceOfParknshop</ion-button></ion-row>
   </ion-grid>
+
+  <ion-item>
+    <ion-label>Calculate by</ion-label>
+    <ion-select [(ngModel)]="supermarket" (ionChange) = "ionChange($event)" placeholder="Select One">
+      <ion-select-option value="aeon">Aeon</ion-select-option>
+      <ion-select-option value="dch">dch</ion-select-option>
+      <ion-select-option value="marketplace">Marketplace</ion-select-option>
+      <ion-select-option value="parknshop">Parknshop</ion-select-option>
+      <ion-select-option value="wellcome">Wellcome</ion-select-option>
+      <ion-select-option value="waston">Watsons</ion-select-option>
+    </ion-select>
+  </ion-item>
 
   <ion-list>
     <ion-item-sliding *ngFor="let products of cart">
       <ion-item>
-        <ion-text class="name">{{products.name_en}}</ion-text>
+        <ion-text class="name">{{products.item.name_en}}</ion-text>
+
+        <ion-text *ngIf="supermarket==='aeon'" class="price_aeon">${{products.item.price_aeon}}</ion-text>
+        <ion-text *ngIf="supermarket==='dch'" class="price_dch">${{products.item.price_dch}}</ion-text>
+        <ion-text *ngIf="supermarket==='marketplace'" class="price_marketplace">${{products.item.price_marketplace}}</ion-text>
+        <ion-text *ngIf="supermarket==='parknshop'" class="price_parknshop">${{products.item.price_parknshop}}</ion-text>
+        <ion-text *ngIf="supermarket==='wellcome'" class="price_wellcome">${{products.item.price_wellcome}}</ion-text>
+        <ion-text *ngIf="supermarket==='waston'" class="price_waston">${{products.item.price_waston}}</ion-text>
+        <ion-badge slot="end" color="primary">{{products.quantity}}</ion-badge>
       </ion-item>
+
       <ion-item-options side="end">
         <ion-item-option (click)="unread(item)">Unread</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
+    <ion-item>
+      <ion-text class="total">{{total}}</ion-text>
+    </ion-item>
   </ion-list>
 
 </ion-content>

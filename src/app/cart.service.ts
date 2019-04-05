@@ -10,8 +10,6 @@ export class CartService {
 
   private cart = [];
 
-  private cartInfo = [];
-
   constructor() { }
 
   getProducts() {
@@ -23,7 +21,14 @@ export class CartService {
   }
 
   addProduct(product: Item, quantity: number) {
-    this.cart.push(product);
+    if (this.cart.find(productInCart => productInCart.item === product)){
+      const result = this.cart.find(productInCart => productInCart.item === product);
+      result.quantity += quantity;
+    }
+    else{
+      this.cart.push({item: product, quantity: quantity});
+      this.solutionPricePerProduct();
+    }
     console.log('added ' + product.name_en);
   }
 
@@ -34,12 +39,18 @@ export class CartService {
     console.log('Cart is cleared!');
   }
 
-  solutionPricePerProduct() {
-    let product;
-    for (product of this.cart) {
-      this.cartInfo.push({barcode: product.barcode, minPrice: this.comparePrice(product)});
+  calculateTotal(){
+    let total = 0;
+    for (let product of this.cart){
+      total += product.minPrice[0].price * product.quantity;
     }
-    console.log(this.cartInfo);
+    return total;
+  }
+
+  solutionPricePerProduct() {
+    for (let product of this.cart) {
+      product['minPrice'] = this.comparePrice(product.item);
+    }
   }
 
   solutionPricePerSupermarket(supermarket: string) {

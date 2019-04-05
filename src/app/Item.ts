@@ -1,4 +1,4 @@
-export class Item {
+export interface Item {
         barcode: string;
         name_tc: string;
         name_en: string;
@@ -24,4 +24,5 @@ export class Item {
         remark_en_parknshop: string;
         remark_en_wellcome: string;
         remark_en_waston: string;
+        [key: string]: any;
 }

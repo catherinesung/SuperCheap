@@ -11,8 +11,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ProductPage implements OnInit {
     constructor(private itemservice: ItemService, private route: ActivatedRoute) {
-        this.route.queryParams.subscribe(params => {
-            this.prodbarcode = params['prodbarcode']; });
+        /*this.route.queryParams.subscribe(params => {
+            this.prodbarcode = params['prodbarcode']; });*/
     }
     items: Item[];
     display: Item;
@@ -20,7 +20,7 @@ export class ProductPage implements OnInit {
     success = '';
 
     ngOnInit(): void {
-        this.getItems(this.prodbarcode);
+        //this.getItems(this.prodbarcode);
     }
 
     getItems(prodbarcode: string): void {

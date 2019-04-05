@@ -9,10 +9,14 @@ import {Item} from '../item';
   templateUrl: 'tab4.page.html',
   styleUrls: ['tab4.page.scss']
 })
+
 export class Tab4Page implements OnInit {
   cart = [];
   items = [];
   boughtItem: Item;
+  total = 0;
+  supermarket = '';
+
   testProduct1 = {
     barcode: '1234',
     name_tc: '\u7d14\u91ce\u82b1\u8702\u871c Wildflower 500\u514b',
@@ -22,7 +26,7 @@ export class Tab4Page implements OnInit {
     type_tc: '\u8702\u871c \/ \u871c\u7cd6 \/ \u7cd6\u6f3f',
     type_en: 'Honey \/ Syrup',
     price_aeon: null,
-    price_dch: 24.90,
+    price_dch: 29.90,
     price_marketplace: 24.90,
     price_parknshop: 62.90,
     price_wellcome: 30.90,
@@ -41,8 +45,8 @@ export class Tab4Page implements OnInit {
     remark_en_waston: ''};
   testProduct2 = {
     barcode: '5678',
-    name_tc: 'Test product 2',
-    name_en: 'Test product 2',
+    name_tc: 'Test product',
+    name_en: 'Test product',
     brand_tc: 'fyp',
     brand_en: 'fyp',
     type_tc: '',
@@ -71,23 +75,37 @@ export class Tab4Page implements OnInit {
   ngOnInit() {
     this.cart = this.cartService.getCart();
     console.log(this.cart);
-    this.cartService.solutionPricePerProduct();
-    this.cartService.solutionPricePerSupermarket('price_parknshop');
-  }
-
-  buyItems(key: string): void {
-    this.itemservice.getAll().subscribe(
-        (res: Item[]) => {
-          this.items = res;
-          this.cartService.addProduct(this.items.find(x => x.barcode === key),1);
-        }
-    );
   }
 
   addToCart(product: Item){
     this.cartService.addProduct(product,1);
     this.cart = this.cartService.getCart();
+    this.calculateTotal();
     console.log('Cart:');
     console.log(this.cart);
   }
+
+  emptyCart(){
+      this.cartService.clearCart();
+      this.calculateTotal();
+      console.log('Cart:');
+      console.log(this.cart);
+  }
+
+  checkPriceByProduct(){
+      this.cartService.solutionPricePerProduct();
+      this.cart = this.cartService.getCart();
+      this.calculateTotal();
+      console.log('Cart:');
+      console.log(this.cart);
+  }
+
+  calculateTotal(){
+      this.total = this.cartService.calculateTotal();
+  }
+
+  ionChange(){
+    console.log(this.supermarket);
+  }
+
 }
