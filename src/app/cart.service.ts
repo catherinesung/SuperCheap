@@ -10,8 +10,6 @@ export class CartService {
 
   private cart = [];
 
-  private optimalSol = [];
-
   constructor() { }
 
   getProducts() {
@@ -22,21 +20,48 @@ export class CartService {
     return this.cart;
   }
 
-  addProduct(product: Item) {
-    this.cart.push(product);
-    console.log('add ' + product.name_en);
+  addProduct(product: Item, quantity: number) {
+    if (this.cart.find(productInCart => productInCart.item === product)){
+      const result = this.cart.find(productInCart => productInCart.item === product);
+      result.quantity += quantity;
+    }
+    else{
+      this.cart.push({item: product, quantity: quantity});
+      this.solutionPricePerProduct();
+    }
+    console.log('added ' + product.name_en);
+  }
+
+  clearCart() {
+    while(this.cart.length > 0 ){
+      this.cart.pop();
+    }
+    console.log('Cart is cleared!');
+  }
+
+  calculateTotal(){
+    let total = 0;
+    for (let product of this.cart){
+      total += product.minPrice[0].price * product.quantity;
+    }
+    return total;
   }
 
   solutionPricePerProduct() {
-    let product;
-    for (product of this.cart) {
-      this.optimalSol.push({barcode: product.barcode, minPrice: this.comparePrice(product)});
+    for (let product of this.cart) {
+      product['minPrice'] = this.comparePrice(product.item);
     }
-    console.log(this.optimalSol);
   }
 
-  solutionPricePerSupermarket() {
-
+  solutionPricePerSupermarket(supermarket: string) {
+    let product, numberOfProduct = 0, totalPrice = 0;
+    for (product of this.cart) {
+      if (product[supermarket] !== null && product[supermarket] !== '') {
+        numberOfProduct ++;
+        totalPrice += product[supermarket];
+      }
+    }
+    console.log(totalPrice, numberOfProduct);
   }
 
   // take Item as parameter, return a array
