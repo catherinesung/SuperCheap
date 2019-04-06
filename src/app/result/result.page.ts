@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { ItemService } from '../item.service';
 import {Item} from '../item';
 import {ActivatedRoute, Router} from '@angular/router';
+import {CartService} from '../app/cart.service';
 
 @Component({
   selector: 'app-result',
@@ -9,7 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./result.page.scss'],
 })
 export class ResultPage implements OnInit {
-  constructor(private itemservice: ItemService, private route: ActivatedRoute, private router: Router) {
+  constructor(private itemservice: ItemService, private route: ActivatedRoute, private router: Router, private  cartservice: CartService) {
     this.route.queryParams.subscribe(params => {
       this.keywords = params['keywords']; });
   }
@@ -43,6 +44,7 @@ export class ResultPage implements OnInit {
     );
   }
     onSelect(fitem: Item) {
+    console.log(fitem);
     this.router.navigate(['product'], { queryParams: { prodbarcode: fitem}});
   }
 }
