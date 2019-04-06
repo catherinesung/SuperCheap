@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../cart.service';
 
 @Component({
@@ -12,14 +12,14 @@ import {CartService} from '../cart.service';
 export class ProductPage implements OnInit {
     items: Item[];
     display: Item;
-    prodbarcode: string;
+    prodbarcode: Item;
     sorted: [string, number][];
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
                 private route: ActivatedRoute) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
-            console.log(params['prodbarcode']);
+            console.log(this.prodbarcode);
         });
     }
 
@@ -49,10 +49,10 @@ export class ProductPage implements OnInit {
         return sorted;
     }
 
-    getItems(prodbarcode: string): void {
+    getItems(prodbarcode: Item): void {
         this.itemservice.getAll().subscribe((res: Item[]) => {
             this.items = res;
-            this.display = this.items.find(x => x.barcode === prodbarcode);
+            this.display = this.items.find(x => x.barcode === prodbarcode.barcode);
             this.sorted = this.sortprice(this.display);
             console.log(this.sorted);
         });
