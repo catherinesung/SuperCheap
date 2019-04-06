@@ -18,12 +18,13 @@ export class ProductPage implements OnInit {
     constructor(private itemservice: ItemService, private cartservice: CartService,
                 private route: ActivatedRoute) {
         this.route.queryParams.subscribe(params => {
-            this.prodbarcode = params['probarcode'];
+            this.prodbarcode = params['prodbarcode'];
+            console.log(params['prodbarcode']);
         });
     }
 
     ngOnInit(): void {
-        this.getItems('089782040015');
+        this.getItems(this.prodbarcode);
     }
 
     sortprice(itemm: Item) {
@@ -40,7 +41,7 @@ export class ProductPage implements OnInit {
                     num = j;
                 }
             }
-            if (num != -1) {
+            if (num !== -1) {
                 sorted.push([supermarketarr[num], pricearr[num]]);
                 pricearr[num] = null;
             }
