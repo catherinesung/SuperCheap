@@ -14,7 +14,13 @@
                     </ion-item>
                 </ion-col>
                 <ion-col>
-                    <button [class.selected]="fitem === selected" (click)="onSelect(fitem)">view more</button>
+                    <ion-row>
+                        <button [class.selected]="fitem === selected" (click)="onSelect(fitem)">view more</button>
+                    </ion-row>
+                    <ion-row>
+                        <button [class.selected]="fitem === selected" (click)="add(product)"><ion-icon name="cart"></ion-icon></button>
+                    </ion-row>
+
                 </ion-col>
             </ion-row>
         </ion-grid>
