@@ -33,6 +33,14 @@ export class CartService {
     console.log('added ' + product.name_en);
   }
 
+  removeProduct(product: Item){
+    if (this.cart.find(productInCart => productInCart.item === product)) {
+      const result = this.cart.find(productInCart => productInCart.item === product);
+      result.quantity = 0;
+      console.log(result.item.name_en + ' removed');
+    }
+  }
+
   clearCart() {
     while(this.cart.length > 0 ){
       this.cart.pop();

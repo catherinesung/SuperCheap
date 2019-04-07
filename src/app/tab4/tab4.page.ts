@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CartService} from '../cart.service';
 import {Router} from '@angular/router';
 import {ItemService} from '../item.service';
 import {Item} from '../item';
+import {IonList} from '@ionic/angular';
+
+
 
 @Component({
   selector: 'app-tab4',
@@ -17,6 +20,8 @@ export class Tab4Page implements OnInit {
   total = 0;
   supermarket = '';
 
+  @ViewChild('slidingList') slidingList: IonList;
+
   testProduct1 = {
     barcode: '1234',
     name_tc: '\u7d14\u91ce\u82b1\u8702\u871c Wildflower 500\u514b',
@@ -30,7 +35,7 @@ export class Tab4Page implements OnInit {
     price_marketplace: 30.90,
     price_parknshop: 30.90,
     price_wellcome: 30.90,
-    price_waston: 799.00,
+    price_waston: 799,
     remark_tc_aeon: null,
     remark_tc_dch: '',
     remark_tc_marketplace: '',
@@ -85,6 +90,14 @@ export class Tab4Page implements OnInit {
     console.log(this.cart);
   }
 
+  async removeProduct(product: Item){
+    await this.slidingList.closeSlidingItems();
+    this.cartService.removeProduct(product);
+    this.calculateTotal();
+    console.log('Cart:');
+    console.log(this.cart);
+  }
+
   emptyCart(){
       this.cartService.clearCart();
       this.calculateTotal();
@@ -105,9 +118,16 @@ export class Tab4Page implements OnInit {
   }
 
   calculateMethodChange(){
-    if (this.supermarket !==''){
+    if (this.supermarket !== 'min_price'){
+      if (this.supermarket !==''){
+        for (let products of this.cart){
+          products.item.displayPrice[0] = this.supermarket;
+        }
+      }
+    }
+    else{
       for (let products of this.cart){
-        products.item.displayPrice[0] = this.supermarket;
+        products.item.displayPrice[0] = products.minPrice[0].supermarket;
       }
     }
   }
@@ -115,13 +135,18 @@ export class Tab4Page implements OnInit {
   displaySupermarketChange(product: Item){
     product.item.displayPrice[1] = product.item[product.item.displayPrice[0]];
     for (let products of this.cart){
-      if (products.item.displayPrice[0] !== this.supermarket){
-        this.supermarket = '';
+      if(this.supermarket !== 'min_price'){
+        if (products.item.displayPrice[0] !== this.supermarket){
+          this.supermarket = '';
+        }
       }
     }
     this.calculateTotal();
   }
 
+  debug(){
+    this.slidingList.closeSlidingItems();
+  }
 
 
 }
