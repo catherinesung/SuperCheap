@@ -44,7 +44,6 @@ export class ResultPage implements OnInit {
     );
   }
     onSelect(fitem: Item) {
-    console.log(fitem);
-    this.router.navigate(['product'], { queryParams: { prodbarcode: fitem}});
+    this.router.navigate(['/product'], { queryParams: { prodbarcode: fitem.barcode}});
   }
 }

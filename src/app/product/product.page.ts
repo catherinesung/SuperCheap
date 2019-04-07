@@ -12,14 +12,13 @@ import {CartService} from '../cart.service';
 export class ProductPage implements OnInit {
     items: Item[];
     display: Item;
-    prodbarcode: Item;
-    sorted: [string, number][];
+    prodbarcode: string;
+    sorted: [string, string][];
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
                 private route: ActivatedRoute) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
-            console.log(this.prodbarcode);
         });
     }
 
@@ -31,6 +30,11 @@ export class ProductPage implements OnInit {
         let supermarketarr = ['wellcome', 'parknshop', 'marketplace', 'aeon', 'dch', 'waston'];
         let pricearr = [itemm.price_wellcome, itemm.price_parknshop, itemm.price_marketplace, itemm.price_aeon, itemm.price_dch,
             itemm.price_waston];
+        const currformat = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2
+        })
         let sorted = [];
         for (let i = 0; i < 6; i++) {
             let min = 9999;
@@ -42,17 +46,17 @@ export class ProductPage implements OnInit {
                 }
             }
             if (num !== -1) {
-                sorted.push([supermarketarr[num], pricearr[num]]);
+                sorted.push([supermarketarr[num], currformat.format(pricearr[num])]);
                 pricearr[num] = null;
             }
         }
         return sorted;
     }
 
-    getItems(prodbarcode: Item): void {
+    getItems(prodbarcode: string): void {
         this.itemservice.getAll().subscribe((res: Item[]) => {
             this.items = res;
-            this.display = this.items.find(x => x.barcode === prodbarcode.barcode);
+            this.display = this.items.find(x => x.barcode === prodbarcode);
             this.sorted = this.sortprice(this.display);
             console.log(this.sorted);
         });
