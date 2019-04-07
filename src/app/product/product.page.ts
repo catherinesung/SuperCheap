@@ -13,7 +13,8 @@ export class ProductPage implements OnInit {
     items: Item[];
     display: Item;
     prodbarcode: string;
-    sorted: [string, string][];
+    sorted: [string, number][];
+
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
                 private route: ActivatedRoute) {
