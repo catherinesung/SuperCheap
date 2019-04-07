@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { ItemService } from '../item.service';
 import {Item} from '../item';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CartService} from '../app/cart.service';
+import {CartService} from '../cart.service';
 
 @Component({
   selector: 'app-result',
@@ -10,7 +10,7 @@ import {CartService} from '../app/cart.service';
   styleUrls: ['./result.page.scss'],
 })
 export class ResultPage implements OnInit {
-  constructor(private itemservice: ItemService, private route: ActivatedRoute, private router: Router, private  cartservice: CartService) {
+  constructor(private itemservice: ItemService, private route: ActivatedRoute, private router: Router, private cartService: CartService) {
     this.route.queryParams.subscribe(params => {
       this.keywords = params['keywords']; });
   }
@@ -44,7 +44,13 @@ export class ResultPage implements OnInit {
     );
   }
     onSelect(fitem: Item) {
-    console.log(fitem);
     this.router.navigate(['product'], { queryParams: { prodbarcode: fitem}});
+  }
+  addToCart(product: Item){
+    this.cartService.addProduct(product,1);
+    this.cart = this.cartService.getCart();
+    this.calculateTotal();
+    console.log('Cart:');
+    console.log(this.cart);
   }
 }

@@ -12,7 +12,7 @@ import {CartService} from '../cart.service';
 export class ProductPage implements OnInit {
     items: Item[];
     display: Item;
-    prodbarcode: string;
+    prodbarcode: Item;
     sorted: [string, number][];
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
@@ -23,7 +23,9 @@ export class ProductPage implements OnInit {
     }
 
     ngOnInit(): void {
+        console.log(this.prodbarcode);
         this.getItems('089782040015');
+
     }
 
     sortprice(itemm: Item) {
