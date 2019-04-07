@@ -17,13 +17,13 @@
 
   <ion-item>
     <ion-label>Calculate by</ion-label>
-    <ion-select [(ngModel)]="supermarket" (ionChange) = "ionChange($event)" placeholder="Select One">
-      <ion-select-option value="aeon">Aeon</ion-select-option>
-      <ion-select-option value="dch">dch</ion-select-option>
-      <ion-select-option value="marketplace">Marketplace</ion-select-option>
-      <ion-select-option value="parknshop">Parknshop</ion-select-option>
-      <ion-select-option value="wellcome">Wellcome</ion-select-option>
-      <ion-select-option value="waston">Watsons</ion-select-option>
+    <ion-select [(ngModel)]="supermarket" (ionChange) = "calculateMethodChange()" placeholder="Select One">
+      <ion-select-option value="price_aeon">Aeon</ion-select-option>
+      <ion-select-option value="price_dch">dch</ion-select-option>
+      <ion-select-option value="price_marketplace">Marketplace</ion-select-option>
+      <ion-select-option value="price_parknshop">Parknshop</ion-select-option>
+      <ion-select-option value="price_wellcome">Wellcome</ion-select-option>
+      <ion-select-option value="price_waston">Watsons</ion-select-option>
     </ion-select>
   </ion-item>
 
@@ -32,13 +32,29 @@
       <ion-item>
         <ion-text class="name">{{products.item.name_en}}</ion-text>
 
-        <ion-text *ngIf="supermarket==='aeon'" class="price_aeon">${{products.item.price_aeon}}</ion-text>
-        <ion-text *ngIf="supermarket==='dch'" class="price_dch">${{products.item.price_dch}}</ion-text>
-        <ion-text *ngIf="supermarket==='marketplace'" class="price_marketplace">${{products.item.price_marketplace}}</ion-text>
-        <ion-text *ngIf="supermarket==='parknshop'" class="price_parknshop">${{products.item.price_parknshop}}</ion-text>
-        <ion-text *ngIf="supermarket==='wellcome'" class="price_wellcome">${{products.item.price_wellcome}}</ion-text>
-        <ion-text *ngIf="supermarket==='waston'" class="price_waston">${{products.item.price_waston}}</ion-text>
+        <ion-text>${{products.item.displayPrice[1]}}</ion-text>
+
+        <!--
+        <ion-text *ngIf="supermarket==='price_aeon'" class="price_aeon">${{products.item.price_aeon}}</ion-text>
+        <ion-text *ngIf="supermarket==='price_dch'" class="price_dch">${{products.item.price_dch}}</ion-text>
+        <ion-text *ngIf="supermarket==='price_marketplace'" class="price_marketplace">${{products.item.price_marketplace}}</ion-text>
+        <ion-text *ngIf="supermarket==='price_parknshop'" class="price_parknshop">${{products.item.price_parknshop}}</ion-text>
+        <ion-text *ngIf="supermarket==='price_wellcome'" class="price_wellcome">${{products.item.price_wellcome}}</ion-text>
+        <ion-text *ngIf="supermarket==='price_waston'" class="price_waston">${{products.item.price_waston}}</ion-text>
+        -->
+
         <ion-badge slot="end" color="primary">{{products.quantity}}</ion-badge>
+
+
+        <ion-select [(ngModel)]="products.item.displayPrice[0]" (ionChange) = "displaySupermarketChange(products)" placeholder="Select One">
+          <ion-select-option value="price_aeon">Aeon</ion-select-option>
+          <ion-select-option value="price_dch">dch</ion-select-option>
+          <ion-select-option value="price_marketplace">Marketplace</ion-select-option>
+          <ion-select-option value="price_parknshop">Parknshop</ion-select-option>
+          <ion-select-option value="price_wellcome">Wellcome</ion-select-option>
+          <ion-select-option value="price_waston">Watsons</ion-select-option>
+        </ion-select>
+
       </ion-item>
 
       <ion-item-options side="end">

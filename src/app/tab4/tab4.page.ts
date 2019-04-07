@@ -26,9 +26,9 @@ export class Tab4Page implements OnInit {
     type_tc: '\u8702\u871c \/ \u871c\u7cd6 \/ \u7cd6\u6f3f',
     type_en: 'Honey \/ Syrup',
     price_aeon: null,
-    price_dch: 29.90,
-    price_marketplace: 24.90,
-    price_parknshop: 62.90,
+    price_dch: 31.90,
+    price_marketplace: 30.90,
+    price_parknshop: 30.90,
     price_wellcome: 30.90,
     price_waston: 799.00,
     remark_tc_aeon: null,
@@ -78,7 +78,7 @@ export class Tab4Page implements OnInit {
   }
 
   addToCart(product: Item){
-    this.cartService.addProduct(product,1);
+    this.cartService.addProduct(product,1, 'price_wellcome');
     this.cart = this.cartService.getCart();
     this.calculateTotal();
     console.log('Cart:');
@@ -104,8 +104,24 @@ export class Tab4Page implements OnInit {
       this.total = this.cartService.calculateTotal();
   }
 
-  ionChange(){
-    console.log(this.supermarket);
+  calculateMethodChange(){
+    if (this.supermarket !==''){
+      for (let products of this.cart){
+        products.item.displayPrice[0] = this.supermarket;
+      }
+    }
   }
+
+  displaySupermarketChange(product: Item){
+    product.item.displayPrice[1] = product.item[product.item.displayPrice[0]];
+    for (let products of this.cart){
+      if (products.item.displayPrice[0] !== this.supermarket){
+        this.supermarket = '';
+      }
+    }
+    this.calculateTotal();
+  }
+
+
 
 }
