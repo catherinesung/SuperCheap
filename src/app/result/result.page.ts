@@ -44,13 +44,7 @@ export class ResultPage implements OnInit {
     );
   }
     onSelect(fitem: Item) {
-    this.router.navigate(['product'], { queryParams: { prodbarcode: fitem}});
-  }
-  addToCart(product: Item){
-    this.cartService.addProduct(product,1);
-    this.cart = this.cartService.getCart();
-    this.calculateTotal();
-    console.log('Cart:');
-    console.log(this.cart);
+
+    this.router.navigate(['/product'], { queryParams: { prodbarcode: fitem.barcode}});
   }
 }

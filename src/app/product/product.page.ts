@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../cart.service';
 
 @Component({
@@ -15,23 +15,27 @@ export class ProductPage implements OnInit {
     prodbarcode: Item;
     sorted: [string, number][];
 
+
     constructor(private itemservice: ItemService, private cartservice: CartService,
                 private route: ActivatedRoute) {
         this.route.queryParams.subscribe(params => {
-            this.prodbarcode = params['probarcode'];
+            this.prodbarcode = params['prodbarcode'];
         });
     }
 
     ngOnInit(): void {
-        console.log(this.prodbarcode);
-        this.getItems('089782040015');
-
+        this.getItems(this.prodbarcode);
     }
 
     sortprice(itemm: Item) {
         let supermarketarr = ['wellcome', 'parknshop', 'marketplace', 'aeon', 'dch', 'waston'];
         let pricearr = [itemm.price_wellcome, itemm.price_parknshop, itemm.price_marketplace, itemm.price_aeon, itemm.price_dch,
             itemm.price_waston];
+        const currformat = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2
+        })
         let sorted = [];
         for (let i = 0; i < 6; i++) {
             let min = 9999;
@@ -42,8 +46,8 @@ export class ProductPage implements OnInit {
                     num = j;
                 }
             }
-            if (num != -1) {
-                sorted.push([supermarketarr[num], pricearr[num]]);
+            if (num !== -1) {
+                sorted.push([supermarketarr[num], currformat.format(pricearr[num])]);
                 pricearr[num] = null;
             }
         }

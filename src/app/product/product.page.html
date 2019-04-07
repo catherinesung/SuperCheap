@@ -20,23 +20,26 @@
         <ion-text class="name">{{display.name_tc}}</ion-text>
       </ion-col>
 
-            <div>
-            <ion-col align-self-start="" size="2">
-              <ion-img class="supermarket" src="assets/supermarket-img/{{sorted[0][0]}}.png"></ion-img>
-            </ion-col>
+      <ion-col size="2">
+        <ion-img class="supermarket" src="assets/supermarket-img/{{sorted[0][0]}}.png"></ion-img>
+      </ion-col>
 
-            <ion-col align-self-end="" size="2">
-              <ion-text class="price">{{sorted[0][1]}}</ion-text>
-            </ion-col>
-            </div>
+      <ion-col size="2">
+        <ion-text class="price">{{sorted[0][1]}}</ion-text>
+      </ion-col>
+
     </ion-row>
 
     <ion-row>
-        <ion-col align-self-center="" size="2" *ngFor="let i of sorted | slice: 1">
-          <ion-img class="supermarket" src="assets/supermarket-img/{{i[0]}}.png"></ion-img>
-          <ion-col size="2" >
-          <ion-text class="price">{{i[1]}}</ion-text>
-        </ion-col>
+        <ion-col size="4"*ngFor="let i of sorted | slice: 1">
+            <ion-row>
+                <ion-col>
+                    <ion-img class="supermarket" src="assets/supermarket-img/{{i[0]}}.png"></ion-img>
+                </ion-col>
+                <ion-col>
+                    <ion-text class="price">{{i[1]}}</ion-text>
+                </ion-col>
+            </ion-row>
         </ion-col>
     </ion-row>
 
