@@ -123,7 +123,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        loadChildren: '../result/result.module#PResultPageModule'
+        loadChildren: '../result/result.module#ResultPageModule'
       }
     ]
   },

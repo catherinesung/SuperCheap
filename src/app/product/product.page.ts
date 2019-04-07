@@ -12,7 +12,7 @@ import {CartService} from '../cart.service';
 export class ProductPage implements OnInit {
     items: Item[];
     display: Item;
-    prodbarcode: Item;
+    prodbarcode: string;
     sorted: [string, number][];
 
 
