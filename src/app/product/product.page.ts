@@ -27,7 +27,7 @@ export class ProductPage implements OnInit {
     }
 
     sortprice(itemm: Item) {
-        let supermarketarr = ['wellcome', 'parknshop', 'marketplace', 'aeon', 'dch', 'waston'];
+        let supermarketarr = ['parknshop', 'wellcome', 'marketplace', 'aeon', 'dch', 'waston'];
         let pricearr = [itemm.price_wellcome, itemm.price_parknshop, itemm.price_marketplace, itemm.price_aeon, itemm.price_dch,
             itemm.price_waston];
         const currformat = new Intl.NumberFormat('en-US', {
@@ -60,5 +60,9 @@ export class ProductPage implements OnInit {
             this.sorted = this.sortprice(this.display);
             console.log(this.sorted);
         });
+    }
+
+    addtoCart(): void {
+        this.cartservice.addProduct(this.display, 1);
     }
 }
