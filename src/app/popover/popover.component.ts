@@ -25,12 +25,12 @@ export class PopoverComponent implements OnInit {
   }
   async donePops() {
     const data = [this.supermarket, this.quantity];
-   this.popoverController.dismiss( {data}, 'confirm');
-    console.log('dismissed' + data);
+   this.popoverController.dismiss( data, 'confirm');
+    console.log('dismissed' );
   }
   async donePopf() {
     const data = [this.supermarket, this.quantity];
-    this.popoverController.dismiss( {data}, 'fail');
+    this.popoverController.dismiss( data, 'fail');
     console.log('dismissed' + data);
   }
 }

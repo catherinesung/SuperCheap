@@ -67,9 +67,8 @@ export class ResultPage implements OnInit {
 
     switch (model.role) {
       case 'confirm':
-        const output: string[] = [model.data[0], model.data[1]];
-        this.cartService.addProduct(fitem, Number(output[0]), output[1]);
-        console.log('confirm');
+        this.cartService.addProduct(fitem, Number(model.data[1]), model.data[0]);
+        console.log('confirm' + model.data[0] + model.data[1]);
         break;
       case 'fail':
         console.log('fail');
