@@ -18,7 +18,7 @@
                         <button [class.selected]="fitem === selected" (click)="onSelect(fitem)">view more</button>
                     </ion-row>
                     <ion-row>
-                        <button [class.selected]="fitem === selected" (click)="presentAlert(fitem)"><ion-icon name="cart"></ion-icon></button>
+                        <ion-button [class.selected]="fitem === selected" (click)="popOver(fitem)"><ion-icon name="cart"></ion-icon></ion-button>
                     </ion-row>
 
                 </ion-col>

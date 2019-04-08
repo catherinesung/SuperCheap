@@ -12,10 +12,11 @@ import { AppComponent } from './app.component';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import {FormsModule} from '@angular/forms';
+import { PopoverComponent } from './popover/popover.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, PopoverComponent],
+  entryComponents: [PopoverComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule],
   providers: [
     StatusBar,

@@ -3,18 +3,18 @@ import { ItemService } from '../item.service';
 import {Item} from '../item';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../cart.service';
-import { AlertController } from '@ionic/angular';
-import {strings} from '@angular-devkit/core';
-
+import {PopoverComponent} from '../popover/popover.component';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-result',
   templateUrl: './result.page.html',
   styleUrls: ['./result.page.scss'],
 })
+
 export class ResultPage implements OnInit {
   constructor(private itemservice: ItemService, private route: ActivatedRoute,
-              private router: Router, private cartService: CartService, public alertController: AlertController) {
+              private router: Router, private cartService: CartService, public popoverController: PopoverController) {
     this.route.queryParams.subscribe(params => {
       this.keywords = params['keywords']; });
   }
@@ -26,6 +26,7 @@ export class ResultPage implements OnInit {
   success = '';
   itemd: string;
   selected: Item;
+
   ngOnInit(): void {
     this.getItems();
   }
@@ -50,61 +51,30 @@ export class ResultPage implements OnInit {
     onSelect(fitem: Item) {
     this.router.navigate(['/product'], { queryParams: { prodbarcode: fitem.barcode}});
   }
-  addtocart(fitem: Item) {
-    this.cartService.addProduct(fitem, 2);
-  }
-
-  async presentAlert(fitem: Item) {
-    console.log(fitem);
-    const alert = await this.alertController.create({
-      inputs: [
-        {
-          name: '百佳',
-          type: 'radio',
-          label: '百佳' + fitem.price_parknshop,
-          value: 'price_parknshop' ,
-          checked: true
-        },
-
-        {
-          name: '惠康',
-          type: 'radio',
-          label: '惠康',
-          value: 'price_wellcome'
-        },
-
-        {
-          name: 'marketplace',
-          type: 'radio',
-          label: 'marketplace',
-          value: 'price_marketplace'
-        },
-
-        {
-          name: 'Aeon',
-          type: 'radio',
-          label: 'Aeon',
-          value: 'price_aeon'
-        },
-
-        {
-          name: '屈臣氏',
-          type: 'radio',
-          label: '屈臣氏',
-          value: 'remark_tc_waston'
-        },
-
-        {
-          name: '大昌行',
-          type: 'radio',
-          label: '大昌行',
-          value: 'remark_tc_dch'
-        }
-      ],
-      buttons: ['cancel', 'OK' ]
+  async popOver(fitem: Item) {
+    const popover = await this.popoverController.create({
+      component: PopoverComponent,
+      componentProps: {
+        'fitem': fitem
+      },
+      backdropDismiss: false,
+      animated: true,
+      showBackdrop: true
     });
 
-    await alert.present();
-  }
+    await popover.present();
+    const model = await popover.onDidDismiss();
 
+    switch (model.role) {
+      case 'confirm':
+        const output: string[] = [model.data[0], model.data[1]];
+        this.cartService.addProduct(fitem, Number(output[0]), output[1]);
+        console.log('confirm');
+        break;
+      case 'fail':
+        console.log('fail');
+        break;
+    }
+
+  }
 }
