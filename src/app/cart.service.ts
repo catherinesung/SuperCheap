@@ -20,12 +20,13 @@ export class CartService {
     return this.cart;
   }
 
-  addProduct(product: Item, quantity: number) {
+  addProduct(product: Item, quantity: number, displaySupermarket: string) {
     if (this.cart.find(productInCart => productInCart.item === product)){
       const result = this.cart.find(productInCart => productInCart.item === product);
       result.quantity += quantity;
     }
     else{
+      product['displayPrice'] = [displaySupermarket, product[displaySupermarket]];
       this.cart.push({item: product, quantity: quantity});
       this.solutionPricePerProduct();
     }
@@ -42,9 +43,13 @@ export class CartService {
   calculateTotal(){
     let total = 0;
     for (let product of this.cart){
-      total += product.minPrice[0].price * product.quantity;
+      total += product.item.displayPrice[1] * product.quantity;
     }
     return total;
+  }
+
+  findProductInCart(product: Item){
+
   }
 
   solutionPricePerProduct() {
@@ -68,7 +73,7 @@ export class CartService {
   comparePrice(product: Item) {
     let supermarket;
     const minPriceArr = [];
-    const supermarketList = ['price_aeon', 'price_dch', 'price_marketplace', 'price_parknshop', 'price_wellcome', 'price_waston'];
+    const supermarketList = ['price_parknshop', 'price_wellcome', 'price_marketplace', 'price_aeon', 'price_dch', 'price_waston'];
     let minPrice = 99999;
 
     // check the lowest price first

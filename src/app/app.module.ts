@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import {FormsModule} from '@angular/forms';
+import { PopoverComponent } from './popover/popover.component';
 
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
 
@@ -32,7 +33,7 @@ export function getAuthServiceConfigs() {
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
+  entryComponents: [PopoverComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule, SocialLoginModule],
   providers: [
     StatusBar,
