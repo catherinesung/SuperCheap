@@ -6,23 +6,19 @@ import {Item} from './item';
 })
 export class CartService {
 
-  private data = [];
+  private total = [0];
 
   private cart = [];
 
   constructor() { }
-
-  getProducts() {
-    return this.data;
-  }
 
   getCart() {
     return this.cart;
   }
 
   addProduct(product: Item, quantity: number, displaySupermarket: string) {
-    if (this.cart.find(productInCart => productInCart.item === product)){
-      const result = this.cart.find(productInCart => productInCart.item === product);
+    if (this.cart.find(productInCart => productInCart.item.barcode === product.barcode)){
+      const result = this.cart.find(productInCart => productInCart.item.barcode === product.barcode);
       result.quantity += quantity;
     }
     else{
@@ -30,15 +26,17 @@ export class CartService {
       this.cart.push({item: product, quantity: quantity});
       this.solutionPricePerProduct();
     }
-    console.log('added ' + product.name_en);
+    this.calculateTotal();
+    console.log('added ' + product.name_tc);
   }
 
   removeProduct(product: Item){
     if (this.cart.find(productInCart => productInCart.item === product)) {
       const result = this.cart.find(productInCart => productInCart.item === product);
-      result.quantity = 0;
-      console.log(result.item.name_en + ' removed');
+      this.cart.splice(this.cart.indexOf(result),1);
+      console.log(result.item.name_tc + ' removed');
     }
+    this.calculateTotal();
   }
 
   clearCart() {
@@ -46,14 +44,18 @@ export class CartService {
       this.cart.pop();
     }
     console.log('Cart is cleared!');
+    this.calculateTotal();
   }
 
   calculateTotal(){
-    let total = 0;
+    this.total[0] = 0;
     for (let product of this.cart){
-      total += product.item.displayPrice[1] * product.quantity;
+      this.total[0] += product.item.displayPrice[1] * product.quantity;
     }
-    return total;
+  }
+
+  getTotal(){
+    return this.total;
   }
 
   findProductInCart(product: Item){
@@ -64,17 +66,6 @@ export class CartService {
     for (let product of this.cart) {
       product['minPrice'] = this.comparePrice(product.item);
     }
-  }
-
-  solutionPricePerSupermarket(supermarket: string) {
-    let product, numberOfProduct = 0, totalPrice = 0;
-    for (product of this.cart) {
-      if (product[supermarket] !== null && product[supermarket] !== '') {
-        numberOfProduct ++;
-        totalPrice += product[supermarket];
-      }
-    }
-    console.log(totalPrice, numberOfProduct);
   }
 
   // take Item as parameter, return a array

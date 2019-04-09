@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {CartService} from '../cart.service';
 import {Router} from '@angular/router';
 import {ItemService} from '../item.service';
@@ -17,8 +17,9 @@ export class Tab4Page implements OnInit {
   cart = [];
   items = [];
   boughtItem: Item;
-  total = 0;
+  total = [0];
   supermarket = '';
+  delivery = false;
 
   @ViewChild('slidingList') slidingList: IonList;
 
@@ -79,16 +80,18 @@ export class Tab4Page implements OnInit {
 
   ngOnInit() {
     this.cart = this.cartService.getCart();
+    this.calculateTotal();
     console.log(this.cart);
+    console.log(this.total);
   }
 
-  addToCart(product: Item){
+  /*addToCart(product: Item){
     this.cartService.addProduct(product,1, 'price_wellcome');
     this.cart = this.cartService.getCart();
     this.calculateTotal();
     console.log('Cart:');
     console.log(this.cart);
-  }
+  }*/
 
   async removeProduct(product: Item){
     await this.slidingList.closeSlidingItems();
@@ -105,16 +108,8 @@ export class Tab4Page implements OnInit {
       console.log(this.cart);
   }
 
-  checkPriceByProduct(){
-      this.cartService.solutionPricePerProduct();
-      this.cart = this.cartService.getCart();
-      this.calculateTotal();
-      console.log('Cart:');
-      console.log(this.cart);
-  }
-
   calculateTotal(){
-      this.total = this.cartService.calculateTotal();
+      this.total = this.cartService.getTotal();
   }
 
   calculateMethodChange(){
@@ -141,11 +136,16 @@ export class Tab4Page implements OnInit {
         }
       }
     }
-    this.calculateTotal();
+    this.cartService.calculateTotal();
   }
 
   debug(){
-    this.slidingList.closeSlidingItems();
+    console.log(this.cart);
+  }
+
+  refreshCart(){
+    console.log('Refreshed');
+    this.cart = this.cartService.getCart();
   }
 
 
