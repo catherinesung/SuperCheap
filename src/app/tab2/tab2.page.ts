@@ -1,21 +1,17 @@
-import { Component } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {NgModule} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+    selector: 'app-tab2',
+    templateUrl: 'tab2.page.html',
+    styleUrls: ['tab2.page.scss']
 })
-@NgModule({
-  imports: [
-    FormsModule
-  ]})
-  export class Tab2Page {
-  constructor(private router: Router) { }
-  Search(value: string) {
-    this.router.navigate(['/result'], {queryParams: { keywords: value}});
-      }
+
+export class Tab2Page implements OnInit {
+    title: string = 'My first AGM project';
+    lat: number = 51.678418;
+    lng: number = 7.809007;
+
+    ngOnInit(): void {
     }
+}

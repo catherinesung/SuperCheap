@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../cart.service';
 import {PopoverComponent} from '../popover/popover.component';
 import { PopoverController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-result',
@@ -13,7 +14,7 @@ import { PopoverController } from '@ionic/angular';
 })
 
 export class ResultPage implements OnInit {
-  constructor(private itemservice: ItemService, private route: ActivatedRoute,
+  constructor(private itemservice: ItemService, private route: ActivatedRoute, public alertController: AlertController,
               private router: Router, private cartService: CartService, public popoverController: PopoverController) {
     this.route.queryParams.subscribe(params => {
       this.keywords = params['keywords']; });
@@ -69,6 +70,12 @@ export class ResultPage implements OnInit {
       case 'confirm':
         this.cartService.addProduct(fitem, Number(model.data[1]), model.data[0]);
         console.log('confirm' + model.data[0] + model.data[1]);
+        const alert = await this.alertController.create({
+          message: model.data[1] + '件' + fitem.name_tc + '已加入購物車',
+          buttons: ['OK']
+        });
+
+        await alert.present();
         break;
       case 'fail':
         console.log('fail');
