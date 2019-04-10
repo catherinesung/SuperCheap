@@ -1,69 +1,139 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Shopping Cart
+      購物車
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content body>
-  <ion-grid>
-    <ion-row><ion-button (click)="emptyCart()">Clear Cart</ion-button></ion-row>
-    <ion-row><ion-button (click)="addToCart(testProduct1)">Product 1</ion-button></ion-row>
-    <ion-row><ion-button (click)="addToCart(testProduct2)">Product 2</ion-button></ion-row>
-    <ion-row><ion-button (click)="checkPriceByProduct()">minPricePerProduct</ion-button></ion-row>
-    <ion-row><ion-button (click)="this.cartService.solutionPricePerSupermarket('price_parknshop')">priceOfParknshop</ion-button></ion-row>
-  </ion-grid>
+    <ion-button (click)="emptyCart()">Clear Cart</ion-button>
+    <ion-button (click)="debug()">cart</ion-button>
+    <ion-button (click)="debug2()">total</ion-button>
+    <ion-button (click)="refreshCart()">refresh</ion-button>
 
   <ion-item>
-    <ion-label>Calculate by</ion-label>
-    <ion-select [(ngModel)]="supermarket" (ionChange) = "calculateMethodChange()" placeholder="Select One">
-      <ion-select-option value="price_aeon">Aeon</ion-select-option>
-      <ion-select-option value="price_dch">dch</ion-select-option>
-      <ion-select-option value="price_marketplace">Marketplace</ion-select-option>
-      <ion-select-option value="price_parknshop">Parknshop</ion-select-option>
-      <ion-select-option value="price_wellcome">Wellcome</ion-select-option>
-      <ion-select-option value="price_waston">Watsons</ion-select-option>
+    <ion-select [(ngModel)]="supermarket" (ionChange) = "calculateMethodChange()">
+      <ion-select-option value="min_price" selected>按每件商品最低價計算</ion-select-option>
+      <ion-select-option value="price_aeon">按Aeon計算</ion-select-option>
+      <ion-select-option value="price_dch">按大昌行計算</ion-select-option>
+      <ion-select-option value="price_marketplace">按Marketplace計算</ion-select-option>
+      <ion-select-option value="price_parknshop">按百佳計算</ion-select-option>
+      <ion-select-option value="price_wellcome">按惠康計算</ion-select-option>
+      <ion-select-option value="price_waston">按屈臣氏計算</ion-select-option>
+    </ion-select>
+
+    <ion-select>
+      <ion-select-option value="sort_by_price" selected>按價格排序</ion-select-option>
+      <ion-select-option value="sort_by_shop">按店舖排序</ion-select-option>
     </ion-select>
   </ion-item>
 
-  <ion-list>
+  <ion-list #slidingList>
     <ion-item-sliding *ngFor="let products of cart">
-      <ion-item>
-        <ion-text class="name">{{products.item.name_en}}</ion-text>
 
-        <ion-text>${{products.item.displayPrice[1]}}</ion-text>
+      <ion-item *ngIf="products.quantity!==0">
 
-        <!--
-        <ion-text *ngIf="supermarket==='price_aeon'" class="price_aeon">${{products.item.price_aeon}}</ion-text>
-        <ion-text *ngIf="supermarket==='price_dch'" class="price_dch">${{products.item.price_dch}}</ion-text>
-        <ion-text *ngIf="supermarket==='price_marketplace'" class="price_marketplace">${{products.item.price_marketplace}}</ion-text>
-        <ion-text *ngIf="supermarket==='price_parknshop'" class="price_parknshop">${{products.item.price_parknshop}}</ion-text>
-        <ion-text *ngIf="supermarket==='price_wellcome'" class="price_wellcome">${{products.item.price_wellcome}}</ion-text>
-        <ion-text *ngIf="supermarket==='price_waston'" class="price_waston">${{products.item.price_waston}}</ion-text>
-        -->
+        <ion-thumbnail slot="start">
+          <img src="assets/product-img/{{products.item.barcode}}.jpg">
+        </ion-thumbnail>
 
-        <ion-badge slot="end" color="primary">{{products.quantity}}</ion-badge>
+        <ion-label class="name_tc" text-wrap>
+          <h3>{{products.item.brand_tc}}</h3>
+          {{products.item.name_tc}}
+        </ion-label>
 
-
-        <ion-select [(ngModel)]="products.item.displayPrice[0]" (ionChange) = "displaySupermarketChange(products)" placeholder="Select One">
-          <ion-select-option value="price_aeon">Aeon</ion-select-option>
-          <ion-select-option value="price_dch">dch</ion-select-option>
-          <ion-select-option value="price_marketplace">Marketplace</ion-select-option>
-          <ion-select-option value="price_parknshop">Parknshop</ion-select-option>
-          <ion-select-option value="price_wellcome">Wellcome</ion-select-option>
-          <ion-select-option value="price_waston">Watsons</ion-select-option>
+        <ion-select [(ngModel)]="products.item.displayPrice[0]" (ionChange) = "displaySupermarketChange(products)">
+          <ion-select-option value="price_aeon">Aeon ${{products.item.price_aeon}}</ion-select-option>
+          <ion-select-option value="price_dch">大昌行 ${{products.item.price_dch}}</ion-select-option>
+          <ion-select-option value="price_marketplace">Marketplace ${{products.item.price_marketplace}}</ion-select-option>
+          <ion-select-option value="price_parknshop">百佳 ${{products.item.price_parknshop}}</ion-select-option>
+          <ion-select-option value="price_wellcome">惠康 ${{products.item.price_wellcome}}</ion-select-option>
+          <ion-select-option value="price_waston">屈臣氏 ${{products.item.price_waston}}</ion-select-option>
         </ion-select>
 
+        <ion-badge slot="end" color="primary">{{products.quantity}}</ion-badge>
       </ion-item>
 
       <ion-item-options side="end">
-        <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+        <ion-item-option color="danger" (click)="removeProduct(products.item);">刪除</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
+
     <ion-item>
-      <ion-text class="total">{{total}}</ion-text>
+      <ion-label>送貨服務？</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="delivery"></ion-checkbox>
     </ion-item>
+
+    <ion-item>
+      <ion-text class="total">總數 {{total[0]}}</ion-text>
+    </ion-item>
+
+    <ion-item-group *ngIf="delivery === true">
+
+      <ion-item-group *ngIf="supermarketExistedInCart('price_aeon')">
+        <ion-item>
+          <ion-text  class="deliveryFee">送貨費用: Aeon {{total[1]}}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>你是否Aeon會員?</ion-label>
+          <ion-checkbox slot="end" (ionChange)="this.cartService.calculateTotal()" [(ngModel)]="this.deliveryDetails[1].member"></ion-checkbox>
+        </ion-item>
+      </ion-item-group>
+
+      <ion-item-group *ngIf="supermarketExistedInCart('price_dch')">
+        <ion-item>
+          <ion-text  class="deliveryFee">送貨費用: 大昌行 {{total[2]}}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>馬灣/東涌</ion-label>
+          <ion-checkbox slot="end" (ionChange)="this.cartService.calculateTotal()" [(ngModel)]="this.deliveryDetails[2].remote"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>愉景灣</ion-label>
+          <ion-checkbox slot="end" (ionChange)="this.cartService.calculateTotal()" [(ngModel)]="this.deliveryDetails[2].discoveryBay"></ion-checkbox>
+        </ion-item>
+      </ion-item-group>
+
+      <ion-item-group *ngIf="supermarketExistedInCart('price_marketplace')">
+        <ion-item>
+          <ion-text  class="deliveryFee">送貨費用: Marketplace {{total[3]}}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>大嶼山禁區</ion-label>
+          <ion-checkbox slot="end" (ionChange)="this.cartService.calculateTotal()" [(ngModel)]="this.deliveryDetails[3].lantauIsland"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>馬灣/榕樹灣</ion-label>
+          <ion-checkbox slot="end" (ionChange)="this.cartService.calculateTotal()" [(ngModel)]="this.deliveryDetails[3].remote"></ion-checkbox>
+        </ion-item>
+      </ion-item-group>
+
+      <ion-item *ngIf="supermarketExistedInCart('price_parknshop')">
+        <ion-text class="deliveryFee">送貨費用: 百佳 {{total[4]}}</ion-text>
+      </ion-item>
+
+      <ion-item-group *ngIf="supermarketExistedInCart('price_wellcome')">
+        <ion-item>
+          <ion-text class="deliveryFee">送貨費用: 惠康 {{total[5]}}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>馬灣</ion-label>
+          <ion-checkbox slot="end" (ionChange)="this.cartService.calculateTotal()" [(ngModel)]="this.deliveryDetails[5].remote"></ion-checkbox>
+        </ion-item>
+      </ion-item-group>
+
+      <ion-item *ngIf="supermarketExistedInCart('price_waston')">
+        <ion-text class="deliveryFee">送貨費用: 屈臣氏 {{total[6]}}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-text class="deliveryFee"> 總數(連送貨費) {{total[7]}}</ion-text>
+      </ion-item>
+    </ion-item-group>
+
+
+
   </ion-list>
 
 </ion-content>
