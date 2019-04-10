@@ -8,15 +8,15 @@ import { BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  scannedData: {};
+  barcode: string;
   constructor(private router: Router, private barcodeScanner: BarcodeScanner) { }
   Search(value: string) {
     this.router.navigate(['/result'], {queryParams: { keywords: value}});
   }
   scanCode() {
     this.barcodeScanner.scan().then(barcodeData => {
-      this.scannedData = barcodeData;
-      this.router.navigate(['/result'], {queryParams: { keywords: this.scannedData}});
+      this.barcode = barcodeData.text;
+      this.router.navigate(['/result'], {queryParams: { keywords: this.barcode}});
     }).catch(err => {
       console.log('Error', err);
     });

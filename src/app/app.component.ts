@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Item } from './item';
 import { ItemService } from './item.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'

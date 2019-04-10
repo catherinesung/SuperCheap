@@ -5,6 +5,18 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+<agm-map >
+  <div *ngFor="let store of storeinfos">
+    <agm-marker  *ngIf="store.longtitude!= null || store.longtitude!=0" [latitude]= store.latitude [longitude]= store.longtitude></agm-marker>
+  </div>
+
 </agm-map>
+<ion-content>
+  <ion-list *ngFor="let store of storeinfos">
+    <ion-grid>
+      <ion-row>地址: {{store.address}}</ion-row>
+      <ion-row>營業時間：{{store.ohfri}}</ion-row>
+      <ion-row>電話：{{store.phone}}</ion-row>
+    </ion-grid>
+  </ion-list>
+</ion-content>

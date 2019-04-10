@@ -22,11 +22,11 @@ export class ResultPage implements OnInit {
   keywords: string;
   fitems: Item[] = [];
   items: Item[];
-  display: Item;
   error = '';
   success = '';
   itemd: string;
   selected: Item;
+  nresult: String;
 
   ngOnInit(): void {
     this.getItems();

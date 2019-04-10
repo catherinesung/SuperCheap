@@ -8,9 +8,9 @@
     <ion-list *ngFor="let fitem of fitems">
         <ion-grid>
             <ion-row>
-                <ion-col>picture</ion-col>
+                <ion-col><ion-img src="assets/product-img/{{fitem.barcode}}.jpg"></ion-img></ion-col>
                 <ion-col>
-                    <ion-item >name: {{fitem.name_tc}} <br> price: {{fitem.price_aeon}}
+                    <ion-item >name: {{fitem.brand_tc}}{{fitem.name_tc}} <br> price: {{fitem.price_aeon}}
                     </ion-item>
                 </ion-col>
                 <ion-col>
@@ -24,6 +24,5 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-
     </ion-list>
 </ion-content>
