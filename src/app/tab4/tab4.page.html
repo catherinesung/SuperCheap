@@ -9,8 +9,8 @@
 <ion-content body>
   <ion-grid>
     <ion-row><ion-button (click)="emptyCart()">Clear Cart</ion-button></ion-row>
-    <ion-row><ion-button (click)="debug()">cartservice</ion-button></ion-row>
-    <ion-row><ion-button (click)="debug2()">tab4cart</ion-button></ion-row>
+    <ion-row><ion-button (click)="debug()">cart</ion-button></ion-row>
+    <ion-row><ion-button (click)="debug2()">total</ion-button></ion-row>
     <ion-row><ion-button (click)="refreshCart()">refresh</ion-button></ion-row>
   </ion-grid>
 
@@ -44,12 +44,14 @@
           <ion-select-option value="price_parknshop">百佳 ${{products.item.price_parknshop}}</ion-select-option>
           <ion-select-option value="price_wellcome">惠康 ${{products.item.price_wellcome}}</ion-select-option>
           <ion-select-option value="price_waston">屈臣氏 ${{products.item.price_waston}}</ion-select-option>
+
         </ion-select>
+          <ion-input>1</ion-input>
 
       </ion-item>
 
       <ion-item-options side="end">
-        <ion-item-option (click)="removeProduct(products.item);">刪除</ion-item-option>
+        <ion-item-option color="danger" (click)="removeProduct(products.item);">刪除</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
 
@@ -63,8 +65,24 @@
     </ion-item>
 
     <ion-item *ngIf="delivery === true">
-      <ion-text class="deliveryFee">送貨費用</ion-text>
+      <ion-text  class="deliveryFee">送貨費用: Aeon {{total[1]}}</ion-text>
+        <ion-label>會員</ion-label>
+        <ion-checkbox slot="end" (ionChange)="this.cartService.calculateTotal()" [(ngModel)]="this.deliveryDetails[1].member"></ion-checkbox>
     </ion-item>
+
+    <ion-item *ngIf="delivery === true">
+      <ion-text  class="deliveryFee">送貨費用: 百佳 {{total[4]}}</ion-text>
+    </ion-item>
+
+    <ion-item *ngIf="delivery === true">
+      <ion-text  class="deliveryFee">送貨費用: 惠康 {{total[5]}}</ion-text>
+        <ion-checkbox slot="end" (ionChange)="this.cartService.calculateTotal()" [(ngModel)]="this.deliveryDetails[5].remote"></ion-checkbox>
+    </ion-item>
+
+    <ion-item *ngIf="delivery === true">
+      <ion-text class="deliveryFee"> 總數(連送貨費) {{total[7]}}</ion-text>
+    </ion-item>
+
   </ion-list>
 
 </ion-content>

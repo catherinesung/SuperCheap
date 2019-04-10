@@ -6,14 +6,36 @@ import {Item} from './item';
 })
 export class CartService {
 
-  private total = [0];
+  private total = [0, 0, 0, 0, 0, 0, 0, 0];
+  //total[0]:product total
+  //total[1]:aeon delivery
+  //total[2]:dch delivery
+  //total[3]:marketplace delivery
+  //total[4]:parknshop delivery
+  //total[5]:wellcome delivery
+  //total[6]:waston
+  //total[7]:total including delivery
 
   private cart = [];
+
+  private deliveryDetails = [
+      null,
+    {member: false}, //aeon1
+    {MaWan:false}, //dch2
+    {MaWan:false}, //marketplace3
+    {MaWan:false}, //parknshop4
+    {remote:false}, //wellcome5
+    {remote:false} //waston6
+  ]
 
   constructor() { }
 
   getCart() {
     return this.cart;
+  }
+
+  getDeliveryDetails(){
+    return this.deliveryDetails;
   }
 
   addProduct(product: Item, quantity: number, displaySupermarket: string) {
@@ -47,10 +69,121 @@ export class CartService {
     this.calculateTotal();
   }
 
-  calculateTotal(){
+  async calculateTotal(){
     this.total[0] = 0;
+    for await (let product of this.cart){
+      this.total[0] += +product.item.displayPrice[1] * product.quantity;
+    }
+    this.calculateDeliveryFee();
+    this.total[7] = this.total[0] + this.total[1] + this.total[2] + this.total[3] + this.total[4] + this.total[5] + this.total[6];
+  }
+
+  calculateDeliveryFee(){
+    for (let i = 1; i < 8; i++ ){
+      this.total[i] = 0;
+    }
+
+    var aeon_temp = 0;
+    var dch_temp = 0;
+    var marketplace_temp = 0;
+    var parknshop_temp = 0;
+    var wellcome_temp = 0;
+    var waston_temp = 0;
+
     for (let product of this.cart){
-      this.total[0] += product.item.displayPrice[1] * product.quantity;
+      if (product.item.displayPrice[0] === 'price_aeon'){
+        aeon_temp += +product.item.displayPrice[1] * product.quantity;
+      }
+      else if (product.item.displayPrice[0] === 'price_dch'){
+        dch_temp += +product.item.displayPrice[1] * product.quantity;
+      }
+      else if (product.item.displayPrice[0] === 'price_marketplace'){
+        marketplace_temp += +product.item.displayPrice[1] * product.quantity;
+      }
+      else if (product.item.displayPrice[0] === 'price_parknshop'){
+        parknshop_temp += +product.item.displayPrice[1] * product.quantity;
+      }
+      else if (product.item.displayPrice[0] === 'price_wellcome'){
+        wellcome_temp += +product.item.displayPrice[1] * product.quantity;
+      }
+      else if (product.item.displayPrice[0] === 'price_waston'){
+        waston_temp += +product.item.displayPrice[1] * product.quantity;
+      }
+    }
+    this.aeonDeliveryFee(aeon_temp);
+    this.wellcomeDeliveryFee(wellcome_temp);
+    this.parknshopDeliveryFee(parknshop_temp);
+  }
+
+  aeonDeliveryFee(aeon_temp){
+    if (this.deliveryDetails[1].member === false){
+      if(aeon_temp !== 0){
+        if(aeon_temp < 800){
+          this.total[1] = 70;
+        }
+        else if (aeon_temp >= 800){
+          this.total[1] = 0;
+        }
+      }
+      else if(aeon_temp === 0){
+        this.total[1] = 0;
+      }
+    }
+    else{
+      if(aeon_temp !== 0){
+        if(aeon_temp < 500){
+          this.total[1] = 70;
+        }
+        else if (aeon_temp >= 500){
+          this.total[1] = 0;
+        }
+      }
+      else if(aeon_temp === 0){
+        this.total[1] = 0;
+      }
+    }
+  }
+
+  parknshopDeliveryFee(parknshop_temp){
+    if(parknshop_temp !== 0){
+      if(parknshop_temp < 500){
+        this.total[4] = 30;
+      }
+      else if (parknshop_temp >= 500){
+        this.total[4] = 0;
+      }
+    }
+    else if(parknshop_temp === 0){
+      this.total[4] = 0;
+    }
+  }
+
+  wellcomeDeliveryFee(wellcome_temp){
+    if (this.deliveryDetails[5].remote === false){
+      if(wellcome_temp !== 0){
+        if(wellcome_temp < 500){
+          this.total[5] = 30;
+        }
+        else if (wellcome_temp >= 500){
+          this.total[5] = 0;
+        }
+      }
+      else if(wellcome_temp === 0){
+        this.total[5] = 0;
+      }
+    }
+    else{
+      if(wellcome_temp !== 0){
+        if(wellcome_temp < 500){
+          this.total[5] = 70;
+        }
+        else if (wellcome_temp >= 500){
+          this.total[5] = 40;
+        }
+      }
+      else if(wellcome_temp === 0){
+        this.total[5] = 0;
+      }
     }
   }
 
@@ -59,7 +192,10 @@ export class CartService {
   }
 
   findProductInCart(product: Item){
-
+    if (this.cart.find(productInCart => productInCart.item === product)) {
+      const result = this.cart.find(productInCart => productInCart.item === product);
+      return result;
+    }
   }
 
   solutionPricePerProduct() {

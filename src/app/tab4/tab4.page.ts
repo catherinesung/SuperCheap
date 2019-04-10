@@ -20,7 +20,7 @@ export class Tab4Page implements OnInit {
   total = [0];
   supermarket = '';
   delivery = false;
-
+  deliveryDetails = [];
   @ViewChild('slidingList') slidingList: IonList;
 
   testProduct1 = {
@@ -80,6 +80,7 @@ export class Tab4Page implements OnInit {
 
   ngOnInit() {
     this.cart = this.cartService.getCart();
+    this.deliveryDetails = this.cartService.getDeliveryDetails();
     this.calculateTotal();
     console.log(this.cart);
     console.log(this.total);
@@ -143,9 +144,17 @@ export class Tab4Page implements OnInit {
     console.log(this.cart);
   }
 
+  debug2(){
+    console.log(this.total);
+  }
+
   refreshCart(){
     console.log('Refreshed');
     this.cart = this.cartService.getCart();
+  }
+
+  deliveryFee(){
+
   }
 
 
