@@ -21,9 +21,9 @@ export class CartService {
   private deliveryDetails = [
       null,
     {member: false}, //aeon1
-    {MaWan:false}, //dch2
-    {MaWan:false}, //marketplace3
-    {MaWan:false}, //parknshop4
+    {remote:false, discoveryBay:false}, //dch2
+    {remote:false, lantauIsland:false}, //marketplace3
+    {dummy:false}, //parknshop4
     {remote:false}, //wellcome5
     {remote:false} //waston6
   ]
@@ -111,8 +111,12 @@ export class CartService {
       }
     }
     this.aeonDeliveryFee(aeon_temp);
-    this.wellcomeDeliveryFee(wellcome_temp);
+    this.dchDeliveryFee(dch_temp);
+    this.marketplaceDeliveryFee(marketplace_temp);
     this.parknshopDeliveryFee(parknshop_temp);
+    this.wellcomeDeliveryFee(wellcome_temp);
+    this.wastonDeliveryFee(waston_temp);
+
   }
 
   aeonDeliveryFee(aeon_temp){
@@ -140,6 +144,96 @@ export class CartService {
       }
       else if(aeon_temp === 0){
         this.total[1] = 0;
+      }
+    }
+  }
+
+  dchDeliveryFee(dch_temp){
+    if (this.deliveryDetails[2].discoveryBay === true){
+      if(dch_temp !== 0){
+        if(dch_temp < 800){
+          this.total[2] = 160 + 50;
+        }
+        else if (dch_temp >= 800){
+          this.total[2] = 160;
+        }
+      }
+      else if(dch_temp === 0){
+        this.total[2] = 0;
+      }
+    }
+    else if (this.deliveryDetails[2].remote === true){
+      if(dch_temp !== 0){
+        if(dch_temp < 800){
+          this.total[2] = 50 + 50;
+        }
+        else if (dch_temp >= 800 && dch_temp < 980){
+          this.total[2] = 50;
+        }
+        else if (dch_temp >= 980){
+          this.total[2] = 0;
+        }
+      }
+      else if(dch_temp === 0){
+        this.total[2] = 0;
+      }
+    }
+    else if (this.deliveryDetails[2].remote === false && this.deliveryDetails[2].discoveryBay === false ){
+      if(dch_temp !== 0){
+        if(dch_temp < 800){
+          this.total[2] = 50;
+        }
+        else if (dch_temp >= 800){
+          this.total[2] = 0;
+        }
+      }
+      else if(dch_temp === 0){
+        this.total[2] = 0;
+      }
+    }
+  }
+
+  marketplaceDeliveryFee(marketplace_temp){
+    if (this.deliveryDetails[3].remote === true){
+      if(marketplace_temp !== 0){
+        if(marketplace_temp < 500){
+          this.total[3] = 70;
+        }
+        else if (marketplace_temp >= 500){
+          this.total[3] = 40;
+        }
+      }
+      else if(marketplace_temp === 0){
+        this.total[3] = 0;
+      }
+    }
+    else if (this.deliveryDetails[3].lantauIsland === true){
+      if(marketplace_temp !== 0){
+        if(marketplace_temp < 500){
+          this.total[3] = 120;
+        }
+        else if (marketplace_temp >= 500 && marketplace_temp < 1200){
+          this.total[3] = 90;
+        }
+        else if (marketplace_temp >= 1200){
+          this.total[3] = 0;
+        }
+      }
+      else if(marketplace_temp === 0){
+        this.total[3] = 0;
+      }
+    }
+    else if (this.deliveryDetails[3].remote === false && this.deliveryDetails[3].lantauIsland === false ){
+      if(marketplace_temp !== 0){
+        if(marketplace_temp < 500){
+          this.total[3] = 30;
+        }
+        else if (marketplace_temp >= 500){
+          this.total[3] = 0;
+        }
+      }
+      else if(marketplace_temp === 0){
+        this.total[3] = 0;
       }
     }
   }
@@ -184,6 +278,20 @@ export class CartService {
       else if(wellcome_temp === 0){
         this.total[5] = 0;
       }
+    }
+  }
+
+  wastonDeliveryFee(waston_temp){
+    if(waston_temp !== 0){
+      if(waston_temp < 250){
+        this.total[6] = 40;
+      }
+      else{
+        this.total[6] = 0;
+      }
+    }
+    else if(waston_temp === 0){
+      this.total[6] = 0;
     }
   }
 
