@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular-6-social-login';
+import { fs } from 'file-system';
+
+declare var require: any;
+/// <reference path="C:\Users\SY\SuperCheap\node_modules\tsutils\typeguard/node.d.ts" />
 
 @Component({
   selector: 'app-tab4',
@@ -23,7 +27,15 @@ export class Tab5Page implements OnInit {
     }
     this.socialAuthService.signIn(socialPlatformProvider).then((userData) => {
       console.log(socialPlatform + ' sign in data : ', userData);
-          // Now sign-in with userData
+      /*const fs = require('fs');
+      fs.writeFile('./user.json', JSON.stringify(userData), (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log('File has been created');
+    });*/
+      // Now sign-in with userData
           // ...
     });
   }

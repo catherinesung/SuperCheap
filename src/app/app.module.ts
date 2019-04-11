@@ -32,7 +32,7 @@ export function getAuthServiceConfigs() {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PopoverComponent],
   entryComponents: [PopoverComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule, SocialLoginModule],
   providers: [
