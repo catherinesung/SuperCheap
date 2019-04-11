@@ -3,6 +3,8 @@ import { Item } from '../item';
 import { ItemService } from '../item.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../cart.service';
+import {PopoverComponent} from '../popover/popover.component';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-product',
@@ -17,7 +19,7 @@ export class ProductPage implements OnInit {
 
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute, public popoverController: PopoverController) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
         });
@@ -28,7 +30,7 @@ export class ProductPage implements OnInit {
     }
 
     sortprice(itemm: Item) {
-        let supermarketarr = ['wellcome', 'parknshop', 'marketplace', 'aeon', 'dch', 'waston'];
+        let supermarketarr = ['parknshop', 'wellcome', 'marketplace', 'aeon', 'dch', 'waston'];
         let pricearr = [itemm.price_wellcome, itemm.price_parknshop, itemm.price_marketplace, itemm.price_aeon, itemm.price_dch,
             itemm.price_waston];
         const currformat = new Intl.NumberFormat('en-US', {
@@ -41,14 +43,14 @@ export class ProductPage implements OnInit {
             let min = 9999;
             let num = -1;
             for (let j = 0; j < 6; j++) {
-                if ((pricearr[j] != null) && (pricearr[j] < min)) {
+                if ((pricearr[j] !== 0) && (pricearr[j] < min)) {
                     min = pricearr[j];
                     num = j;
                 }
             }
             if (num !== -1) {
                 sorted.push([supermarketarr[num], currformat.format(pricearr[num])]);
-                pricearr[num] = null;
+                pricearr[num] = 0;
             }
         }
         return sorted;
@@ -58,8 +60,35 @@ export class ProductPage implements OnInit {
         this.itemservice.getAll().subscribe((res: Item[]) => {
             this.items = res;
             this.display = this.items.find(x => x.barcode === prodbarcode);
+            console.log(this.display);
             this.sorted = this.sortprice(this.display);
             console.log(this.sorted);
         });
+    }
+
+    async popOver(itemm: Item) {
+        const popover = await this.popoverController.create({
+            component: PopoverComponent,
+            componentProps: {
+                'fitem': itemm
+            },
+            backdropDismiss: false,
+            animated: true,
+            showBackdrop: true
+        });
+
+        await popover.present();
+        const model = await popover.onDidDismiss();
+
+        switch (model.role) {
+            case 'confirm':
+                this.cartservice.addProduct(itemm, Number(model.data[1]), model.data[0]);
+                console.log('confirm' + model.data[0] + model.data[1]);
+                break;
+            case 'fail':
+                console.log('fail');
+                break;
+        }
+
     }
 }
