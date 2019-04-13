@@ -25,6 +25,14 @@ export class ItemService {
     return this.http.get(`${this.baseurl}/item.php`).pipe(
         map((res) => {
           this.items = res['data'];
+          for (let i of this.items) {
+              i.price_parknshop = Number(i.price_parknshop);
+              i.price_wellcome = Number(i.price_wellcome);
+              i.price_marketplace = Number(i.price_marketplace);
+              i.price_aeon = Number(i.price_aeon);
+              i.price_dch = Number(i.price_dch);
+              i.price_waston = Number(i.price_waston);
+          }
           return this.items;
         }),
         catchError(this.handleError));
