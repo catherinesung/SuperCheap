@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LocationService} from '../location.service';
 import {Storeinfo} from '../storeinfo';
 
+
 @Component({
     selector: 'app-tab2',
     templateUrl: 'tab2.page.html',
@@ -17,5 +18,5 @@ export class Tab2Page implements OnInit {
             (res: Storeinfo[]) => {
                 this.storeinfos = res;
             });
-    }
+        }
 }
