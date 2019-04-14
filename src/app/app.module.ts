@@ -14,7 +14,6 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import {FormsModule} from '@angular/forms';
 import { PopoverComponent } from './popover/popover.component';
 import {AgmCoreModule} from '@agm/core';
-import {Geolocation} from '@ionic-native/geolocation';
 
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
 import {NativeGeocoder} from '@ionic-native/native-geocoder';
@@ -45,11 +44,7 @@ export function getAuthServiceConfigs() {
       StatusBar,
     SplashScreen,
     BarcodeScanner,
-<<<<<<< HEAD
       NativeGeocoder,
-=======
-      Geolocation,
->>>>>>> parent of c000959... bug
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
   ],
