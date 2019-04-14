@@ -87,10 +87,7 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
         <string>We use your location for full functionality of certain app features.</string>
     </edit-config>
-<<<<<<< HEAD
     <plugin name="cordova-plugin-nativegeocoder" spec="^3.2.2">
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="Use geocoder service" />
     </plugin>
-=======
->>>>>>> parent of 92b88a8... bugggg
 </widget>
