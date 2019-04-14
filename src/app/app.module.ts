@@ -14,6 +14,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import {FormsModule} from '@angular/forms';
 import { PopoverComponent } from './popover/popover.component';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
+import {NativeGeocoder} from '@ionic-native/native-geocoder';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -39,6 +40,7 @@ export function getAuthServiceConfigs() {
       StatusBar,
     SplashScreen,
     BarcodeScanner,
+      NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
   ],

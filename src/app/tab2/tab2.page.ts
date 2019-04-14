@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {LocationService} from '../location.service';
 import {Storeinfo} from '../storeinfo';
-import { NativeGeocoder,  NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
+import { NativeGeocoder,
+    NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+
 
 
 @Component({
@@ -17,11 +19,15 @@ export class Tab2Page implements OnInit {
     }
     storeinfos: Storeinfo[];
     ngOnInit(): void {
+        const options: NativeGeocoderOptions = {
+            useLocale: true,
+            maxResults: 1
+        };
         this.locationService.getlocation().subscribe(
             (res: Storeinfo[]) => {
                 this.storeinfos = res;
             });
-        this.nativeGeocoder.forwardGeocode('Berlin')
+        this.nativeGeocoder.forwardGeocode('Berlin', options)
             .then((coordinates: NativeGeocoderForwardResult[]) => {
                 this.long = coordinates[0].longitude;
                 this.lat = coordinates[0].latitude;
