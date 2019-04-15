@@ -4,6 +4,14 @@
       <ion-searchbar #box  cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)"  > </ion-searchbar>
     </ion-title>
   </ion-toolbar>
+    <ion-segment>
+        <ion-segment-button (ionSelect)="segmentButtonClicked($event)">
+            <ion-label>地區</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (ionSelect)="segmentButtonClicked($event)">
+            <ion-label>商店</ion-label>
+        </ion-segment-button>
+    </ion-segment>
 </ion-header>
 <agm-map [zoom]="15" [latitude]= 'gla' [longitude]= 'glong'>
     <agm-marker ></agm-marker>

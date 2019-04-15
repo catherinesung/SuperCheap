@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LocationService} from '../location.service';
 import {Storeinfo} from '../storeinfo';
-import { NativeGeocoder, NativeGeocoderOptions,  NativeGeocoderResult} from '@ionic-native/native-geocoder/ngx';
+import { NativeGeocoder,  NativeGeocoderResult} from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 
