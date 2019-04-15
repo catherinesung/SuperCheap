@@ -13,12 +13,20 @@ import { AppComponent } from './app.component';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import {FormsModule} from '@angular/forms';
 import { PopoverComponent } from './popover/popover.component';
+<<<<<<< HEAD
 import {AgmCoreModule,  } from '@agm/core';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+=======
+import {AgmCoreModule} from '@agm/core';
+
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
+import {NativeGeocoder} from '@ionic-native/native-geocoder';
+
+>>>>>>> parent of 9e0226f... Revert "bug"
 export function getAuthServiceConfigs() {
-  let config = new AuthServiceConfig(
+  const config = new AuthServiceConfig(
       [
         {
           id: FacebookLoginProvider.PROVIDER_ID,
@@ -40,11 +48,14 @@ export function getAuthServiceConfigs() {
     apiKey: 'AIzaSyD0POsH6N_XE7PSJtt1SIHmsJtvnSOT5pE'
   })],
   providers: [
-    StatusBar,
+      StatusBar,
     SplashScreen,
     BarcodeScanner,
       NativeGeocoder,
+<<<<<<< HEAD
       Geolocation,
+=======
+>>>>>>> parent of 9e0226f... Revert "bug"
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
   ],
