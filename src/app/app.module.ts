@@ -14,11 +14,14 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import {FormsModule} from '@angular/forms';
 import { PopoverComponent } from './popover/popover.component';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {AgmCoreModule,  } from '@agm/core';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 =======
+=======
+>>>>>>> parent of 9e0226f... Revert "bug"
 import {AgmCoreModule} from '@agm/core';
 
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
@@ -53,7 +56,10 @@ export function getAuthServiceConfigs() {
     BarcodeScanner,
       NativeGeocoder,
 <<<<<<< HEAD
+<<<<<<< HEAD
       Geolocation,
+=======
+>>>>>>> parent of 9e0226f... Revert "bug"
 =======
 >>>>>>> parent of 9e0226f... Revert "bug"
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

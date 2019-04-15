@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {LocationService} from '../location.service';
 import {Storeinfo} from '../storeinfo';
+<<<<<<< HEAD
 import { NativeGeocoder,  NativeGeocoderResult} from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+=======
+>>>>>>> parent of 9e0226f... Revert "bug"
 
 @Component({
     selector: 'app-tab2',
@@ -25,6 +28,7 @@ export class Tab2Page implements OnInit {
                 this.storeinfos = res;
             });
 <<<<<<< HEAD
+<<<<<<< HEAD
         }
     locate() {
         this.geolocation.getCurrentPosition().then((resp) => {
@@ -46,6 +50,8 @@ export class Tab2Page implements OnInit {
             .then((coordinates: NativeGeocoderResult[]) => {
                 console.log(coordinates[0].latitude);
             });
+=======
+>>>>>>> parent of 9e0226f... Revert "bug"
 =======
 >>>>>>> parent of 9e0226f... Revert "bug"
     }
