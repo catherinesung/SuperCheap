@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LocationService} from '../location.service';
 import {Storeinfo} from '../storeinfo';
-import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult} from '@ionic-native/native-geocoder/ngx';
+import { NativeGeocoder, NativeGeocoderOptions,  NativeGeocoderResult} from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
@@ -16,20 +16,14 @@ export class Tab2Page implements OnInit {
     storeinfos: Storeinfo[];
     gla: number;
     glong: number;
+    myloca: string;
     ngOnInit(): void {
         this.locate();
-        const options: NativeGeocoderOptions = {
-            useLocale: true,
-            maxResults: 1
-        };
+        this.ard();
         this.locationService.getlocation().subscribe(
             (res: Storeinfo[]) => {
                 this.storeinfos = res;
             });
-            this.nativeGeocoder.forwardGeocode('Berlin', { useLocale: true, maxResults: 1 })
-                .then((coordinates: NativeGeocoderResult[]) => {
-                    console.log(coordinates[0].latitude);
-                });
         }
     locate() {
         this.geolocation.getCurrentPosition().then((resp) => {
@@ -38,5 +32,18 @@ export class Tab2Page implements OnInit {
         }).catch((error) => {
             console.log('Error getting location', error);
         });
+    }
+    ard() {
+        this.nativeGeocoder.reverseGeocode(this.gla, this.glong)
+            .then( (result: NativeGeocoderResult[]) => {
+                this.myloca = String(result[0]);
+                console.log(this.myloca); }
+            );
+    }
+    mark() {
+        this.nativeGeocoder.forwardGeocode('Berlin', { useLocale: true, maxResults: 1 })
+            .then((coordinates: NativeGeocoderResult[]) => {
+                console.log(coordinates[0].latitude);
+            });
     }
 }
