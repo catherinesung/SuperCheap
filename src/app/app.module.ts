@@ -13,13 +13,12 @@ import { AppComponent } from './app.component';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import {FormsModule} from '@angular/forms';
 import { PopoverComponent } from './popover/popover.component';
-import {AgmCoreModule} from '@agm/core';
+import {AgmCoreModule,  } from '@agm/core';
 
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
-import {NativeGeocoder} from '@ionic-native/native-geocoder';
 
 export function getAuthServiceConfigs() {
-  const config = new AuthServiceConfig(
+  let config = new AuthServiceConfig(
       [
         {
           id: FacebookLoginProvider.PROVIDER_ID,
@@ -41,10 +40,10 @@ export function getAuthServiceConfigs() {
     apiKey: 'AIzaSyD0POsH6N_XE7PSJtt1SIHmsJtvnSOT5pE'
   })],
   providers: [
-      StatusBar,
+    StatusBar,
     SplashScreen,
     BarcodeScanner,
-      NativeGeocoder,
+    // Geocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
   ],
