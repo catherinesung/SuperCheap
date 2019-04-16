@@ -16,17 +16,20 @@ export class ProductPage implements OnInit {
     display: Item;
     prodbarcode: string;
     sorted: [string, number][];
+    recommend: string[];
 
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
                 private route: ActivatedRoute, public popoverController: PopoverController) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
+            this.recommend = params['recommend'];
         });
     }
 
     ngOnInit(): void {
         this.getItems(this.prodbarcode);
+        console.log(this.recommend);
     }
 
     sortprice(itemm: Item) {
