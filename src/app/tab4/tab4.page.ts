@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {ItemService} from '../item.service';
 import {Item} from '../item';
 import {IonList} from '@ionic/angular';
+import { NativeGeocoder, NativeGeocoderForwardResult, NativeGeocoderOptions} from '@ionic-native/native-geocoder';
 
 @Component({
   selector: 'app-tab4',
@@ -15,7 +16,7 @@ export class Tab4Page implements OnInit {
   cart = [];
   items = [];
   total = [0];
-  supermarket = '';
+  supermarket = 'min_price';
   delivery = false;
   deliveryDetails = [];
   @ViewChild('slidingList') slidingList: IonList;
@@ -92,9 +93,12 @@ export class Tab4Page implements OnInit {
     console.log(this.total);
   }
 
-  refreshCart(){
-    console.log('Refreshed');
-    this.cart = this.cartService.getCart();
+  refreshCart(event){
+    this.cartService.calculateTotal();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 
   supermarketExistedInCart(supermarket: string){
