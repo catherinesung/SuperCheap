@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {ItemService} from '../item.service';
 import {Item} from '../item';
 import {IonList} from '@ionic/angular';
-import { NativeGeocoder, NativeGeocoderForwardResult, NativeGeocoderOptions} from '@ionic-native/native-geocoder';
 
 @Component({
   selector: 'app-tab4',
