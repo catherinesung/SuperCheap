@@ -26,11 +26,18 @@ export class ResultPage implements OnInit {
   success = '';
   itemd: string;
   selected: Item;
-  nresult: String;
+  recommend = [];
+  i = 0;
 
   ngOnInit(): void {
     this.getItems();
-  }
+      for (const fitem of this.fitems) {
+        if (this.i < 4 ) {
+          this.recommend[this.i] = (fitem.barcode);
+          this.i ++;
+        } else { break; }
+      }
+    }
 
   getItems(): void {
     this.itemservice.getAll().subscribe(
@@ -50,7 +57,9 @@ export class ResultPage implements OnInit {
     );
   }
     onSelect(fitem: Item) {
-    this.router.navigate(['/product'], { queryParams: { prodbarcode: fitem.barcode}});
+    this.router.navigate(['/product'], { queryParams: { prodbarcode: fitem.barcode, recommend: this.recommend}});
+      console.log(this.recommend);
+      console.log(fitem.barcode);
   }
   async popOver(fitem: Item) {
     const popover = await this.popoverController.create({
