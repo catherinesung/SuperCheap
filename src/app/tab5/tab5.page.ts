@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular-6-social-login';
-import { fs } from 'file-system';
+import { HttpClient } from '@angular/common/http';
 
-declare var require: any;
-/// <reference path="C:\Users\SY\SuperCheap\node_modules\tsutils\typeguard/node.d.ts" />
+import {User} from '../user';
+import {UserService} from '../user.service';
 
 @Component({
   selector: 'app-tab4',
@@ -12,7 +12,8 @@ declare var require: any;
 })
 
 export class Tab5Page implements OnInit {
-  constructor( private socialAuthService: AuthService ) {}
+  theuser: User;
+  constructor( private socialAuthService: AuthService, private http: HttpClient, private userservice: UserService) {}
 
   ngOnInit(): void {
 
@@ -27,16 +28,8 @@ export class Tab5Page implements OnInit {
     }
     this.socialAuthService.signIn(socialPlatformProvider).then((userData) => {
       console.log(socialPlatform + ' sign in data : ', userData);
-      /*const fs = require('fs');
-      fs.writeFile('./user.json', JSON.stringify(userData), (err) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      console.log('File has been created');
-    });*/
-      // Now sign-in with userData
-          // ...
+      this.theuser = userData;
+      this.userservice.postUser(this.theuser).subscribe();
     });
   }
 }
