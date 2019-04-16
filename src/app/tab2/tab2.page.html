@@ -5,24 +5,26 @@
     </ion-title>
   </ion-toolbar>
     <ion-segment>
-        <ion-segment-button (ionSelect)="segmentButtonClicked($event)">
+        <ion-segment-button (click) = "selectregion()" >
             <ion-label>地區</ion-label>
         </ion-segment-button>
-        <ion-segment-button (ionSelect)="segmentButtonClicked($event)">
+
+        <ion-segment-button (click)="selectStore()">
             <ion-label>商店</ion-label>
         </ion-segment-button>
     </ion-segment>
 </ion-header>
 <agm-map [zoom]="15" [latitude]= 'gla' [longitude]= 'glong'>
-    <agm-marker ></agm-marker>
+    <agm-marker *ngFor= "let store of fstoreinfos" [latitude]="store.latitude" [longitude]="store.longtitude" [markerClickable]="true"></agm-marker>
 
 </agm-map>
 <ion-content>
-  <ion-list *ngFor="let store of storeinfos">
-    <ion-grid>
-      <ion-row>地址: {{store.address}}</ion-row>
-      <ion-row>營業時間：{{store.ohfri}}</ion-row>
-      <ion-row>電話：{{store.phone}}</ion-row>
+  <ion-list *ngFor="let store of fstoreinfos">
+    <ion-grid (click)="findOnMap()">
+        <ion-row>{{store.type}}</ion-row>
+        <ion-row>地址: {{store.address}}</ion-row>
+        <ion-row>營業時間：{{store.ohfri}}</ion-row>
+        <ion-row>電話：{{store.phone}}</ion-row>
     </ion-grid>
   </ion-list>
 </ion-content>

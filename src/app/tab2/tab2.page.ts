@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {LocationService} from '../location.service';
 import {Storeinfo} from '../storeinfo';
-<<<<<<< HEAD
 import { NativeGeocoder,  NativeGeocoderResult} from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-=======
->>>>>>> parent of 9e0226f... Revert "bug"
+import {WheelSelector} from '@ionic-native/wheel-selector/ngx';
 
 @Component({
     selector: 'app-tab2',
@@ -14,22 +12,54 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 })
 
 export class Tab2Page implements OnInit {
-    constructor(private locationService: LocationService, private nativeGeocoder: NativeGeocoder, private geolocation: Geolocation) {
+    constructor(private locationService: LocationService,
+                private nativeGeocoder: NativeGeocoder,
+                private geolocation: Geolocation,
+                private selector: WheelSelector) {
     }
     storeinfos: Storeinfo[];
+    fstoreinfos: Storeinfo[];
     gla: number;
     glong: number;
-    myloca: string;
+    // myloca: string;
+    keywords = ' ';
+    filterstr: string;
+     storeselection = {
+        store: [
+            {description: 'PK'},
+            {description: 'MP'},
+            {description: 'WC'}
+        ],
+        fruits: [
+            {description: 'Apple'},
+            {description: 'Banana'},
+            {description: 'Tangerine'}
+        ]
+    };
     ngOnInit(): void {
         this.locate();
-        this.ard();
+        // this.ard();
         this.locationService.getlocation().subscribe(
             (res: Storeinfo[]) => {
                 this.storeinfos = res;
+                this.filter();
             });
-<<<<<<< HEAD
-<<<<<<< HEAD
         }
+    selectStore() {
+        this.selector.show({
+            title: '請選擇商店',
+            items: [ this.storeselection.store
+            ],
+            positiveButtonText: 'Ok',
+            negativeButtonText: 'Cancel',
+        }).then(
+            result => {
+                this.keywords = result[0];
+                this.filter();
+            },
+            err => console.log('Error: ', err)
+        );
+    }
     locate() {
         this.geolocation.getCurrentPosition().then((resp) => {
             this.gla = resp.coords.latitude;
@@ -38,7 +68,7 @@ export class Tab2Page implements OnInit {
             console.log('Error getting location', error);
         });
     }
-    ard() {
+    /*ard() {
         this.nativeGeocoder.reverseGeocode(this.gla, this.glong)
             .then( (result: NativeGeocoderResult[]) => {
                 this.myloca = String(result[0]);
@@ -50,9 +80,21 @@ export class Tab2Page implements OnInit {
             .then((coordinates: NativeGeocoderResult[]) => {
                 console.log(coordinates[0].latitude);
             });
-=======
->>>>>>> parent of 9e0226f... Revert "bug"
-=======
->>>>>>> parent of 9e0226f... Revert "bug"
+    }*/
+    filter() {
+        this.fstoreinfos = [];
+        if (this.keywords !== ' ') {
+            for (const store of this.storeinfos) {
+                this.filterstr = store.type + store.name + store.address + store.region + store.district;
+                console.log(this.keywords) ;
+             if (this.filterstr.toString().toLowerCase().includes(this.keywords.toLowerCase())) {
+                 this.fstoreinfos.push(store);
+             }
+            }
+        } else { this.fstoreinfos = this.storeinfos; console.log(this.fstoreinfos); }
+    }
+    Search(value: string) {
+       this.keywords = value;
+       this.filter();
     }
 }
