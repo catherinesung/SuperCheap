@@ -5,24 +5,23 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-list *ngFor="let fitem of fitems">
-        <ion-grid>
-            <ion-row>
-                <ion-col size="2.5"><ion-img src="assets/product-img/{{fitem.barcode}}.jpg"></ion-img></ion-col>
-                <ion-col size="6.5">
-                    <ion-item >{{fitem.brand_tc}} <br>{{fitem.name_tc}} <br> price: {{fitem.price_aeon}}
-                    </ion-item>
-                </ion-col>
-                <ion-col size="1">
-                    <ion-row>
-                        <ion-button class = "viewbu" size="small"[class.selected]="fitem === selected" (click)="onSelect(fitem)">view more</ion-button>
-                    </ion-row>
-                    <ion-row>
-                        <ion-button class = 'shop' size="small" [class.selected]="fitem === selected" (click)="popOver(fitem)"><ion-icon name="cart"></ion-icon></ion-button>
-                    </ion-row>
-
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </ion-list>
+        <ion-list *ngFor="let fitem of fitems">
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="2.5"><ion-img src="assets/product-img/{{fitem.barcode}}.jpg"></ion-img></ion-col>
+                    <ion-col size="6.5">
+                        <ion-item >{{fitem.brand_tc}} <br>{{fitem.name_tc}} <br> price: {{minprice[i]}}
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="1">
+                        <ion-row>
+                            <ion-button class = "viewbu" size="small"[class.selected]="fitem === selected" (click)="onSelect(fitem)">view</ion-button>
+                        </ion-row>
+                        <ion-row>
+                            <ion-button class = 'shop' size="small" [class.selected]="fitem === selected" (click)="popOver(fitem)"><ion-icon name="cart"></ion-icon></ion-button>
+                        </ion-row>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-list>
 </ion-content>

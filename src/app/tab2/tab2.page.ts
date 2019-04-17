@@ -40,23 +40,22 @@ export class Tab2Page implements OnInit {
     }
     filter() {
             this.fstoreinfos = [];
+        for (const store of this.storeinfos) {
+            if (store.latitude !== 0) {
+                store.distance =  Math.PI * 2 * Math.asin( Math.pow( Math.sin( (this.gla - store.latitude) / 2), 2)
+                    + Math.cos(store.latitude) * Math.cos( this.gla) *
+                    Math.pow( Math.sin((store.longtitude - this.glong) / 2), 2));
+            } else {store.distance = 2000000; }
+        }
             if (this.keywords !== ' ') {
                 for (const store of this.storeinfos) {
                     this.filterstr = store.type + store.name + store.address + store.region + store.district;
                     if (this.filterstr.toString().toLowerCase().includes(this.keywords.toLowerCase())) {
-                        store.distance =  Math.PI * 2 * Math.asin( Math.pow( Math.sin( Math.abs((this.gla - store.latitude) / 2)), 2)
-                            + Math.cos(store.latitude) * Math.cos( this.gla) *
-                            Math.pow( Math.sin(Math.abs((store.longtitude - this.glong) / 2)), 2));
                         this.fstoreinfos.push(store);
                     }
                 }
             } else {
                 for (const store of this.storeinfos) {
-                    if (store.latitude !== 0) {
-                        store.distance =  Math.PI * 2 * Math.asin( Math.pow( Math.sin( Math.abs((this.gla - store.latitude) / 2)), 2)
-                            + Math.cos(store.latitude) * Math.cos( this.gla) *
-                            Math.pow( Math.sin(Math.abs((store.longtitude - this.glong) / 2)), 2));
-                    } else {store.distance = 2000000; }
                     this.fstoreinfos.push(store);
                 }
             }
