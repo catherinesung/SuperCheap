@@ -3,22 +3,29 @@
       <ion-searchbar #box  cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)"  > </ion-searchbar>
   </ion-toolbar>
     <ion-segment>
-        <ion-segment-button (click) = "selectregion()" >
+        <ion-segment-button (click) = "openPicker()" >
             <ion-label>地區</ion-label>
         </ion-segment-button>
 
-        <ion-segment-button (click)="selectStore()">
+        <ion-segment-button (click)="openPicker2()">
             <ion-label>商店</ion-label>
         </ion-segment-button>
     </ion-segment>
 </ion-header>
 
 <agm-map [zoom]="15" [latitude]= 'gla' [longitude]= 'glong'>
-    <agm-marker *ngFor= "let store of fstoreinfos" [latitude]="store.latitude" [longitude]="store.longtitude" [markerClickable]="true"></agm-marker>
+    <agm-marker *ngFor= "let store of fstoreinfos"
+                [latitude]="store.latitude"
+                [longitude]="store.longtitude"
+                (markerClick)="markerclick(store.address)">
+        <agm-info-window [disableAutoPan]="true">
+            地址: {{store.address }} <br> 營業時間：{{store.ohfri}} <br> 電話：{{store.phone}}
+        </agm-info-window>
+    </agm-marker>
 </agm-map>
 <ion-content>
   <ion-list *ngFor="let store of fstoreinfos">
-    <ion-grid (click)="findOnMap()">
+    <ion-grid (click)="findOnMap(store.latitude,store.longtitude)">
         <ion-row >{{store.type}}</ion-row>
         <ion-row>地址: {{store.address}}</ion-row>
         <ion-row>營業時間：{{store.ohfri}}</ion-row>

@@ -17,4 +17,5 @@ export interface Storeinfo {
     others: string;
     latitude: number;
     longtitude: number;
+    distance: number;
 }

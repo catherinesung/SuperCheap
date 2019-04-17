@@ -33,6 +33,7 @@
     "@ionic/pro": "2.0.4",
     "@types/cordova": "0.0.34",
     "@types/jquery": "^3.3.29",
+    "@types/mathjs": "^5.0.1",
     "angular-6-social-login": "^1.1.1",
     "angular5-social-login": "^1.0.9",
     "cordova-ios": "4.5.5",
