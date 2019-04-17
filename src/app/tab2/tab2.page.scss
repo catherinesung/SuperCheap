@@ -1,10 +1,39 @@
 agm-map {
   position: relative;
-  top: 0px;
   width: 100%;
   height: 50vh;
 }
 ion-header{
   position: absolute;
   height: 10%;
+}
+ion-segment{
+  padding-top: 3%;
+}
+ion-segment-button{
+  --color-activated: #ffff;
+  --color-checked: #ffff;
+  --indicator-color: #ffff;
+  --background: white;
+}
+ion-searchbar {
+  position: relative;
+  width: 100%;
+  --background: white;
+  --color: #ff9500;
+  --icon-color: #ff9500;
+  --placeholder-color: #ff950;
+  border: thin white;
+  height: 90%;
+}
+ion-content{
+  --color:#ff9500;
+}
+ion-list{
+  left: 2.5%;
+  width: 95%;
+  border-bottom-color: #ff9500;
+  border-bottom: solid;
+  border-bottom-width: thin;
+  border-bottom-color: #feca7e;
 }

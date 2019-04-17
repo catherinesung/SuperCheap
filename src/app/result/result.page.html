@@ -15,10 +15,10 @@
                 </ion-col>
                 <ion-col>
                     <ion-row>
-                        <button [class.selected]="fitem === selected" (click)="onSelect(fitem)">view more</button>
+                        <ion-button class = "viewbu"[class.selected]="fitem === selected" (click)="onSelect(fitem)">view more</ion-button>
                     </ion-row>
                     <ion-row>
-                        <ion-button [class.selected]="fitem === selected" (click)="popOver(fitem)"><ion-icon name="cart"></ion-icon></ion-button>
+                        <ion-button class = 'shop' size="small" [class.selected]="fitem === selected" (click)="popOver(fitem)"><ion-icon name="cart"></ion-icon></ion-button>
                     </ion-row>
 
                 </ion-col>
