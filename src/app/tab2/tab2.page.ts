@@ -4,7 +4,7 @@ import {Storeinfo} from '../storeinfo';
 import { NativeGeocoder,  NativeGeocoderResult} from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {WheelSelector} from '@ionic-native/wheel-selector/ngx';
-
+import { PickerController } from '@ionic/angular';
 @Component({
     selector: 'app-tab2',
     templateUrl: 'tab2.page.html',
@@ -15,86 +15,157 @@ export class Tab2Page implements OnInit {
     constructor(private locationService: LocationService,
                 private nativeGeocoder: NativeGeocoder,
                 private geolocation: Geolocation,
-                private selector: WheelSelector) {
+                private selector: WheelSelector,
+                private pickerCtrl: PickerController) {
     }
     storeinfos: Storeinfo[];
     fstoreinfos: Storeinfo[];
     gla: number;
     glong: number;
-    // myloca: string;
     keywords = ' ';
     filterstr: string;
-     storeselection = {
-        store: [
-            {description: 'PK'},
-            {description: 'MP'},
-            {description: 'WC'}
-        ],
-        fruits: [
-            {description: 'Apple'},
-            {description: 'Banana'},
-            {description: 'Tangerine'}
-        ]
-    };
     ngOnInit(): void {
-        this.locate();
-        // this.ard();
         this.locationService.getlocation().subscribe(
             (res: Storeinfo[]) => {
                 this.storeinfos = res;
-                this.filter();
+                this.location();
             });
         }
-    selectStore() {
-        this.selector.show({
-            title: '請選擇商店',
-            items: [ this.storeselection.store
-            ],
-            positiveButtonText: 'Ok',
-            negativeButtonText: 'Cancel',
-        }).then(
-            result => {
-                this.keywords = result[0];
-                this.filter();
-            },
-            err => console.log('Error: ', err)
-        );
-    }
-    locate() {
+    location() {
         this.geolocation.getCurrentPosition().then((resp) => {
             this.gla = resp.coords.latitude;
             this.glong = resp.coords.longitude;
-        }).catch((error) => {
-            console.log('Error getting location', error);
+            this.filter();
         });
     }
-    /*ard() {
-        this.nativeGeocoder.reverseGeocode(this.gla, this.glong)
-            .then( (result: NativeGeocoderResult[]) => {
-                this.myloca = String(result[0]);
-                console.log(this.myloca); }
-            );
-    }
-    mark() {
-        this.nativeGeocoder.forwardGeocode('Berlin', { useLocale: true, maxResults: 1 })
-            .then((coordinates: NativeGeocoderResult[]) => {
-                console.log(coordinates[0].latitude);
-            });
-    }*/
     filter() {
-        this.fstoreinfos = [];
-        if (this.keywords !== ' ') {
-            for (const store of this.storeinfos) {
-                this.filterstr = store.type + store.name + store.address + store.region + store.district;
-                console.log(this.keywords) ;
-             if (this.filterstr.toString().toLowerCase().includes(this.keywords.toLowerCase())) {
-                 this.fstoreinfos.push(store);
-             }
+            this.fstoreinfos = [];
+            if (this.keywords !== ' ') {
+                for (const store of this.storeinfos) {
+                    this.filterstr = store.type + store.name + store.address + store.region + store.district;
+                    if (this.filterstr.toString().toLowerCase().includes(this.keywords.toLowerCase())) {
+                        store.distance =  Math.PI * 2 * Math.asin( Math.pow( Math.sin( Math.abs((this.gla - store.latitude) / 2)), 2)
+                            + Math.cos(store.latitude) * Math.cos( this.gla) *
+                            Math.pow( Math.sin(Math.abs((store.longtitude - this.glong) / 2)), 2));
+                        this.fstoreinfos.push(store);
+                    }
+                }
+            } else {
+                for (const store of this.storeinfos) {
+                    if (store.latitude !== 0) {
+                        store.distance =  Math.PI * 2 * Math.asin( Math.pow( Math.sin( Math.abs((this.gla - store.latitude) / 2)), 2)
+                            + Math.cos(store.latitude) * Math.cos( this.gla) *
+                            Math.pow( Math.sin(Math.abs((store.longtitude - this.glong) / 2)), 2));
+                    } else {store.distance = 2000000; }
+                    this.fstoreinfos.push(store);
+                }
             }
-        } else { this.fstoreinfos = this.storeinfos; console.log(this.fstoreinfos); }
-    }
+            this.fstoreinfos.sort(function(obj1, obj2) {
+                // Ascending: first age less than the previous
+                return  obj1.distance - obj2.distance; });
+        }
     Search(value: string) {
        this.keywords = value;
        this.filter();
+    }
+    findOnMap(latitude: number, longtitude: number) {
+        this.gla = latitude;
+        this.glong = longtitude;
+    }
+    async openPicker2() {
+        const picker = await this.pickerCtrl.create({
+            buttons: [
+                {
+                    text: '取消',
+                    role: 'cancel',
+                    handler: data => {
+                        console.log(data.list.value);
+                        this.keywords = data.list.value;
+                        this.filter();
+                    }
+                },
+                {
+                    text: '確定',
+                    role: 'done',
+                    handler: data => {
+                        console.log(data.list.value);
+                    }
+                }
+            ],
+            columns: [
+                {
+                    name: 'list',
+                    options: [
+                        {
+                            text: '百佳',
+                            value: 'parknshop'
+                        },
+                        {
+                            text: 'Markerplace',
+                            value: 'marketplace'
+                        },
+                        {
+                            text: '惠康',
+                            value: 'Wellcome'
+                        },
+                        {
+                            text: '屈臣氏',
+                            value: 'watson'
+                        },
+                        {
+                            text: '大昌',
+                            value: 'dch'
+                        },
+                        {
+                            text: 'Aeon',
+                            value: 'aeon'
+                        },
+                    ]
+                }
+            ]
+        })
+        await picker.present();
+    }
+    async openPicker() {
+        const picker = await this.pickerCtrl.create({
+            buttons: [
+                {
+                    text: '取消',
+                    role: 'cancel',
+                    handler: data => {
+                        console.log(data.list.value);
+                        this.keywords = data.list.value;
+                        this.filter();
+                    }
+                },
+                {
+                    text: '確定',
+                    role: 'done',
+                    handler: data => {
+                        console.log(data.list.value);
+                    }
+                }
+            ],
+            columns: [
+                {
+                    name: 'list',
+                    options: [
+                        {
+                            text: '新界 ',
+                            value: 'NT'
+                        },
+                        {
+                            text: '九龍',
+                            value: 'KL'
+                        },
+                        {
+                            text: '香港島',
+                            value: 'HK'
+                        }
+                    ]
+                }
+            ]
+        })
+        await picker.present();
     }
 }

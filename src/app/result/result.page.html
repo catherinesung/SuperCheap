@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header xmlns="http://www.w3.org/1999/html">
     <ion-toolbar>
         <ion-searchbar #box  cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)"> </ion-searchbar>
         <ion-button  (click)="scanCode()" slot="primary"><ion-icon name="barcode"></ion-icon></ion-button>
@@ -8,17 +8,17 @@
     <ion-list *ngFor="let fitem of fitems">
         <ion-grid>
             <ion-row>
-                <ion-col><ion-img src="assets/product-img/{{fitem.barcode}}.jpg"></ion-img></ion-col>
-                <ion-col>
-                    <ion-item >name: {{fitem.brand_tc}}{{fitem.name_tc}} <br> price: {{fitem.price_aeon}}
+                <ion-col size="2.5"><ion-img src="assets/product-img/{{fitem.barcode}}.jpg"></ion-img></ion-col>
+                <ion-col size="6.5">
+                    <ion-item >{{fitem.brand_tc}} <br>{{fitem.name_tc}} <br> price: {{fitem.price_aeon}}
                     </ion-item>
                 </ion-col>
-                <ion-col>
+                <ion-col size="1">
                     <ion-row>
-                        <button [class.selected]="fitem === selected" (click)="onSelect(fitem)">view more</button>
+                        <ion-button class = "viewbu" size="small"[class.selected]="fitem === selected" (click)="onSelect(fitem)">view more</ion-button>
                     </ion-row>
                     <ion-row>
-                        <ion-button [class.selected]="fitem === selected" (click)="popOver(fitem)"><ion-icon name="cart"></ion-icon></ion-button>
+                        <ion-button class = 'shop' size="small" [class.selected]="fitem === selected" (click)="popOver(fitem)"><ion-icon name="cart"></ion-icon></ion-button>
                     </ion-row>
 
                 </ion-col>
