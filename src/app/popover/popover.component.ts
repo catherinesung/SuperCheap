@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Item} from '../item';
 import { PopoverController} from '@ionic/angular';
+import {CartService} from '../cart.service';
 
 @Component({
   selector: 'app-popover',
@@ -11,10 +12,20 @@ export class PopoverComponent implements OnInit {
   quantity: number;
   supermarket: string;
   fitem: Item;
-  constructor(public popoverController: PopoverController) { }
+  calledBy: string;
+
+  constructor(public popoverController: PopoverController, private cartService: CartService) { }
 
   ngOnInit() {
+    this.supermarket = 'price_wellcome';
+    // if it is called by cart
+    if (this.calledBy === 'cart'){
+      this.supermarket = this.fitem.displayPrice[0];
+      this.quantity = this.cartService.findProductInCart(this.fitem).quantity;
+      console.log(this.fitem.displayPrice[0]);
+    }
   }
+
   onChangem(entrysupermarket: any) {
     this.supermarket = entrysupermarket;
     console.log(this.supermarket);
@@ -25,8 +36,13 @@ export class PopoverComponent implements OnInit {
   }
   async donePops() {
     const data = [this.supermarket, this.quantity];
-   this.popoverController.dismiss( data, 'confirm');
-    console.log('dismissed' );
+    if(this.quantity != null && this.quantity !== 0){
+      this.popoverController.dismiss( data, 'confirm');
+    }
+    else{
+      console.log('請輸入數量！')
+    }
+    console.log('dismissed');
   }
   async donePopf() {
     const data = [this.supermarket, this.quantity];

@@ -1,3 +1,4 @@
+<!--
 <ion-list>
   <ion-radio-group [(ngModel)]="entrysupermarket" (ionChange)="onChangem(entrysupermarket)">
     <ion-item>
@@ -35,5 +36,44 @@
     <ion-segment-button (click)="donePopf()">Cancel</ion-segment-button>
     <ion-segment-button (click)="donePops()">OK</ion-segment-button>
   </ion-segment>
+</ion-item>-->
+<ion-list>
+  <ion-radio-group [(ngModel)]="supermarket">
+    <ion-item>
+      <ion-label>Aeon ${{fitem.price_aeon}}</ion-label>
+      <ion-radio value="price_aeon" ></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>dch ${{fitem.price_dch}}</ion-label>
+      <ion-radio value="price_dch" ></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>marketplace ${{fitem.price_marketplace}}</ion-label>
+      <ion-radio value="price_marketplace" ></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>parknshop ${{fitem.price_parknshop}}</ion-label>
+      <ion-radio value="price_parknshop" ></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>wellcome ${{fitem.price_wellcome}}</ion-label>
+      <ion-radio value="price_wellcome"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>watson ${{fitem.price_waston}}</ion-label>
+      <ion-radio value="price_waston"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-list>
+<ion-item>
+  <ion-textarea placeholder="Enter quantity here..." [(ngModel)]="quantity"></ion-textarea>
 </ion-item>
+<ion-item>
+  <ion-segment>
+    <ion-segment-button (click)="donePopf()">Cancel</ion-segment-button>
+    <ion-segment-button (click)="donePops()">OK</ion-segment-button>
+  </ion-segment>
+</ion-item>
+
+
 

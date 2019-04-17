@@ -50,7 +50,7 @@
           {{products.item.name_tc}}
         </ion-label>
 
-        <ion-buttons slot="end">
+        <ion-buttons slot="end" (click)="popOver(products.item)">
           <ion-chip color="primary">
             <ion-avatar><img src="assets/supermarket-img/{{products.item.displayPrice[0]}}.png"></ion-avatar>
             <ion-label>${{products.item.displayPrice[1]}}</ion-label>
@@ -154,8 +154,7 @@
     <ion-button (click)="emptyCart()">Clear Cart</ion-button>
     <ion-button (click)="debug()">cart</ion-button>
     <ion-button (click)="debug2()">total</ion-button>
-    <ion-button (click)="refreshCart()">refresh</ion-button>
-
+    <ion-button (click)="openPicker2()">refresh</ion-button>
 
 
   </ion-list>
