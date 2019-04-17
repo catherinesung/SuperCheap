@@ -14,22 +14,25 @@ import { PopoverController } from '@ionic/angular';
 export class ProductPage implements OnInit {
     items: Item[];
     display: Item;
+    recommend: Item[];
     prodbarcode: string;
-    sorted: [string, number][];
-    recommend: string[];
+    recommendcode: string[];
+    num: number[];
 
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
                 private route: ActivatedRoute, public popoverController: PopoverController) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
-            this.recommend = params['recommend'];
+            this.recommendcode = params['recommend'];
         });
     }
 
     ngOnInit(): void {
-        this.getItems(this.prodbarcode);
-        console.log(this.recommend);
+        this.getItems();
+        console.log(this.recommendcode);
+        this.num = [0, 1, 2, 3, 4];
+        console.log(this.num);
     }
 
     sortprice(itemm: Item) {
@@ -59,14 +62,25 @@ export class ProductPage implements OnInit {
         return sorted;
     }
 
-    getItems(prodbarcode: string): void {
+    getItems() {
         this.itemservice.getAll().subscribe((res: Item[]) => {
             this.items = res;
-            this.display = this.items.find(x => x.barcode === prodbarcode);
-            console.log(this.display);
-            this.sorted = this.sortprice(this.display);
-            console.log(this.sorted);
+            this.recommend = this.items;
+            this.InitItems();
         });
+    }
+
+    InitItems(): void{
+        this.display = this.items.find(x => x.barcode === this.prodbarcode);
+        console.log(this.display);
+        this.display['sorted'] = this.sortprice(this.display);
+        console.log(this.display['sorted']);
+        for (let i in this.recommendcode) {
+            this.recommend[i] = this.items.find(x => x.barcode === this.recommendcode[i]);
+            console.log(this.recommend[i]);
+            this.recommend[i]['sorted'] = this.sortprice(this.recommend[i]);
+            console.log(this.recommend[i]['sorted']);
+        }
     }
 
     async popOver(itemm: Item) {
@@ -92,6 +106,5 @@ export class ProductPage implements OnInit {
                 console.log('fail');
                 break;
         }
-
     }
 }
