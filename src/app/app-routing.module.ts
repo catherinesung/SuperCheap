@@ -4,6 +4,7 @@ const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: 'product', loadChildren: './product/product.module#ProductPageModule' },
   { path: 'result', loadChildren: './result/result.module#ResultPageModule' },
+  { path: 'resultfilter', loadChildren: './resultfilter/resultfilter.module#ResultfilterPageModule' },
 ];
 @NgModule({
   imports: [

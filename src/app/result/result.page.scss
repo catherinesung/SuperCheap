@@ -1,26 +1,3 @@
-ion-searchbar{
-  --background: white;
-  --color: #ff9500 ;
-  --icon-color: #ff9500;
-  --placeholder-color: #ff950;
-  border-width: thin;
-  border-radius: 15%;
-  border-color: #ff9500 ;
-}
-ion-item{
-  --color: #ff9500;
-  font-size: small;
-}
-  ion-button{
-    --border-color: #ff9500 ;
-    --background : white;
-    --border-radius: 15%;
-    --color: #ff9500;
-    --border-style: solid;
-    --border-width: thin;
-    --color-activated: white;
-    --background-activated: #ff9500;
-  }
 ion-col{
   padding-top: 0;
   padding-bottom: 0;
@@ -32,4 +9,82 @@ ion-row{
   padding-bottom: 0;
   margin-top: 0;
   margin-bottom: 0;
+  align-items: center;
+}
+.brand{
+  font-size: small;
+  font-weight: normal;
+}
+.name{
+  font-weight: bolder;
+  font-size: medium;
+}
+.price{
+  font-size: medium;
+  font-weight: bold;
+}
+.pricepic{
+  width: 20%;
+  padding: 3%;
+  --border-radius: 5%;
+}
+.bar{
+  position: relative;
+  background-color: #ffd59a;
+  text-align: end;
+  height: 27%;
+  box-shadow: none;
+  margin:0;
+  left: 5%;
+  width: 90%;
+}
+.filter{
+  --background-: opacity(0);
+  align-content: start;
+  color: #ff9500;
+  font-size: 130%;
+  padding-top: 1%;
+  padding-right: 3%;
+}
+.shop{
+  --border-color: #ffd59a ;
+  --background : #ffd59a;
+  --color: #ff9500;
+  padding-right: 0;
+  padding-left: 0;
+  border-color: #ffd59a;
+  --color-activated: white;
+  --background-activated: #ff9500;
+  height: border-box;
+}
+ion-searchbar{
+  --background: white;
+  --color: #ff9500 ;
+  --icon-color: #ff9500;
+  --placeholder-color: #ffd59a;
+  border: thin;
+  border-color: #ff9500;
+  position: relative;
+}
+ion-item{
+  --color: #ff9500;
+  --border-color:#ffeed6;
+}
+.scanner{
+  border-width: 0;
+  background-color: white;
+  color: #ff9500;
+  --background-activated: #ff9500;
+  --color-activated: white;
+  font-size: 170%;
+}
+ion-list{
+  border-bottom-width: thin;
+}
+ion-toolbar{
+  width: 92%;
+  left:3%;
+}
+.cart{
+  font-size: 170%;
 }

@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {LocationService} from '../location.service';
 import {Storeinfo} from '../storeinfo';
-import { NativeGeocoder,  NativeGeocoderResult} from '@ionic-native/native-geocoder/ngx';
+import { NativeGeocoder} from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {WheelSelector} from '@ionic-native/wheel-selector/ngx';
 import { PickerController } from '@ionic/angular';
+import {CallNumber} from '@ionic-native/call-number/ngx';
 @Component({
     selector: 'app-tab2',
     templateUrl: 'tab2.page.html',
@@ -16,7 +17,8 @@ export class Tab2Page implements OnInit {
                 private nativeGeocoder: NativeGeocoder,
                 private geolocation: Geolocation,
                 private selector: WheelSelector,
-                private pickerCtrl: PickerController) {
+                private pickerCtrl: PickerController,
+                private callNumber: CallNumber) {
     }
     storeinfos: Storeinfo[];
     fstoreinfos: Storeinfo[];
@@ -31,6 +33,9 @@ export class Tab2Page implements OnInit {
                 this.storeinfos = res;
                 this.location();
             });
+    }
+    callphone(phone) {
+        this.callNumber.callNumber(phone, true);
     }
     markerclick(infowindow) {
         if (this.previous) {

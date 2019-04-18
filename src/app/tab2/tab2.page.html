@@ -24,12 +24,12 @@
     </agm-marker>
 </agm-map>
 <ion-content>
-  <ion-list *ngFor="let store of fstoreinfos">
+  <ion-list *ngFor="let store of fstoreinfos" lines = none>
     <ion-grid (click)="findOnMap(store.latitude,store.longtitude)">
-        <ion-row >{{store.type}}</ion-row>
-        <ion-row>地址: {{store.address}}</ion-row>
-        <ion-row>營業時間：{{store.ohfri}}</ion-row>
-        <ion-row>電話：{{store.phone}}</ion-row>
+        <ion-row ><ion-item>{{store.type}}</ion-item></ion-row>
+        <ion-row><ion-item>地址: {{store.address}}</ion-item></ion-row>
+        <ion-row><ion-item>營業時間：{{store.ohfri}}</ion-item></ion-row>
+        <ion-row ><ion-item (click)="callphone(store.phone)" class="phone"> 電話：{{store.phone}}</ion-item></ion-row>
     </ion-grid>
   </ion-list>
 </ion-content>

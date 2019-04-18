@@ -1,27 +1,34 @@
-<ion-header xmlns="http://www.w3.org/1999/html">
+<ion-header >
     <ion-toolbar>
         <ion-searchbar #box  cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)"> </ion-searchbar>
-        <ion-button  (click)="scanCode()" slot="primary"><ion-icon name="barcode"></ion-icon></ion-button>
+        <ion-icon name="barcode" class="scanner" slot="primary"><ion-button (click)="scanCode()" ></ion-button></ion-icon>
     </ion-toolbar>
+    <ion-card class="bar" no-shadow>
+        <ion-icon name="funnel" class="filter"><ion-button (click)="showfilter()"></ion-button></ion-icon></ion-card>
 </ion-header>
 <ion-content>
-        <ion-list *ngFor="let fitem of fitems" lines = none>
-            <ion-grid>
-                <ion-row>
-                    <ion-col size="2.5"><ion-img src="assets/product-img/{{fitem.barcode}}.jpg" (error)="this.src='assets/product-img/no-image.jpg'"></ion-img></ion-col>
-                    <ion-col size="6.5">
-                            <ion-item >{{fitem.brand_tc}} <br>{{fitem.name_tc}} <br> price: {{fitem.price_wellcome}}
-                        </ion-item>
-                    </ion-col>
-                    <ion-col size="1">
-                        <ion-row>
-                            <ion-button class = "viewbu" size="small"[class.selected]="fitem === selected" (click)="onSelect(fitem)">view</ion-button>
-                        </ion-row>
-                        <ion-row>
-                            <ion-button class = 'shop' size="small" [class.selected]="fitem === selected" (click)="popOver(fitem)"><ion-icon name="cart"></ion-icon></ion-button>
-                        </ion-row>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
+        <ion-list *ngFor="let fitem of fitems" >
+            <ion-item detail (click)="onSelect(fitem)" >
+
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="3"><ion-img src="assets/product-img/{{fitem.barcode}}.jpg" (error)="this.src='assets/product-img/no-image.jpg'"></ion-img></ion-col>
+                        <ion-col size="7">
+                            <ion-row class="brand">{{fitem.brand_tc}} </ion-row>
+                                <ion-row class="name">{{fitem.name_tc}}</ion-row>
+                                <ion-row class="price">
+                                    <ion-img class="pricepic" src="assets/supermarket-img/{{fitem['minPrice'][0].supermarket}}.png" ></ion-img>
+                                 &nbsp;$ {{fitem['minPrice'][0].price}}
+                            </ion-row>
+                        </ion-col>
+                        <ion-col size="1">
+                            <ion-row>
+                                <ion-button class = 'shop' [class.selected]="fitem === selected" (click)="popOver(fitem);$event.stopPropagation();"><ion-icon name="cart" class="cart"></ion-icon></ion-button>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+
         </ion-list>
 </ion-content>

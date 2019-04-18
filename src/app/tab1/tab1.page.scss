@@ -12,11 +12,19 @@ ion-searchbar{
   --background: white;
   --color: #ff9500 ;
   --icon-color: #ff9500;
-  --placeholder-color: #ff950;
-  border-width: thin;
-  border-radius: 15%;
-  border-color: #ff9500 ;
+  --placeholder-color: #ffd59a;
+  border: thin;
+  border-color: #ff9500;
+  position: relative;
 }
 ion-content{
   --color: #ff9500;
+}
+.scanner{
+  border-width: 0;
+  background-color: white;
+  color: #ff9500;
+  --background-activated: #ff9500;
+  --color-activated: white;
+  font-size: 170%;
 }

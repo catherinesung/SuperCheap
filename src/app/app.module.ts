@@ -18,6 +18,10 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
+import {CallNumber} from '@ionic-native/call-number/ngx';
+import {NavController} from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import {ResultfilterPage} from './resultfilter/resultfilter.page';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -35,8 +39,8 @@ export function getAuthServiceConfigs() {
 }
 
 @NgModule({
-  declarations: [AppComponent, PopoverComponent],
-  entryComponents: [PopoverComponent],
+  declarations: [AppComponent, PopoverComponent, ResultfilterPage],
+  entryComponents: [PopoverComponent, ResultfilterPage],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule, AgmCoreModule, SocialLoginModule,
     AgmCoreModule.forRoot({
     apiKey: 'AIzaSyD0POsH6N_XE7PSJtt1SIHmsJtvnSOT5pE'
@@ -48,6 +52,9 @@ export function getAuthServiceConfigs() {
       NativeGeocoder,
       Geolocation,
       WheelSelector,
+      CallNumber,
+      NavController,
+      ModalController,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
   ],

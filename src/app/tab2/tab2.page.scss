@@ -32,8 +32,14 @@ ion-content{
 ion-list{
   left: 2.5%;
   width: 95%;
-  border-bottom-color: #ff9500;
   border-bottom: solid;
   border-bottom-width: thin;
   border-bottom-color: #feca7e;
+}
+ion-item{
+  border-width: 0;
+  --background: white;
+  --color: #ff950;
+  --color-activated: #feca7e;
+  --backgound-activated: white;
 }

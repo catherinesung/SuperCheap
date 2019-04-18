@@ -22,8 +22,7 @@
     "@angular/platform-browser-dynamic": "^7.2.2",
     "@angular/router": "^7.2.2",
     "@ionic-native/barcode-scanner": "^5.2.0",
-    "@ionic-native/core": "^5.0.0",
-    "@ionic-native/core": "^5.4.0",
+    "@ionic-native/call-number": "^5.4.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/geolocation": "^5.4.0",
     "@ionic-native/google-maps": "^5.0.0-beta.27",
@@ -102,7 +101,6 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-nativegeocoder": {},
-      "cordova-plugin-geolocation": {},
       "cordova-plugin-geolocation": {},
       "cordova-wheel-selector-plugin": {}
     },

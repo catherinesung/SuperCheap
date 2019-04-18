@@ -7,6 +7,9 @@ import {PopoverComponent} from '../popover/popover.component';
 import { PopoverController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
+import { ModalController } from '@ionic/angular';
+import {ResultfilterPage} from '../resultfilter/resultfilter.page';
+
 
 @Component({
   selector: 'app-result',
@@ -17,20 +20,18 @@ import { BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 export class ResultPage implements OnInit {
   constructor(private itemservice: ItemService, private route: ActivatedRoute, public alertController: AlertController,
               private router: Router, private cartService: CartService, public popoverController: PopoverController,
-              private barcodeScanner: BarcodeScanner) {
+              private barcodeScanner: BarcodeScanner, public modalController: ModalController) {
     this.route.queryParams.subscribe(params => {
       this.keywords = params['keywords']; });
   }
   keywords: string;
   items: Item[] = [];
-  fitems: Item[] = [];
+  fitems: Item[];
   error = '';
   success = '';
   itemd: string;
   selected: Item;
-  recommend = [];
-  minprice = [];
-  i = 0;
+
 
   ngOnInit(): void {
     this.items = this.itemservice.getItemList();
@@ -41,15 +42,15 @@ export class ResultPage implements OnInit {
       for (const item of this.items) {
         this.itemd = item.brand_en + ' ' + item.brand_tc + ' ' + item.type_en + ' ' + item.type_tc;
         if (this.itemd.toString().toLowerCase().includes(this.keywords.toLowerCase()) || item.barcode === this.keywords) {
+          item['minPrice'] = this.cartService.comparePrice(item);
           this.fitems.push(item);
-          this.recommend.push(item.barcode);
+          console.log(this.fitems);
         }
       }
     }
     onSelect(fitem: Item) {
     this.router.navigate(['/product'], { queryParams:
-          { prodbarcode: fitem.barcode,
-            recommend: this.recommend.slice( 1 , 6 )}});
+          { prodbarcode: fitem.barcode}});
   }
   async popOver(fitem: Item) {
     const popover = await this.popoverController.create({
@@ -92,5 +93,34 @@ export class ResultPage implements OnInit {
     }).catch(err => {
       console.log('Error', err);
     });
+  }
+  async showfilter() {
+    const showfilter = await this.modalController.create({
+      component: ResultfilterPage,
+      componentProps: {
+        'fitem': this.fitems
+      },
+      backdropDismiss: false,
+      animated: true,
+      showBackdrop: true
+    });
+
+    await showfilter.present();
+    const model = await showfilter.onDidDismiss();
+
+    switch (model.role) {
+      case 'confirm':
+        const ffitems = this.fitems;
+        this.fitems = [];
+        for ( const ffitem of ffitems) {
+          if (ffitem.brand_tc === model.data[0] && ffitem.price_parknshop < model.data[2] && ffitem.price_parknshop > model.data[1]) {
+            this.fitems.push(ffitem);
+          }
+        }
+        break;
+      case 'fail':
+        console.log('fail');
+        break;
+    }
   }
 }
