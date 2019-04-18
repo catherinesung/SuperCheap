@@ -1,5 +1,16 @@
+img {
+  height: 100%;
+  width: 100%
+}
+
 ion-button {
   width: 100%
+}
+
+ion-img {
+  float: right;
+  height: 30px;
+  weight: 30px;
 }
 
 .brand {
@@ -23,8 +34,4 @@ ion-button {
   font-size: 15px;
 }
 
-.supermarket {
-  float: right;
-  height: 30px;
-  weight: 30px;
-}
+
