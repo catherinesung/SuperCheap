@@ -13,7 +13,6 @@
 ion-button{
   --border-color: #ff9500 ;
   --background : white;
-  --border-radius: 15%;
   --color: #ff9500;
   --border-style: solid;
   --border-width: thin;
@@ -30,5 +29,8 @@ ion-searchbar{
   border-color: #ff9500 ;
 }
 ion-content{
+  --color: #ff9500;
+}
+ion-heade{
   --color: #ff9500;
 }
