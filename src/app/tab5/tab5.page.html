@@ -6,20 +6,14 @@
         <ion-title>帳戶</ion-title>
     </ion-toolbar>
 </ion-header>
-
 <ion-content>
     <ion-grid *ngIf="!login">
-        <ion-row>
-            <ion-col>
-                <ion-button (click)="socialSignIn('facebook')">
-                    <ion-icon name="logo-facebook"></ion-icon>
-                </ion-button>
-            </ion-col>
-            <ion-col>
-                <ion-button (click)="socialSignIn('google')">
-                    <ion-icon name="logo-google"></ion-icon>
-                </ion-button>
-            </ion-col>
+        <ion-row style="font-weight: bold">請選擇登入方式</ion-row>
+        <ion-row ><ion-button (click)="socialSignIn('facebook')" class="facebook">
+            <ion-icon size="large" name="logo-facebook" class="facebook"></ion-icon>使用Facebook登入
+        </ion-button>
+        </ion-row>
+        <ion-row><ion-button (click)="socialSignIn('google')" class="google"><ion-icon size="large" name="logo-google" class="google"></ion-icon> 使用Google登入</ion-button>
         </ion-row>
     </ion-grid>
 

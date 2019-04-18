@@ -11,7 +11,8 @@ import { Item } from './item';
 })
 export class ItemService {
   baseurl = 'http://www-std.se.cuhk.edu.hk/~fyp_r18';
-  items: Item[];
+  items: Item[] = [];
+  itemList = [];
 
   constructor(private http: HttpClient) {
   }
@@ -37,4 +38,18 @@ export class ItemService {
         }),
         catchError(this.handleError));
   }
+    getItems(): void {
+        this.getAll().subscribe(
+            (res: Item[]) => {
+                this.items = res;
+                for (const item of this.items) {
+                    this.itemList.push(item);
+                }
+            }
+        );
+    }
+
+    getItemList() {
+      return this.itemList;
+    }
 }

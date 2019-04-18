@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
-import { Item } from './item';
 import { ItemService } from './item.service';
 
 
@@ -29,23 +27,8 @@ export class AppComponent implements OnInit {
     });
   }
 
-  items: Item[];
-  error = '';
-  success = '';
-
   ngOnInit(): void {
-    this.getItems();
-  }
-
-  getItems(): void {
-    this.itemservice.getAll().subscribe(
-        (res: Item[]) => {
-          this.items = res;
-        },
-        (err) => {
-          this.error = err;
-        }
-    );
+    this.itemservice.getItems();
   }
 }
 

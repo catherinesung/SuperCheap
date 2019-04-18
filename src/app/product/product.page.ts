@@ -63,11 +63,9 @@ export class ProductPage implements OnInit {
     }
 
     getItems() {
-        this.itemservice.getAll().subscribe((res: Item[]) => {
-            this.items = res;
-            this.recommend = this.items;
-            this.InitItems();
-        });
+        this.items = this.itemservice.getItemList();
+        this.recommend = this.items;
+        this.InitItems();
     }
 
     InitItems(): void {

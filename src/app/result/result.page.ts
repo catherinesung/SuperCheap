@@ -22,8 +22,8 @@ export class ResultPage implements OnInit {
       this.keywords = params['keywords']; });
   }
   keywords: string;
+  items: Item[] = [];
   fitems: Item[] = [];
-  items: Item[];
   error = '';
   success = '';
   itemd: string;
@@ -33,19 +33,8 @@ export class ResultPage implements OnInit {
   i = 0;
 
   ngOnInit(): void {
-    this.getItems();
-    }
-
-  getItems(): void {
-    this.itemservice.getAll().subscribe(
-        (res: Item[]) => {
-          this.items = res;
-          this.filter();
-        },
-        (err) => {
-          this.error = err;
-        }
-    );
+    this.items = this.itemservice.getItemList();
+    this.filter();
   }
     filter() {
     this.fitems = [];

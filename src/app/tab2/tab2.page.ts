@@ -24,13 +24,20 @@ export class Tab2Page implements OnInit {
     glong: number;
     keywords = ' ';
     filterstr: string;
+    previous;
     ngOnInit(): void {
         this.locationService.getlocation().subscribe(
             (res: Storeinfo[]) => {
                 this.storeinfos = res;
                 this.location();
             });
+    }
+    markerclick(infowindow) {
+        if (this.previous) {
+            this.previous.close();
         }
+        this.previous = infowindow;
+    }
     location() {
         this.geolocation.getCurrentPosition().then((resp) => {
             this.gla = resp.coords.latitude;
@@ -79,8 +86,6 @@ export class Tab2Page implements OnInit {
                     role: 'cancel',
                     handler: data => {
                         console.log(data.list.value);
-                        this.keywords = data.list.value;
-                        this.filter();
                     }
                 },
                 {
@@ -88,6 +93,8 @@ export class Tab2Page implements OnInit {
                     role: 'done',
                     handler: data => {
                         console.log(data.list.value);
+                        this.keywords = data.list.value;
+                        this.filter();
                     }
                 }
             ],
@@ -95,6 +102,10 @@ export class Tab2Page implements OnInit {
                 {
                     name: 'list',
                     options: [
+                        {
+                            text: '請選撰商店 ',
+                            value: ' '
+                        },
                         {
                             text: '百佳',
                             value: 'parknshop'
@@ -133,8 +144,6 @@ export class Tab2Page implements OnInit {
                     role: 'cancel',
                     handler: data => {
                         console.log(data.list.value);
-                        this.keywords = data.list.value;
-                        this.filter();
                     }
                 },
                 {
@@ -142,6 +151,8 @@ export class Tab2Page implements OnInit {
                     role: 'done',
                     handler: data => {
                         console.log(data.list.value);
+                        this.keywords = data.list.value;
+                        this.filter();
                     }
                 }
             ],
@@ -149,6 +160,10 @@ export class Tab2Page implements OnInit {
                 {
                     name: 'list',
                     options: [
+                        {
+                            text: '請選撰地區 ',
+                            value: ' '
+                        },
                         {
                             text: '新界 ',
                             value: 'NT'
