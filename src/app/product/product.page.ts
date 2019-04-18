@@ -52,27 +52,18 @@ export class ProductPage implements OnInit {
 
     getprodinType(): void {
         this.prodinType = this.items.filter(x => x.type_tc === this.display.type_tc);
-        console.log(this.prodinType)
+        console.log(this.prodinType);
         this.randomItems();
     }
 
     randomItems(): void {
-        this.recommend[0] = this.items[Math.floor(Math.random() * this.prodinType.length)];
-        console.log(this.recommend[0]);
-        let i = 1;
-        let distinct = true;
-        while (i <= 4) {
-            distinct = true;
-            this.recommend[i] = this.items[Math.floor(Math.random() * this.prodinType.length)];
-            for (let j = 0; j < i; j++) {
-                if (this.recommend[i] === this.recommend[j]) {
-                    distinct = false;
-                    break;
-                }
-            }
-            if (distinct) {
-                i++;
-            }
+        /*let arr = [];
+        while (arr.length < 5) {
+            let r = Math.floor(Math.random() * this.prodinType.length);
+            if (arr.indexOf(r) === -1) {arr.push(r); }
+        }*/
+        for (let i = 0; i < 5; i++) {
+            this.recommend[i] = this.prodinType[i];
         }
     }
 
