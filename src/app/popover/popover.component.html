@@ -69,9 +69,7 @@
     </ion-item>
   </ion-radio-group>
 </ion-list>
-<ion-item>
-  <ion-textarea placeholder="Enter quantity here..." [(ngModel)]="quantity"></ion-textarea>
-</ion-item>
+  <ion-input placeholder="數量" type="number" [(ngModel)]="quantity"></ion-input>
 <ion-item>
   <ion-segment>
     <ion-segment-button (click)="donePopf()">取消</ion-segment-button>

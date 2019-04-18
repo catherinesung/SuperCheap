@@ -8,6 +8,8 @@ import {WheelSelector} from '@ionic-native/wheel-selector/ngx';
 import {PickerController} from '@ionic/angular';
 import {PopoverController } from '@ionic/angular';
 import {PopoverComponent} from '../popover/popover.component';
+import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
+import {SafariViewController} from '@ionic-native/safari-view-controller/ngx';
 
 @Component({
   selector: 'app-tab4',
@@ -22,6 +24,23 @@ export class Tab4Page implements OnInit {
   supermarket = 'min_price';
   delivery = false;
   deliveryDetails = [];
+  /*options : InAppBrowserOptions = {
+    location : 'yes',//Or 'no'
+    hidden : 'yes', //Or  'yes'
+    clearcache : 'yes',
+    clearsessioncache : 'yes',
+    zoom : 'yes',//Android only ,shows browser zoom controls
+    hardwareback : 'yes',
+    mediaPlaybackRequiresUserAction : 'no',
+    shouldPauseOnSuspend : 'no', //Android only
+    closebuttoncaption : 'Close', //iOS only
+    disallowoverscroll : 'no', //iOS only
+    toolbar : 'yes', //iOS only
+    enableViewportScale : 'no', //iOS only
+    allowInlineMediaPlayback : 'no',//iOS only
+    presentationstyle : 'pagesheet',//iOS only
+    fullscreen : 'yes',//Windows only
+  };*/
 
   @ViewChild('slidingList') slidingList: IonList;
 
@@ -30,7 +49,10 @@ export class Tab4Page implements OnInit {
               private router: Router,
               public popoverController: PopoverController,
               public pickerCtrl: PickerController,
-              public alertController: AlertController) {}
+              public alertController: AlertController,
+              private theInAppBrowser: InAppBrowser,
+              private safariViewController: SafariViewController
+  ) {}
 
   ngOnInit() {
     this.cart = this.cartService.getCart();
@@ -104,6 +126,77 @@ export class Tab4Page implements OnInit {
 
   debug2() {
     console.log(this.total);
+  }
+
+  placeOrder(){
+    this.safariViewController.isAvailable()
+        .then((available: boolean) => {
+              if (available) {
+
+                this.safariViewController.show({
+                  url: 'https://www.parknshop.com/en/cart/add?productCodePost=454099&qty=1',
+                  hidden: true,
+                  animated: false,
+                  transition: 'curl',
+                  enterReaderModeIfAvailable: false,
+                  tintColor: '#ff0000'
+                })
+                    .subscribe((result: any) => {
+                          if (result.event === 'opened') {
+                            console.log('Opened');
+                          }
+                          else if(result.event === 'loaded') {
+                            console.log('Loaded');
+                          }
+                          else if(result.event === 'closed') {
+                            console.log('Closed');
+                          }
+                        },
+                        (error: any) => console.error(error)
+                    );
+
+              } else {
+                // use fallback browser, example InAppBrowser
+              }
+            }
+        );
+    this.safariViewController.hide();
+  }
+
+
+
+  openNewBackgroundTab(){
+    this.safariViewController.isAvailable()
+        .then((available: boolean) => {
+              if (available) {
+
+                this.safariViewController.show({
+                  url: 'https://www.parknshop.com/shoppingCart',
+                  hidden: false,
+                  animated: false,
+                  transition: 'curl',
+                  enterReaderModeIfAvailable: false,
+                  tintColor: '#ff0000'
+                })
+                    .subscribe((result: any) => {
+                          if (result.event === 'opened') {
+                            console.log('Opened');
+                          }
+                          else if(result.event === 'loaded') {
+                            console.log('Loaded');
+                          }
+                          else if(result.event === 'closed') {
+                            console.log('Closed');
+                          }
+                        },
+                        (error: any) => console.error(error)
+                    );
+
+              } else {
+                // use fallback browser, example InAppBrowser
+              }
+            }
+        );
   }
 
   refreshCart(event) {

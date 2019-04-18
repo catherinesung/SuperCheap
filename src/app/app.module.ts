@@ -18,6 +18,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
+import { InAppBrowser} from '@ionic-native/in-app-browser/ngx';
+import {SafariViewController} from '@ionic-native/safari-view-controller/ngx';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -48,6 +50,8 @@ export function getAuthServiceConfigs() {
       NativeGeocoder,
       Geolocation,
       WheelSelector,
+      InAppBrowser,
+      SafariViewController,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
   ],
