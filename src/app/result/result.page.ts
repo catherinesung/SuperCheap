@@ -48,8 +48,7 @@ export class ResultPage implements OnInit {
     }
     onSelect(fitem: Item) {
     this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
-          { prodbarcode: fitem.barcode,
-            recommend: this.recommend.slice( 1 , 6 )}});
+          { prodbarcode: fitem.barcode}});
   }
   async popOver(fitem: Item) {
     const popover = await this.popoverController.create({

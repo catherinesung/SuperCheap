@@ -56,23 +56,23 @@
         <ion-row>
             <ion-col>
                 <ion-slides>
-                    <ion-slide *ngFor="let i of num">
+                    <ion-slide *ngFor="let i of recommend">
                         <ion-card>
                             <ion-card-content>
-                                <img src="assets/product-img/{{recommend[i].barcode}}.jpg"
+                                <img src="assets/product-img/{{i.barcode}}.jpg"
                                      onError="this.src='assets/product-img/noimage.jpg'" />
                                 <ion-text>
-                                    {{recommend[i].brand_tc}}<br>{{recommend[i].name_tc}}
+                                    {{i.brand_tc}}<br>{{i.name_tc}}
                                 </ion-text>
                                 <ion-grid>
                                     <ion-row>
                                         <ion-col>
                                             <ion-img
-                                                    src="assets/supermarket-img/price_{{recommend[i]['sorted'][0][0]}}.png">
+                                                    src="assets/supermarket-img/price_{{i['sorted'][0][0]}}.png">
                                             </ion-img>
                                         </ion-col>
                                         <ion-col>
-                                            <ion-text>{{recommend[i]['sorted'][0][1]}}</ion-text>
+                                            <ion-text>{{i['sorted'][0][1]}}</ion-text>
                                         </ion-col>
                                     </ion-row>
                                 </ion-grid>

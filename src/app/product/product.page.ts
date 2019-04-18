@@ -61,7 +61,7 @@ export class ProductPage implements OnInit {
         console.log(this.recommend[0]);
         let i = 1;
         let distinct = true;
-        while ((i <= 4) && distinct) {
+        while (i <= 4) {
             distinct = true;
             this.recommend[i] = this.items[Math.floor(Math.random() * this.prodinType.length)];
             for (let j = 0; j < i; j++) {
