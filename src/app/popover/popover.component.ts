@@ -18,6 +18,7 @@ export class PopoverComponent implements OnInit {
 
   ngOnInit() {
     this.supermarket = 'price_wellcome';
+    this.quantity = 1;
     // if it is called by cart
     if (this.calledBy === 'cart'){
       this.supermarket = this.fitem.displayPrice[0];
@@ -35,6 +36,7 @@ export class PopoverComponent implements OnInit {
     console.log(this.quantity);
   }
   async donePops() {
+    console.log(this.quantity);
     const data = [this.supermarket, this.quantity];
     if(this.quantity != null && this.quantity !== 0){
       this.popoverController.dismiss( data, 'confirm');
@@ -49,4 +51,10 @@ export class PopoverComponent implements OnInit {
     this.popoverController.dismiss( data, 'fail');
     console.log('dismissed' + data);
   }
+
+  debug(){
+    console.log('change');
+    console.log(this.quantity);
+  }
+
 }
