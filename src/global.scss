@@ -9,3 +9,26 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+ion-button{
+  --border-color: #ff9500 ;
+  --background : white;
+  --border-radius: 15%;
+  --color: #ff9500;
+  --border-style: solid;
+  --border-width: thin;
+  --color-activated: white;
+  --background-activated: #ff9500;
+}
+ion-searchbar{
+  --background: white;
+  --color: #ff9500 ;
+  --icon-color: #ff9500;
+  --placeholder-color: #ff950;
+  border-width: thin;
+  border-radius: 15%;
+  border-color: #ff9500 ;
+}
+ion-content{
+  --color: #ff9500;
+}
