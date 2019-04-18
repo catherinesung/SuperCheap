@@ -15,7 +15,7 @@
 <ion-content #content>
   <ion-grid>
     <ion-row>
-      <ion-col>
+      <ion-col size = "7">
         <ion-select [(ngModel)]="supermarket" (ionChange) = "calculateMethodChange()">
           <ion-select-option value="min_price" selected>按每件商品最低價計算</ion-select-option>
           <ion-select-option value="price_aeon">按Aeon計算</ion-select-option>
@@ -27,7 +27,7 @@
         </ion-select>
       </ion-col>
 
-      <ion-col>
+      <ion-col size = "5">
         <ion-select>
           <ion-select-option value="sort_by_price" selected>按價格排序</ion-select-option>
           <ion-select-option value="sort_by_shop">按店舖排序</ion-select-option>
@@ -160,4 +160,31 @@
   </ion-list>
 
 </ion-content>
+
+<ion-footer>
+  <!--
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>全選</ion-button>
+      <ion-button (click)="emptyCart()">清空</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button expand="full" fill="solid" (click)="emptyCart()">結帳</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  -->
+  <ion-grid ion-grid-padding="0px">
+    <ion-row>
+      <ion-col>
+        <ion-button fill="clear" (click)="emptyCart()">清空</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button fill="clear" (click)="emptyCart()">全選</ion-button>
+      </ion-col>
+      <ion-col size = "6">
+        <ion-button expand="full" fill="solid" (click)="emptyCart()">結帳</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
 
