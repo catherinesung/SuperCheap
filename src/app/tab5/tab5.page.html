@@ -1,5 +1,12 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id" content="948793870391-33cd1nqn5ied19votl0ooirllu6iuvvt.apps.googleusercontent.com">
+
+<ion-header>
+    <ion-toolbar>
+        <ion-title>帳戶</ion-title>
+    </ion-toolbar>
+</ion-header>
+
 <ion-content>
     <ion-grid *ngIf="!login">
         <ion-row>
@@ -15,6 +22,29 @@
             </ion-col>
         </ion-row>
     </ion-grid>
+
+    <ion-list *ngIf = "login && !couponpage">
+        <ion-item>
+            <ion-thumbnail slot="end">
+                <ion-img src={{theuser.image}}></ion-img>
+            </ion-thumbnail>
+            <ion-label>{{theuser.name}}<br>{{theuser.email}}</ion-label>
+        </ion-item>
+
+        <ion-item (click)="coupon()">
+            <ion-label>電子優惠券</ion-label>
+        </ion-item>
+
+        <ion-item (click)="logout()">
+            <ion-label>登出</ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf = "login && couponpage">
+        <ion-item>
+            <ion-img src="assets/image/starbucks_coupon.JPG"></ion-img>
+        </ion-item>
+    </ion-list>
 
 </ion-content>
 

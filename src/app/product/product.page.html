@@ -6,17 +6,21 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content body>
+<ion-content>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-img src="assets/product-img/{{display.barcode}}.jpg"></ion-img>
+        <img class="product" src="assets/product-img/{{display.barcode}}.jpg"
+             onError="this.src='assets/product-img/no-image.jpg'" />
       </ion-col>
     </ion-row>
 
-    <ion-button (click)="popOver(display)">
-        <ion-icon name="cart"></ion-icon>
-    </ion-button>
+    <ion-row>
+            <ion-button (click)="popOver(display)">
+                <ion-icon name="cart"></ion-icon>
+                <ion-text>&nbsp;&nbsp;加到購物車</ion-text>
+            </ion-button>
+    </ion-row>
 
     <ion-row>
       <ion-col size="8">
@@ -25,32 +29,49 @@
       </ion-col>
 
       <ion-col size="2">
-        <ion-img class="supermarket" src="assets/supermarket-img/{{sorted[0][0]}}.png"></ion-img>
+        <ion-img class="supermarket" src="assets/supermarket-img/price_{{display['sorted'][0][0]}}.png"></ion-img>
       </ion-col>
 
       <ion-col size="2">
-        <ion-text class="price">{{sorted[0][1]}}</ion-text>
+        <ion-text class="price">{{display['sorted'][0][1]}}</ion-text>
       </ion-col>
 
     </ion-row>
 
-    <ion-row>
-        <ion-col size="4"*ngFor="let i of sorted | slice: 1">
-            <ion-row>
-                <ion-col>
-                    <ion-img class="supermarket" src="assets/supermarket-img/{{i[0]}}.png"></ion-img>
-                </ion-col>
-                <ion-col>
-                    <ion-text class="price">{{i[1]}}</ion-text>
-                </ion-col>
-            </ion-row>
-        </ion-col>
-    </ion-row>
+    <ion-slides>
+        <ion-row>
+            <ion-col size="4"*ngFor="let i of display['sorted'] | slice: 1">
+                <ion-slide>
+                    <ion-row>
+                        <ion-col>
+                            <ion-img class="supermarket" src="assets/supermarket-img/price_{{i[0]}}.png"></ion-img>
+                        </ion-col>
+                        <ion-col>
+                            <ion-text class="price">{{i[1]}}</ion-text>
+                        </ion-col>
+                    </ion-row>
+                </ion-slide>
+            </ion-col>
+        </ion-row>
+    </ion-slides>
 
     <ion-row>
       <ion-col>
         price trend
       </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col *ngFor="let i of num">
+            <ion-card>
+                <ion-card-content>
+                    <img class="product" src="assets/product-img/{{recommend[i].barcode}}.jpg"
+                         onError="this.src='assets/product-img/no-image.jpg'" />
+                    <ion-text>{{recommend[i].brand_tc}}</ion-text>
+                    <ion-text>{{recommend[i].name_tc}}</ion-text>
+                </ion-card-content>
+            </ion-card>
+        </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

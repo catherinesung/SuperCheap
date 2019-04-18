@@ -14,12 +14,14 @@ import {UserService} from '../user.service';
 export class Tab5Page implements OnInit {
   theuser: User;
   login: boolean;
+  couponpage: boolean;
 
   constructor( private socialAuthService: AuthService, private http: HttpClient,
                private userservice: UserService) {}
 
   ngOnInit(): void {
       this.login = false;
+      this.couponpage = false;
   }
 
   public socialSignIn(socialPlatform: string) {
@@ -35,5 +37,13 @@ export class Tab5Page implements OnInit {
       this.userservice.postUser(this.theuser).subscribe();
       this.login = true;
     });
+  }
+
+  coupon(): void {
+    this.couponpage = true;
+  }
+
+  logout(): void {
+    this.login = false;
   }
 }

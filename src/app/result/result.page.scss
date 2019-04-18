@@ -16,9 +16,11 @@ ion-searchbar{
 }
 ion-item{
   --color: #ff9500;
+  font-size: small;
 }
 .viewbu{
   --border-color: #ff9500 ;
   --background : white;
   --color: #ff9500 ;
+  max-width: fit-content;
 }
