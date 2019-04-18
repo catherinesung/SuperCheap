@@ -70,7 +70,7 @@ export class ProductPage implements OnInit {
         });
     }
 
-    InitItems(): void{
+    InitItems(): void {
         this.display = this.items.find(x => x.barcode === this.prodbarcode);
         console.log(this.display);
         this.display['sorted'] = this.sortprice(this.display);
