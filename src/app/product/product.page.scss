@@ -1,13 +1,16 @@
+img {
+  height: 100%;
+  width: 100%
+}
+
 ion-button {
   width: 100%
 }
 
-ion-icon {
-  color:white;
-}
-
-ion-label {
-  color: white;
+ion-img {
+  float: right;
+  height: 30px;
+  weight: 30px;
 }
 
 .brand {
@@ -27,13 +30,8 @@ ion-label {
 }
 
 .price {
-  color: darkorange;
   float: left;
   font-size: 15px;
 }
 
-.supermarket {
-  float: right;
-  height: 30px;
-  weight: 30px;
-}
+

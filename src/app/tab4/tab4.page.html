@@ -53,9 +53,9 @@
         <ion-buttons slot="end" (click)="popOver(products.item)">
           <ion-chip color="primary">
             <ion-avatar><img src="assets/supermarket-img/{{products.item.displayPrice[0]}}.png"></ion-avatar>
-            <ion-label>${{products.item.displayPrice[1]}}</ion-label>
+            <ion-label>${{products.item.displayPrice[1]}}&nbsp;</ion-label>
+            <ion-badge color="primary">{{products.quantity}}件</ion-badge>
           </ion-chip>
-          <ion-badge slot="end" color="primary">{{products.quantity}}</ion-badge>
         </ion-buttons>
 
         <!--
@@ -179,10 +179,10 @@
         <ion-button fill="clear" (click)="emptyCart()">清空</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button fill="clear" (click)="emptyCart()">全選</ion-button>
+        <ion-button fill="clear" (click)="openNewBackgroundTab()">全選</ion-button>
       </ion-col>
       <ion-col size = "6">
-        <ion-button expand="full" fill="solid" (click)="emptyCart()">結帳</ion-button>
+        <ion-button expand="full" fill="solid" (click)="placeOrder()">結帳</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

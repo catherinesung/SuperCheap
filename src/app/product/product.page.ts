@@ -14,9 +14,9 @@ import { PopoverController } from '@ionic/angular';
 export class ProductPage implements OnInit {
     items: Item[];
     display: Item;
-    recommend: Item[];
     prodbarcode: string;
-    recommendcode: string[];
+    prodinType: Item[];
+    recommend: Item[];
     num: number[];
 
 
@@ -24,18 +24,59 @@ export class ProductPage implements OnInit {
                 private route: ActivatedRoute, public popoverController: PopoverController) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
-            this.recommendcode = params['recommend'];
         });
     }
 
     ngOnInit(): void {
         this.getItems();
-        console.log(this.recommendcode);
-        this.num = [0, 1, 2, 3, 4];
-        console.log(this.num);
     }
 
-    sortprice(itemm: Item) {
+    getItems() {
+        this.prodinType = [];
+        this.recommend = [];
+        this.num = [0, 1, 2, 3, 4];
+        this.items = this.itemservice.getItemList();
+        this.InitItems();
+        this.getprodinType();
+        for (let i = 0; i <= 4; i++) {
+            this.recommend[i]['sorted'] = this.sortPrice(this.recommend[i]);
+            console.log(this.recommend[i]);
+        }
+    }
+
+    InitItems(): void {
+        this.display = this.items.find(x => x.barcode === this.prodbarcode);
+        this.display['sorted'] = this.sortPrice(this.display);
+        console.log(this.display);
+    }
+
+    getprodinType(): void {
+        this.prodinType = this.items.filter(x => x.type_tc === this.display.type_tc);
+        console.log(this.prodinType)
+        this.randomItems();
+    }
+
+    randomItems(): void {
+        this.recommend[0] = this.items[Math.floor(Math.random() * this.prodinType.length)];
+        console.log(this.recommend[0]);
+        let i = 1;
+        let distinct = true;
+        while ((i <= 4) && distinct) {
+            distinct = true;
+            this.recommend[i] = this.items[Math.floor(Math.random() * this.prodinType.length)];
+            for (let j = 0; j < i; j++) {
+                if (this.recommend[i] === this.recommend[j]) {
+                    distinct = false;
+                    break;
+                }
+            }
+            if (distinct) {
+                i++;
+            }
+        }
+    }
+
+    sortPrice(itemm: Item) {
         let supermarketarr = ['parknshop', 'wellcome', 'marketplace', 'aeon', 'dch', 'waston'];
         let pricearr = [itemm.price_wellcome, itemm.price_parknshop, itemm.price_marketplace, itemm.price_aeon, itemm.price_dch,
             itemm.price_waston];
@@ -60,25 +101,6 @@ export class ProductPage implements OnInit {
             }
         }
         return sorted;
-    }
-
-    getItems() {
-        this.items = this.itemservice.getItemList();
-        this.recommend = this.items;
-        this.InitItems();
-    }
-
-    InitItems(): void{
-        this.display = this.items.find(x => x.barcode === this.prodbarcode);
-        console.log(this.display);
-        this.display['sorted'] = this.sortprice(this.display);
-        console.log(this.display['sorted']);
-        for (let i in this.recommendcode) {
-            this.recommend[i] = this.items.find(x => x.barcode === this.recommendcode[i]);
-            console.log(this.recommend[i]);
-            this.recommend[i]['sorted'] = this.sortprice(this.recommend[i]);
-            console.log(this.recommend[i]['sorted']);
-        }
     }
 
     async popOver(itemm: Item) {

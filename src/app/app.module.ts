@@ -22,6 +22,8 @@ import {CallNumber} from '@ionic-native/call-number/ngx';
 import {NavController} from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import {ResultfilterPage} from './resultfilter/resultfilter.page';
+import { InAppBrowser} from '@ionic-native/in-app-browser/ngx';
+import {SafariViewController} from '@ionic-native/safari-view-controller/ngx';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -55,6 +57,8 @@ export function getAuthServiceConfigs() {
       CallNumber,
       NavController,
       ModalController,
+      InAppBrowser,
+      SafariViewController,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
   ],
