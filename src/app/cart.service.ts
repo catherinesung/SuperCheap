@@ -61,6 +61,22 @@ export class CartService {
     this.calculateTotal();
   }
 
+  changeQuantity(product: Item, quantity: number, supermarket: string){
+    if (this.cart.find(productInCart => productInCart.item.barcode === product.barcode)){
+      const result = this.cart.find(productInCart => productInCart.item.barcode === product.barcode);
+      result.quantity = quantity;
+      result.item.displayPrice[0] = supermarket;
+      result.item.displayPrice[1] = result.item[result.item.displayPrice[0]];
+    }
+    this.calculateTotal();
+  }
+
+  isProductInCart(product: Item){
+    if (this.cart.find(productInCart => productInCart.item.barcode === product.barcode)){
+      return true;
+    }
+    else return false;
+  }
   clearCart() {
     while(this.cart.length > 0 ){
       this.cart.pop();
@@ -321,7 +337,7 @@ export class CartService {
 
     // check the lowest price first
     for (supermarket of supermarketList) {
-      if (product[supermarket] !== null && product[supermarket] !== '') {
+      if (product[supermarket] !== 0 && product[supermarket] !== '') {
         if (product[supermarket] < minPrice) {
           minPrice = product[supermarket];
         }

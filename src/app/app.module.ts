@@ -18,6 +18,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
+
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
       [
