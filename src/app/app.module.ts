@@ -21,9 +21,9 @@ import { WheelSelector } from '@ionic-native/wheel-selector/ngx';
 import {CallNumber} from '@ionic-native/call-number/ngx';
 import {NavController} from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import {ResultfilterPage} from './resultfilter/resultfilter.page';
 import { InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {SafariViewController} from '@ionic-native/safari-view-controller/ngx';
+import {ResultfilterComponent} from './resultfilter/resultfilter.component';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -41,8 +41,8 @@ export function getAuthServiceConfigs() {
 }
 
 @NgModule({
-  declarations: [AppComponent, PopoverComponent, ResultfilterPage],
-  entryComponents: [PopoverComponent, ResultfilterPage],
+  declarations: [AppComponent, PopoverComponent, ResultfilterComponent],
+  entryComponents: [PopoverComponent, ResultfilterComponent ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule, AgmCoreModule, SocialLoginModule,
     AgmCoreModule.forRoot({
     apiKey: 'AIzaSyD0POsH6N_XE7PSJtt1SIHmsJtvnSOT5pE'
