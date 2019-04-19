@@ -64,7 +64,8 @@ export class ResultPage implements OnInit {
       },
       backdropDismiss: false,
       animated: true,
-      showBackdrop: true
+      showBackdrop: true,
+      cssClass: 'resultPopOver'
     });
 
     await popover.present();

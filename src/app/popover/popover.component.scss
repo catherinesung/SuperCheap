@@ -1,9 +1,13 @@
-ion-icon{
- background-color: #ff9500;
-  --background-color-activated:#ffd59a;
+ion-button{
+  --border-color: white ;
+  --background :white;
   --color: #ff9500;
+  padding-right: 0;
+  padding-left: 0;
+  --color-activated: white;
+  --background-activated: #ff9500;
+  height: border-box;
 }
 ion-input{
-  border:  #ffd59a;
-  text-align: center
+  text-align: center;
 }
