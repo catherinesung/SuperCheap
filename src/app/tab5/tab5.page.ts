@@ -43,6 +43,10 @@ export class Tab5Page implements OnInit {
     this.couponpage = true;
   }
 
+  couponout(): void {
+    this.couponpage = false;
+  }
+
   logout(): void {
     this.login = false;
   }

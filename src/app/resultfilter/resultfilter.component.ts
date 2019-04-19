@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {ModalController, PopoverController} from '@ionic/angular';
-import {Item} from '../item';
+import {Component, Input, OnInit} from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {NavParams} from '@ionic/angular';
 
 @Component({
   selector: 'app-resultfilter',
@@ -8,39 +8,35 @@ import {Item} from '../item';
   styleUrls: ['./resultfilter.component.scss']
 })
 export class ResultfilterComponent implements OnInit {
+  constructor(public modalController: ModalController, public navParams : NavParams) {
 
-  constructor(public modalController: ModalController) {
+    this.brands = (this.navParams.get('brands'));
   }
-
-  brand: any;
-  fitems: Item[];
-  distinctbrand: any;
+  brands: any;
   lowerPrice: number;
   upperPrice: number;
-  price: any;
+  BrandSelected: string;
+  knobValues: {
+    upper: any,
+    lower: any
+  };
 
   ngOnInit() {
-    this.upperPrice = 990;
-    this.lowerPrice = 0;
-    for (const fitem of this.fitems) {
-      this.brand.push(fitem.brand_tc);
-      this.distinctbrand = this.brand.unique();
-      console.log(this.distinctbrand);
-    }
+      console.log(this.brands);
   }
 
-  setprice(price) {
-    this.lowerPrice = price.lower;
-    this.upperPrice = price.upper;
+  setprice(knobValues) {
+    this.lowerPrice = knobValues.lower;
+    this.upperPrice = knobValues.upper;
   }
 
   onCancel() {
-    const data = [this.brand, this.lowerPrice, this.upperPrice];
+    const data = [this.BrandSelected, this.lowerPrice, this.upperPrice];
     this.modalController.dismiss(data, 'fail');
   }
 
   onConfirm() {
-    const data = [this.brand, this.lowerPrice, this.upperPrice];
+    const data = [this.BrandSelected, this.lowerPrice, this.upperPrice];
     this.modalController.dismiss(data, 'confirm');
   }
 }

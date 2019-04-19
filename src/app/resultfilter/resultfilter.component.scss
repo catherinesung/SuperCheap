@@ -1,6 +1,12 @@
-ion-range {
-  background-color: white;
-  --knob-box-shadow: #ff9950;
-  --knob-border-radius: 70%;
-  --height: 3%
+ion-item{
+  color: #ff9500;
+  font-weight: bold;
+}
+ion-chip{
+  background-color: #fff6ea;
+  color: #ff9500;
+}
+ion-list{
+  width: 95%;
+  padding-left: 2.5%;
 }

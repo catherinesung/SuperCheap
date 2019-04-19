@@ -1,6 +1,6 @@
 <ion-header >
     <ion-toolbar>
-        <ion-searchbar #box  cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)"> </ion-searchbar>
+        <ion-searchbar #box placeholder="搜尋商品"  cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)"> </ion-searchbar>
         <ion-icon name="barcode" class="scanner" slot="primary" (click)="scanCode()"></ion-icon>
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/"></ion-back-button>

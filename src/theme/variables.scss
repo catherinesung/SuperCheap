@@ -66,3 +66,12 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 }
+ion-popover{
+  .popover-wrapper{
+    align-content: center;
+    .popover-content{
+      width: 80vw;
+      padding: 5%;
+    }
+  }
+}

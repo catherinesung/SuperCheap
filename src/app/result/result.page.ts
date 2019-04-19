@@ -31,6 +31,7 @@ export class ResultPage implements OnInit {
   success = '';
   itemd: string;
   selected: Item;
+  brand = [];
 
 
   ngOnInit(): void {
@@ -63,7 +64,8 @@ export class ResultPage implements OnInit {
       },
       backdropDismiss: false,
       animated: true,
-      showBackdrop: true
+      showBackdrop: true,
+      cssClass: 'resultPopOver'
     });
 
     await popover.present();
@@ -101,10 +103,15 @@ export class ResultPage implements OnInit {
   }
 
   async showfilter() {
+    for (const fitem of this.fitems) {
+      if (this.brand.includes(fitem.brand_tc)) {
+      } else {this.brand.push(fitem.brand_tc); }
+    }
+    console.log(this.brand);
     const showfilter = await this.modalController.create({
       component: ResultfilterComponent,
       componentProps: {
-        'fitem': this.fitems
+        brands: this.brand
       },
       backdropDismiss: false,
       animated: true,
