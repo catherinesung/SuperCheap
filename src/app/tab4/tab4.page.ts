@@ -24,6 +24,7 @@ export class Tab4Page implements OnInit {
   supermarket = 'min_price';
   delivery = false;
   deliveryDetails = [];
+  editToggled = false;
 
   @ViewChild('slidingList') slidingList: IonList;
 
@@ -57,9 +58,19 @@ export class Tab4Page implements OnInit {
   async removeProduct(product: Item) {
     await this.slidingList.closeSlidingItems();
     this.cartService.removeProduct(product);
-    this.calculateTotal();
+    //this.calculateTotal();
     console.log('Cart:');
     console.log(this.cart);
+  }
+
+  removeMultiple(){
+    for (const products of this.cart){
+      if (products.item.checked){
+        this.removeProduct(products.item);
+      }
+      this.editToggled = false;
+    }
+    this.cartService.calculateTotal();
   }
 
   emptyCart() {
@@ -68,6 +79,14 @@ export class Tab4Page implements OnInit {
     console.log('Cart:');
     console.log(this.cart);
   }
+
+  editCart(){
+    if (this.cart.length !== 0){
+      this.editToggled = !this.editToggled;
+    }
+  }
+
+
 
   calculateTotal() {
     this.total = this.cartService.getTotal();
@@ -146,8 +165,6 @@ export class Tab4Page implements OnInit {
         );
     this.safariViewController.hide();
   }
-
-
 
   openNewBackgroundTab(){
     this.safariViewController.isAvailable()

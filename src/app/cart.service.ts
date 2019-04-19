@@ -45,6 +45,7 @@ export class CartService {
     }
     else{
       product['displayPrice'] = [displaySupermarket, product[displaySupermarket]];
+      product['checked'] = false;
       this.cart.push({item: product, quantity: quantity});
       this.solutionPricePerProduct();
     }
@@ -85,9 +86,9 @@ export class CartService {
     this.calculateTotal();
   }
 
-  async calculateTotal(){
+  calculateTotal(){
     this.total[0] = 0;
-    for await (let product of this.cart){
+    for (let product of this.cart){
       this.total[0] += +product.item.displayPrice[1] * product.quantity;
     }
     this.calculateDeliveryFee();
