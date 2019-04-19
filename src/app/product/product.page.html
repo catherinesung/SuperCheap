@@ -1,9 +1,11 @@
+<script src="node_modules/chart.js/src/chart.js"></script>
+
 <ion-header>
     <ion-toolbar>
         <ion-title>貨品</ion-title>
         <ion-buttons slot="start">
-            <ion-back-button defaultHref="/"></ion-back-button>
-        </ion-buttons>
+        <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -53,7 +55,9 @@
         </ion-row>
 
         <ion-row>
-            <ion-col>price trend</ion-col>
+            <ion-col>
+                <ion-img class="chart" src="assets/image/chart.jpg"></ion-img>
+            </ion-col>
         </ion-row>
 
         <ion-row>

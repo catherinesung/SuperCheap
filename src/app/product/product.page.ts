@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ElementRef} from '@angular/core';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../cart.service';
 import {PopoverComponent} from '../popover/popover.component';
 import {PopoverController, ToastController} from '@ionic/angular';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-product',
@@ -18,10 +19,14 @@ export class ProductPage implements OnInit {
     prodinType: Item[];
     recommend: Item[];
     num: number[];
+    chart: any;
+    canvas: any;
+    ctx: any;
 
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
-                private route: ActivatedRoute, public popoverController: PopoverController, public toastController: ToastController) {
+                private route: ActivatedRoute, public popoverController: PopoverController,
+                public toastController: ToastController, private elementref: ElementRef) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
         });
@@ -29,6 +34,7 @@ export class ProductPage implements OnInit {
 
     ngOnInit(): void {
         this.getItems();
+        this.drawChart();
     }
 
     getItems() {
@@ -128,5 +134,24 @@ export class ProductPage implements OnInit {
             position: 'top'
         });
         toast.present();
+    }
+
+    drawChart(): void {
+        //this.canvas = this.elementref.nativeElement.getConte('#canvas');
+        this.chart = new Chart('canvas', {
+            type: 'line',
+            data: {
+                labels: ['13 Apr', '14 Apr', '15 Apr', '16 Apr', '17 Apr', '18 Apr', '19 Apr'],
+                datasets: [{
+                    data: [26.9, 27.9, 28.9, 29.9, 28.9, 27.9, 26.9],
+                    borderColor: '#ff9500',
+                    fill: false
+                }]},
+            options: {
+                legend: {display: false},
+                scales: {XAxes: [{display: true}], YAxes: [{display: true}]
+                }
+            }
+        });
     }
 }
