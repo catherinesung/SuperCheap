@@ -52,6 +52,15 @@ export class PopoverComponent implements OnInit {
     console.log('dismissed' + data);
   }
 
+  minusQuantity(){
+    if(this.quantity > 1){
+      this.quantity --;
+    }
+  }
+
+  addQuantity(){
+    this.quantity ++;
+  }
   debug(){
     console.log('change');
     console.log(this.quantity);

@@ -48,28 +48,49 @@
       <ion-radio value="price_aeon" ></ion-radio>
     </ion-item>
     <ion-item text-wrap>
+      <ion-avatar slot="start">
+        <ion-img class="supermarket" src="assets/supermarket-img/price_dch.png"></ion-img>
+      </ion-avatar>
       <ion-label>大昌行 ${{fitem.price_dch}}</ion-label>
       <ion-radio value="price_dch" ></ion-radio>
     </ion-item>
     <ion-item text-wrap>
+      <ion-avatar slot="start">
+        <ion-img class="supermarket" src="assets/supermarket-img/price_marketplace.png"></ion-img>
+      </ion-avatar>
       <ion-label>Marketplace ${{fitem.price_marketplace}}</ion-label>
       <ion-radio value="price_marketplace" ></ion-radio>
     </ion-item>
     <ion-item text-wrap>
+      <ion-avatar slot="start">
+        <ion-img class="supermarket" src="assets/supermarket-img/price_parknshop.png"></ion-img>
+      </ion-avatar>
       <ion-label>百佳 ${{fitem.price_parknshop}}</ion-label>
       <ion-radio value="price_parknshop" ></ion-radio>
     </ion-item>
     <ion-item text-wrap>
+      <ion-avatar slot="start">
+        <ion-img class="supermarket" src="assets/supermarket-img/price_wellcome.png"></ion-img>
+      </ion-avatar>
       <ion-label>惠康 ${{fitem.price_wellcome}}</ion-label>
       <ion-radio value="price_wellcome"></ion-radio>
     </ion-item>
     <ion-item text-wrap>
+      <ion-avatar slot="start">
+        <ion-img class="supermarket" src="assets/supermarket-img/price_waston.png"></ion-img>
+      </ion-avatar>
       <ion-label>屈臣氏 ${{fitem.price_waston}}</ion-label>
       <ion-radio value="price_waston"></ion-radio>
     </ion-item>
   </ion-radio-group>
+
+  <ion-item>
+    <ion-button (click)="minusQuantity()"><ion-icon slot="icon-only" name="remove-circle-outline"></ion-icon></ion-button>
+    <ion-input placeholder="數量" type="number" [(ngModel)]="quantity"></ion-input>
+    <ion-button (click)="addQuantity()"><ion-icon slot="icon-only" name="add-circle-outline"></ion-icon></ion-button>
+  </ion-item>
 </ion-list>
-  <ion-input placeholder="數量" type="number" [(ngModel)]="quantity"></ion-input>
+
 <ion-item>
   <ion-segment>
     <ion-segment-button (click)="donePopf()">取消</ion-segment-button>

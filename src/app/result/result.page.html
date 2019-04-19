@@ -2,6 +2,9 @@
     <ion-toolbar>
         <ion-searchbar #box  cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)"> </ion-searchbar>
         <ion-icon name="barcode" class="scanner" slot="primary"><ion-button (click)="scanCode()" ></ion-button></ion-icon>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
     </ion-toolbar>
     <ion-card class="bar" no-shadow>
         <ion-icon name="funnel" class="filter"><ion-button (click)="showfilter()"></ion-button></ion-icon></ion-card>

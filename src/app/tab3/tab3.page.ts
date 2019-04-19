@@ -9,33 +9,33 @@ import {Router} from '@angular/router';
 export class Tab3Page {
   constructor(private router: Router) { }
   Searchdrinks() {
-    this.router.navigate(['/result'], {queryParams: { keywords: 'drinks'}});
+    this.router.navigate(['/tabs/tab3/result'], {queryParams: { keywords: 'drinks'}});
   }
   Searchfood() {
-    this.router.navigate(['/result'], {queryParams: { keywords: 'food'}});
+    this.router.navigate(['/tabs/tab3/result'], {queryParams: { keywords: 'food'}});
   }
   Searchgrocery() {
-    this.router.navigate(['/result'], {queryParams: { keywords: 'grocery'}});
+    this.router.navigate(['/tabs/tab3/result'], {queryParams: { keywords: 'grocery'}});
   }
   Searchwine() {
-    this.router.navigate(['/result'], {queryParams: { keywords: 'wine'}});
+    this.router.navigate(['/tabs/tab3/result'], {queryParams: { keywords: 'wine'}});
   }
   Searchskin() {
-    this.router.navigate(['/result'], {queryParams: { keywords: 'skin'}});
+    this.router.navigate(['/tabs/tab3/result'], {queryParams: { keywords: 'skin'}});
   }
   Searchbaby() {
-    this.router.navigate(['/result'], {queryParams: { keywords: 'baby'}});
+    this.router.navigate(['/tabs/tab3/result'], {queryParams: { keywords: 'baby'}});
   }
   Searchclean() {
-    this.router.navigate(['/result'], {queryParams: { keywords: 'clean'}});
+    this.router.navigate(['/tabs/tab3/result'], {queryParams: { keywords: 'clean'}});
   }
   Searchfrozen() {
-    this.router.navigate(['/result'], {queryParams: { keywords: 'frozen'}});
+    this.router.navigate(['/tabs/tab3/result'], {queryParams: { keywords: 'frozen'}});
   }
   Searchpet() {
-    this.router.navigate(['/result'], {queryParams: { keywords: 'pet'}});
+    this.router.navigate(['/tabs/tab3/result'], {queryParams: { keywords: 'pet'}});
   }
   Searchhouseware() {
-    this.router.navigate(['/result'], {queryParams: { keywords: 'houseware'}});
+    this.router.navigate(['/tabs/tab3/result'], {queryParams: { keywords: 'houseware'}});
   }
 }
