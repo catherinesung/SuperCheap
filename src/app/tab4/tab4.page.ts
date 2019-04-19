@@ -3,7 +3,7 @@ import {CartService} from '../cart.service';
 import {Router} from '@angular/router';
 import {ItemService} from '../item.service';
 import {Item} from '../item';
-import {AlertController, IonList} from '@ionic/angular';
+import {AlertController, IonList, ToastController} from '@ionic/angular';
 import {WheelSelector} from '@ionic-native/wheel-selector/ngx';
 import {PickerController} from '@ionic/angular';
 import {PopoverController } from '@ionic/angular';
@@ -34,7 +34,8 @@ export class Tab4Page implements OnInit {
               public pickerCtrl: PickerController,
               public alertController: AlertController,
               private theInAppBrowser: InAppBrowser,
-              private safariViewController: SafariViewController
+              private safariViewController: SafariViewController,
+              public toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -220,7 +221,7 @@ export class Tab4Page implements OnInit {
     switch (model.role) {
       case 'confirm':
         this.cartService.changeQuantity(product, Number(model.data[1]), model.data[0]);
-        //product.displayPrice[1] = product[product.displayPrice[0]];
+        this.presentToast( product.brand_tc + product.name_tc + '已更新', 2000);
         console.log('confirm' + model.data[0] + model.data[1]);
         break;
 
@@ -228,6 +229,16 @@ export class Tab4Page implements OnInit {
         console.log('fail');
         break;
     }
+  }
+
+  async presentToast(message: string, duration: number) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration,
+      color: 'secondary',
+      position: 'top'
+    });
+    toast.present();
   }
 
   async openPicker2(){

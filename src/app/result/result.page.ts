@@ -4,7 +4,7 @@ import {Item} from '../item';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../cart.service';
 import {PopoverComponent} from '../popover/popover.component';
-import { PopoverController } from '@ionic/angular';
+import {PopoverController, ToastController} from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import { ModalController } from '@ionic/angular';
@@ -20,7 +20,7 @@ import {ResultfilterComponent} from '../resultfilter/resultfilter.component';
 export class ResultPage implements OnInit {
   constructor(private itemservice: ItemService, private route: ActivatedRoute, public alertController: AlertController,
               private router: Router, private cartService: CartService, public popoverController: PopoverController,
-              private barcodeScanner: BarcodeScanner, public modalController: ModalController) {
+              private barcodeScanner: BarcodeScanner, public modalController: ModalController, public toastController: ToastController ) {}
     this.route.queryParams.subscribe(params => {
       this.keywords = params['keywords']; });
   }
@@ -49,7 +49,7 @@ export class ResultPage implements OnInit {
       }
     }
     onSelect(fitem: Item) {
-    this.router.navigate(['/product'], { queryParams:
+    this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
           { prodbarcode: fitem.barcode}});
   }
   async popOver(fitem: Item) {
@@ -70,12 +70,12 @@ export class ResultPage implements OnInit {
       case 'confirm':
         this.cartService.addProduct(fitem, Number(model.data[1]), model.data[0]);
         console.log('confirm' + model.data[0] + model.data[1]);
-        const alert = await this.alertController.create({
+        /*const alert = await this.alertController.create({
           message: model.data[1] + '件' + fitem.name_tc + '已加入購物車',
           buttons: ['OK']
-        });
+        });*/
+        this.presentToast(model.data[1] + '件' + fitem.brand_tc + fitem.name_tc + '已加入購物車', 2000);
 
-        await alert.present();
         break;
       case 'fail':
         console.log('fail');
@@ -94,6 +94,7 @@ export class ResultPage implements OnInit {
       console.log('Error', err);
     });
   }
+
   async showfilter() {
     const showfilter = await this.modalController.create({
       component: ResultfilterComponent,
@@ -122,5 +123,14 @@ export class ResultPage implements OnInit {
         console.log('fail');
         break;
     }
+
+  async presentToast(message: string, duration: number) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration,
+      color: 'secondary',
+      position: 'top'
+    });
+    toast.present();
   }
 }

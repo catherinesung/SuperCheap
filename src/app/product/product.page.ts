@@ -4,7 +4,7 @@ import { ItemService } from '../item.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../cart.service';
 import {PopoverComponent} from '../popover/popover.component';
-import { PopoverController } from '@ionic/angular';
+import {PopoverController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-product',
@@ -21,7 +21,7 @@ export class ProductPage implements OnInit {
 
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
-                private route: ActivatedRoute, public popoverController: PopoverController) {
+                private route: ActivatedRoute, public popoverController: PopoverController, public toastController: ToastController) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
         });
@@ -52,27 +52,18 @@ export class ProductPage implements OnInit {
 
     getprodinType(): void {
         this.prodinType = this.items.filter(x => x.type_tc === this.display.type_tc);
-        console.log(this.prodinType)
+        console.log(this.prodinType);
         this.randomItems();
     }
 
     randomItems(): void {
-        this.recommend[0] = this.items[Math.floor(Math.random() * this.prodinType.length)];
-        console.log(this.recommend[0]);
-        let i = 1;
-        let distinct = true;
-        while ((i <= 4) && distinct) {
-            distinct = true;
-            this.recommend[i] = this.items[Math.floor(Math.random() * this.prodinType.length)];
-            for (let j = 0; j < i; j++) {
-                if (this.recommend[i] === this.recommend[j]) {
-                    distinct = false;
-                    break;
-                }
-            }
-            if (distinct) {
-                i++;
-            }
+        /*let arr = [];
+        while (arr.length < 5) {
+            let r = Math.floor(Math.random() * this.prodinType.length);
+            if (arr.indexOf(r) === -1) {arr.push(r); }
+        }*/
+        for (let i = 0; i < 5; i++) {
+            this.recommend[i] = this.prodinType[i];
         }
     }
 
@@ -120,11 +111,22 @@ export class ProductPage implements OnInit {
         switch (model.role) {
             case 'confirm':
                 this.cartservice.addProduct(itemm, Number(model.data[1]), model.data[0]);
+                this.presentToast(model.data[1] + '件' + itemm.brand_tc + itemm.name_tc + '已加入購物車', 2000);
                 console.log('confirm' + model.data[0] + model.data[1]);
                 break;
             case 'fail':
                 console.log('fail');
                 break;
         }
+    }
+
+    async presentToast(message: string, duration: number) {
+        const toast = await this.toastController.create({
+            message: message,
+            duration: duration,
+            color: 'secondary',
+            position: 'top'
+        });
+        toast.present();
     }
 }
