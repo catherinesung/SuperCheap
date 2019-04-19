@@ -20,7 +20,7 @@ import {ResultfilterPage} from '../resultfilter/resultfilter.page';
 export class ResultPage implements OnInit {
   constructor(private itemservice: ItemService, private route: ActivatedRoute, public alertController: AlertController,
               private router: Router, private cartService: CartService, public popoverController: PopoverController,
-              private barcodeScanner: BarcodeScanner, public modalController: ModalController, public toastController: ToastController ) {}
+              private barcodeScanner: BarcodeScanner, public modalController: ModalController, public toastController: ToastController ) {
     this.route.queryParams.subscribe(params => {
       this.keywords = params['keywords']; });
   }
@@ -37,7 +37,8 @@ export class ResultPage implements OnInit {
     this.items = this.itemservice.getItemList();
     this.filter();
   }
-    filter() {
+
+  filter() {
     this.fitems = [];
       for (const item of this.items) {
         this.itemd = item.brand_en + ' ' + item.brand_tc + ' ' + item.type_en + ' ' + item.type_tc;
@@ -48,10 +49,12 @@ export class ResultPage implements OnInit {
         }
       }
     }
-    onSelect(fitem: Item) {
-    this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
-          { prodbarcode: fitem.barcode}});
+
+  onSelect(fitem: Item) {
+  this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
+        {prodbarcode: fitem.barcode}});
   }
+
   async popOver(fitem: Item) {
     const popover = await this.popoverController.create({
       component: PopoverComponent,
@@ -82,10 +85,12 @@ export class ResultPage implements OnInit {
         break;
     }
   }
+
   Search(value: string) {
    this.keywords = value;
    this.filter();
   }
+
   scanCode() {
     this.barcodeScanner.scan().then(barcodeData => {
       this.keywords = barcodeData.text;
@@ -113,7 +118,7 @@ export class ResultPage implements OnInit {
       case 'confirm':
         const ffitems = this.fitems;
         this.fitems = [];
-        for ( const ffitem of ffitems) {
+        for (const ffitem of ffitems) {
           if (ffitem.brand_tc === model.data[0] && ffitem.price_parknshop < model.data[2] && ffitem.price_parknshop > model.data[1]) {
             this.fitems.push(ffitem);
           }
@@ -123,6 +128,7 @@ export class ResultPage implements OnInit {
         console.log('fail');
         break;
     }
+  }
 
   async presentToast(message: string, duration: number) {
     const toast = await this.toastController.create({

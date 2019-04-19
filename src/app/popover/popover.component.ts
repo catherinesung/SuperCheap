@@ -42,7 +42,7 @@ export class PopoverComponent implements OnInit {
       this.popoverController.dismiss( data, 'confirm');
     }
     else{
-      console.log('請輸入數量！')
+      console.log('請輸入數量！');
     }
     console.log('dismissed');
   }
@@ -61,6 +61,7 @@ export class PopoverComponent implements OnInit {
   addQuantity(){
     this.quantity ++;
   }
+
   debug(){
     console.log('change');
     console.log(this.quantity);
