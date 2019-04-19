@@ -35,7 +35,9 @@ export class Tab2Page implements OnInit {
             });
     }
     callphone(phone) {
-        this.callNumber.callNumber(phone, true);
+        this.callNumber.callNumber(phone, true)
+            .then(() => console.log('Dialer Launched!'))
+            .catch(() => console.log('Error launching dialer'));
     }
     markerclick(infowindow) {
         if (this.previous) {
@@ -138,7 +140,7 @@ export class Tab2Page implements OnInit {
                     ]
                 }
             ]
-        })
+        });
         await picker.present();
     }
     async openPicker() {
@@ -184,7 +186,7 @@ export class Tab2Page implements OnInit {
                     ]
                 }
             ]
-        })
+        });
         await picker.present();
     }
 }

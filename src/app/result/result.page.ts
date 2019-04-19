@@ -8,7 +8,7 @@ import {PopoverController, ToastController} from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import { ModalController } from '@ionic/angular';
-import {ResultfilterPage} from '../resultfilter/resultfilter.page';
+import {ResultfilterComponent} from '../resultfilter/resultfilter.component';
 
 
 @Component({
@@ -102,7 +102,7 @@ export class ResultPage implements OnInit {
 
   async showfilter() {
     const showfilter = await this.modalController.create({
-      component: ResultfilterPage,
+      component: ResultfilterComponent,
       componentProps: {
         'fitem': this.fitems
       },

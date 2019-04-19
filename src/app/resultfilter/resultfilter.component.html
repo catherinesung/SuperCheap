@@ -3,9 +3,6 @@
     <ion-buttons slot="start">
       <ion-button (click)="onCancel()">Cancel</ion-button>
     </ion-buttons>
-    <ion-title>
-      {{itemName}}
-    </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="onConfirm()" color="success">Confirm</ion-button>
     </ion-buttons>
@@ -14,11 +11,17 @@
 <ion-content>
   <ion-item>價格</ion-item>
   <ion-item>
-    <ion-badge color="primary">{{lowerPrice}}</ion-badge>
-    <ion-badge color="primary" >{{upperPrice}}</ion-badge>
-  </ion-item>
-  <ion-item>
-    <ion-range [(ngModel)]="price" (ionChange)="setprice(price)" min="0" max="999" step="1" snaps="true" color="primary" dualKnobs="true" snaps="true"></ion-range>
+    <ion-range [(ngModel)]="price" (ionChange)="setprice(price)"
+               min="0"
+               max="999"
+               step="1"
+               snaps="true"
+               color="primary"
+               dualKnobs="true"
+               [pin]="false">
+      <ion-item slot="start" no-lines>{{price.lower}}</ion-item>
+      <ion-item slot="end">{{price.upper}}</ion-item>
+    </ion-range>
   </ion-item>
   <ion-item>品牌</ion-item>
   <ion-list>
