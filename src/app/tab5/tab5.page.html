@@ -4,6 +4,9 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>帳戶</ion-title>
+        <ion-buttons slot="start" *ngIf="login && couponpage">
+            <ion-back-button defaultHref="/tabs/tab5" (click)="couponout()"></ion-back-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 <ion-content>
