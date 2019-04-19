@@ -4,7 +4,7 @@ import { ItemService } from '../item.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../cart.service';
 import {PopoverComponent} from '../popover/popover.component';
-import { PopoverController } from '@ionic/angular';
+import {PopoverController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-product',
@@ -21,7 +21,7 @@ export class ProductPage implements OnInit {
 
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
-                private route: ActivatedRoute, public popoverController: PopoverController) {
+                private route: ActivatedRoute, public popoverController: PopoverController, public toastController: ToastController) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
         });
@@ -111,11 +111,22 @@ export class ProductPage implements OnInit {
         switch (model.role) {
             case 'confirm':
                 this.cartservice.addProduct(itemm, Number(model.data[1]), model.data[0]);
+                this.presentToast(model.data[1] + '件' + itemm.brand_tc + itemm.name_tc + '已加入購物車', 2000);
                 console.log('confirm' + model.data[0] + model.data[1]);
                 break;
             case 'fail':
                 console.log('fail');
                 break;
         }
+    }
+
+    async presentToast(message: string, duration: number) {
+        const toast = await this.toastController.create({
+            message: message,
+            duration: duration,
+            color: 'secondary',
+            position: 'top'
+        });
+        toast.present();
     }
 }
