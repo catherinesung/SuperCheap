@@ -110,7 +110,7 @@ export class Tab2Page implements OnInit {
                     name: 'list',
                     options: [
                         {
-                            text: '請選撰商店 ',
+                            text: '請選擇商店 ',
                             value: ' '
                         },
                         {
@@ -118,7 +118,7 @@ export class Tab2Page implements OnInit {
                             value: 'parknshop'
                         },
                         {
-                            text: 'Markerplace',
+                            text: 'Marketplace',
                             value: 'marketplace'
                         },
                         {
