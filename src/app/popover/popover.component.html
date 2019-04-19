@@ -83,14 +83,12 @@
       <ion-radio value="price_waston"></ion-radio>
     </ion-item>
   </ion-radio-group>
-
-  <ion-item>
-    <ion-button (click)="minusQuantity()"><ion-icon slot="icon-only" name="remove-circle-outline"></ion-icon></ion-button>
-    <ion-input placeholder="數量" type="number" [(ngModel)]="quantity"></ion-input>
-    <ion-button (click)="addQuantity()"><ion-icon slot="icon-only" name="add-circle-outline"></ion-icon></ion-button>
-  </ion-item>
 </ion-list>
-
+<ion-item>
+ <ion-icon slot="icon-only" name="remove-circle-outline" (click)="minusQuantity()"></ion-icon>
+  <ion-input placeholder="數量" type="number" [(ngModel)]="quantity"></ion-input>
+<ion-icon> slot="icon-only" name="add-circle-outline" (click)="addQuantity()></ion-icon>
+</ion-item>
 <ion-item>
   <ion-segment>
     <ion-segment-button (click)="donePopf()">取消</ion-segment-button>
