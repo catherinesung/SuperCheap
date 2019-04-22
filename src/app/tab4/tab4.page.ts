@@ -131,49 +131,40 @@ export class Tab4Page implements OnInit {
     console.log(this.total);
   }
 
-  placeOrder(){
-    this.safariViewController.isAvailable()
-        .then((available: boolean) => {
-              if (available) {
+  async placeOrder(){
+    const shoppingCart = 'https://www.parknshop.com/en/shoppingCart';
+    for (let i = 1; i < 5; i++) {
+      await new Promise(resolve => this.openNewTab2('https://www.parknshop.com/en/cart/add?productCodePost=122528&qty=' + i, true)
+          .then(() => resolve()))
+      console.log(i);
+    }
+    this.openNewTab2(shoppingCart, false);
+/*
+    this.openNewTab2('https://www.parknshop.com/en/cart/add?productCodePost=122528&qty=10', true)
+        .then(() =>
+            this.openNewTab2('https://www.parknshop.com/en/cart/add?productCodePost=101323&qty=20', true))
+              .then(() => this.openNewTab2(shoppingCart, false));*/
 
-                this.safariViewController.show({
-                  url: 'https://www.parknshop.com/en/cart/add?productCodePost=454099&qty=1',
-                  hidden: true,
-                  animated: false,
-                  transition: 'curl',
-                  enterReaderModeIfAvailable: false,
-                  tintColor: '#ff0000'
-                })
-                    .subscribe((result: any) => {
-                          if (result.event === 'opened') {
-                            console.log('Opened');
-                          }
-                          else if(result.event === 'loaded') {
-                            console.log('Loaded');
-                          }
-                          else if(result.event === 'closed') {
-                            console.log('Closed');
-                          }
-                        },
-                        (error: any) => console.error(error)
-                    );
-
-              } else {
-                // use fallback browser, example InAppBrowser
-              }
-            }
-        );
-    this.safariViewController.hide();
+    /*
+    Promise.all(
+        [
+            this.openNewTab2('https://www.parknshop.com/en/cart/add?productCodePost=122528&qty=1', true)
+        ]).then(() => {
+          this.openNewTab2(shoppingCart, false);
+        });
+        */
+    //this.openNewTab2('https://www.parknshop.com/en/cart/add?productCodePost=122528&qty=1', true);
+    //this.openNewTab2('https://www.parknshop.com/en/cart/add?productCodePost=101323&qty=1', true);
+    //this.openNewTab2(shoppingCart, false);
   }
 
-  openNewBackgroundTab(){
+  openNewTab(url, hidden: boolean){
     this.safariViewController.isAvailable()
         .then((available: boolean) => {
               if (available) {
-
                 this.safariViewController.show({
-                  url: 'https://www.parknshop.com/shoppingCart',
-                  hidden: false,
+                  url: url,
+                  hidden: hidden,
                   animated: false,
                   transition: 'curl',
                   enterReaderModeIfAvailable: false,
@@ -181,10 +172,12 @@ export class Tab4Page implements OnInit {
                 })
                     .subscribe((result: any) => {
                           if (result.event === 'opened') {
-                            console.log('Opened');
+                            // console.log('Opened');
+                            console.log(url + 'opened');
                           }
                           else if(result.event === 'loaded') {
-                            console.log('Loaded');
+                            // console.log('Loaded');
+                            console.log(url + 'loaded');
                           }
                           else if(result.event === 'closed') {
                             console.log('Closed');
@@ -199,6 +192,48 @@ export class Tab4Page implements OnInit {
             }
         );
   }
+
+  openNewTab2(url, hidden: boolean){
+    return new Promise ((resolve, reject) => {
+      this.safariViewController.isAvailable()
+          .then((available: boolean) => {
+                if (available) {
+                  this.safariViewController.show({
+                    url: url,
+                    hidden: hidden,
+                    animated: false,
+                    transition: 'curl',
+                    enterReaderModeIfAvailable: false,
+                    tintColor: '#ff0000'
+                  })
+                      .subscribe((result: any) => {
+                            if (result.event === 'opened') {
+                              // console.log('Opened');
+                              console.log(url + 'opened');
+                            }
+                            else if(result.event === 'loaded') {
+                              // console.log('Loaded');
+                              resolve();
+                              console.log(url + 'loaded');
+                            }
+                            else if(result.event === 'closed') {
+                              console.log('Closed');
+                            }
+                          },
+                          (error: any) => {
+                            console.error(error);
+                            reject();
+                          }
+                      );
+
+                } else {
+                  // use fallback browser, example InAppBrowser
+                }
+              }
+          );
+    });
+  }
+
 
   refreshCart(event) {
     this.cartService.calculateTotal();

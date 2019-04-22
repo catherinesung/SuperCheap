@@ -66,7 +66,7 @@
 
         <ion-label class="name_tc" text-wrap>
           <h3>{{products.item.brand_tc}}</h3>
-          {{products.item.name_tc}}
+          <ion-text class="name">{{products.item.name_tc}}</ion-text>
         </ion-label>
 
         <ion-buttons slot="end" (click)="popOver(products.item)">
@@ -185,10 +185,12 @@
   <ion-toolbar>
     <ion-row>
       <ion-col size="6">
-        <ion-text class="total" color="primary"> 總數 <br> ${{total[0]}}</ion-text>
-        <ion-text color="danger"> + 送貨費 ${{total[4]}} </ion-text>
+        <ion-text class="total" color="primary"> 總數 <br></ion-text>
+        <ion-text class="totalamount"> ${{total[0]}}</ion-text>
+        <ion-text color="danger" class="orderfee"> + 送貨費 ${{total[4]}} </ion-text>
+        <!--
         <br>
-        <ion-button size="small" color="secondary" expand="full" fill="solid" (click)="placeOrder()">送貨設定</ion-button>
+        <ion-button size="small" color="secondary" expand="full" fill="solid" (click)="placeOrder()">送貨設定</ion-button>-->
       </ion-col>
       <ion-col size="6">
         <ion-button color="primary" expand="full" fill="solid" (click)="placeOrder()">結帳 ${{total[7]}}</ion-button>
