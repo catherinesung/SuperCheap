@@ -25,4 +25,5 @@ export interface Item {
         remark_en_wellcome: string;
         remark_en_waston: string;
         [key: string]: any;
+        bp: string;
 }

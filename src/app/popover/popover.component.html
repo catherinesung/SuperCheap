@@ -45,9 +45,9 @@
     </ion-radio-group>
   </ion-list>
   <ion-item>
-    <ion-button><ion-icon class="scanner" slot="icon-only" name="remove-circle-outline" (click)="minusQuantity()"></ion-icon></ion-button>
+    <ion-button (click)="minusQuantity()"><ion-icon class="scanner" slot="icon-only" name="remove-circle-outline"></ion-icon></ion-button>
     <ion-input placeholder="數量" type="number" [(ngModel)]="quantity"></ion-input>
-    <ion-button><ion-icon class="scanner" slot="icon-only" name="add-circle-outline" (click)="addQuantity()"></ion-icon></ion-button>
+    <ion-button (click)="addQuantity()"><ion-icon class="scanner" slot="icon-only" name="add-circle-outline"></ion-icon></ion-button>
   </ion-item>
   <ion-item>
     <ion-segment>
