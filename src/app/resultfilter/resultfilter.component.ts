@@ -8,7 +8,7 @@ import {NavParams} from '@ionic/angular';
   styleUrls: ['./resultfilter.component.scss']
 })
 export class ResultfilterComponent implements OnInit {
-  constructor(public modalController: ModalController, public navParams : NavParams) {
+  constructor(public modalController: ModalController, public navParams: NavParams) {
 
     this.brands = (this.navParams.get('brands'));
   }
