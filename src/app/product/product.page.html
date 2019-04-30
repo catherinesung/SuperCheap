@@ -1,4 +1,4 @@
-<script src="node_modules/chart.js/src/chart.js"></script>
+<head><script src="node_modules/chart.js/src/chart.js"></script></head>
 
 <ion-header>
     <ion-toolbar>
@@ -9,23 +9,24 @@
     </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
     <ion-grid>
-        <ion-row>
+        <ion-row *ngIf="display">
             <ion-col>
                 <img src="assets/product-img/{{display.barcode}}.jpg"
                      onError="this.src='assets/product-img/noimage.jpg'" />
             </ion-col>
         </ion-row>
 
-        <ion-row>
+        <ion-row *ngIf="display">
             <ion-button (click)="popOver(display)">
                 <ion-icon name="cart"></ion-icon>
                 <ion-text>&nbsp;&nbsp;加到購物車</ion-text>
             </ion-button>
         </ion-row>
 
-        <ion-row>
+        <ion-row *ngIf="display">
             <ion-col size="8">
                 <ion-text class="brand">{{display.brand_tc}}<br></ion-text>
                 <ion-text class="name">{{display.name_tc}}</ion-text>
@@ -41,7 +42,7 @@
 
         </ion-row>
 
-        <ion-row>
+        <ion-row *ngIf="display">
             <ion-col size="4"*ngFor="let i of display['sorted'] | slice: 1">
                 <ion-row>
                     <ion-col>
@@ -56,7 +57,9 @@
 
         <ion-row>
             <ion-col>
-                <ion-img class="chart" src="assets/image/chart.jpg"></ion-img>
+                <div *ngIf="chart != null">
+                    <canvas id="canvas">{{ chart }}</canvas>
+                </div>
             </ion-col>
         </ion-row>
 
@@ -64,7 +67,7 @@
             <ion-col>
                 <ion-slides>
                     <ion-slide *ngFor="let i of recommend">
-                        <ion-card>
+                        <ion-card *ngIf="recommend">
                             <ion-card-content>
                                 <img src="assets/product-img/{{i.barcode}}.jpg"
                                      onError="this.src='assets/product-img/noimage.jpg'" />
@@ -83,7 +86,7 @@
                                         </ion-col>
                                     </ion-row>
                                 </ion-grid>
-                                <ion-button (click)="popOver(display)">
+                                <ion-button *ngIf="display" (click)="popOver(display)">
                                     <ion-icon name="cart"></ion-icon>
                                     <ion-text>&nbsp;&nbsp;加到購物車</ion-text>
                                 </ion-button>
