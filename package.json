@@ -64,7 +64,7 @@
     "ngx-filesaver": "^2.2.1",
     "phonegap-plugin-barcodescanner": "^8.0.1",
     "rxjs": "~6.3.3",
-    "rxjs-compat": "^6.4.0",
+    "rxjs-compat": "^6.5.1",
     "zone.js": "~0.8.29"
   },
   "devDependencies": {
