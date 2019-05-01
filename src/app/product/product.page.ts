@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, AfterViewInit} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -12,7 +12,7 @@ import { Chart } from 'chart.js';
   templateUrl: './product.page.html',
   styleUrls: ['./product.page.scss'],
 })
-export class ProductPage implements OnInit, AfterViewInit {
+export class ProductPage implements OnInit {
     items: Item[];
     display: Item;
     prodbarcode: string;
@@ -20,9 +20,9 @@ export class ProductPage implements OnInit, AfterViewInit {
     recommend: Item[];
     num: number[];
     chart: any;
-    canvas: any;
-    ctx: any;
 
+    @ViewChild('pricetrend') canvas: ElementRef;
+    public ctx: CanvasRenderingContext2D;
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
                 private route: ActivatedRoute, public popoverController: PopoverController,
@@ -34,9 +34,6 @@ export class ProductPage implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.getItems();
-    }
-
-    ngAfterViewInit(): void {
         this.drawChart();
     }
 
@@ -47,17 +44,16 @@ export class ProductPage implements OnInit, AfterViewInit {
         this.items = this.itemservice.getItemList();
         this.InitItems();
         this.getprodinType();
-        for (let i = 0; i <= 4; i++) {
+        for (let i = 0; i < 5; i++) {
             if (typeof this.recommend[i] !== 'undefined') {
                 this.recommend[i]['sorted'] = this.sortPrice(this.recommend[i]);
             }
-            console.log(this.recommend[i]);
         }
     }
 
     InitItems(): void {
         this.display = this.items.find(x => x.barcode === this.prodbarcode);
-        if (typeof this.display !== 'undefined') {this.display['sorted'] = this.sortPrice(this.display); }
+        this.display['sorted'] = this.sortPrice(this.display);
         console.log(this.display);
     }
 
@@ -74,7 +70,9 @@ export class ProductPage implements OnInit, AfterViewInit {
             if (arr.indexOf(r) === -1) {arr.push(r); }
         }*/
         for (let i = 0; i < 5; i++) {
-            this.recommend[i] = this.prodinType[i];
+            if (typeof this.prodinType[i] !== 'undefined') {
+                this.recommend[i] = this.prodinType[i];
+            }
         }
     }
 
@@ -142,21 +140,23 @@ export class ProductPage implements OnInit, AfterViewInit {
     }
 
     drawChart(): void {
-        const context = document.getElementById('canvas');
-        this.chart = new Chart(context, {
-            type: 'line',
-            data: {
-                labels: ['13 Apr', '14 Apr', '15 Apr', '16 Apr', '17 Apr', '18 Apr', '19 Apr'],
-                datasets: [{
-                    data: [26.9, 27.9, 28.9, 29.9, 28.9, 27.9, 26.9],
-                    borderColor: '#ff9500',
-                    fill: false
-                }]},
-            options: {
-                legend: {display: false},
-                scales: {XAxes: [{display: true}], YAxes: [{display: true}]
+        this.ctx = (<HTMLCanvasElement> this.canvas.nativeElement).getContext('2d');
+        if (this.ctx !== null) {
+            this.chart = new Chart(this.ctx, {
+                type: 'line',
+                data: {
+                    labels: ['13 Apr', '14 Apr', '15 Apr', '16 Apr', '17 Apr', '18 Apr', '19 Apr'],
+                    datasets: [{
+                        data: [26.9, 27.9, 28.9, 29.9, 28.9, 27.9, 26.9],
+                        borderColor: '#ff9500',
+                        fill: false
+                    }]},
+                options: {
+                    legend: {display: false},
+                    scales: {XAxes: [{display: true}], YAxes: [{display: false}]
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }

@@ -57,9 +57,7 @@
 
         <ion-row>
             <ion-col>
-                <div *ngIf="chart != null">
-                    <canvas id="canvas">{{ chart }}</canvas>
-                </div>
+                    <canvas #pricetrend>{{ chart }}</canvas>
             </ion-col>
         </ion-row>
 
@@ -67,7 +65,7 @@
             <ion-col>
                 <ion-slides>
                     <ion-slide *ngFor="let i of recommend">
-                        <ion-card *ngIf="recommend">
+                        <ion-card *ngIf="i">
                             <ion-card-content>
                                 <img src="assets/product-img/{{i.barcode}}.jpg"
                                      onError="this.src='assets/product-img/noimage.jpg'" />
