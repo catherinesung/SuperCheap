@@ -13,16 +13,16 @@
 </ion-header>
 <ion-content>
         <ion-virtual-scroll [items]="fitems">
-                    <ion-item detail (click)="onSelect(fitem)" *virtualItem="let fitem" >
-                        <ion-grid>
+                    <ion-item  *virtualItem="let fitem" >
+                        <ion-grid detail (click)="onSelect(fitem)">
                     <ion-row>
-                        <ion-col size="3"><ion-img src="assets/product-img/{{fitem.barcode}}.jpg" (error)="this.src='assets/product-img/no-image.jpg'"></ion-img></ion-col>
+                        <ion-col size="3" ><ion-img src="assets/product-img/{{fitem?.barcode}}.jpg" (ionImgDidLoad)="imageLoaded($event)"></ion-img></ion-col>
                         <ion-col size="7">
-                            <ion-row class="brand">{{fitem.brand_tc}} </ion-row>
-                                <ion-row class="name">{{fitem.name_tc}}</ion-row>
-                                <ion-row class="price">
-                                    <ion-img class="pricepic" src="assets/supermarket-img/{{fitem['minPrice'][0].supermarket}}.png" ></ion-img>
-                                 &nbsp;$ {{fitem['minPrice'][0].price}}
+                            <ion-row class="brand">{{fitem?.brand_tc}} </ion-row>
+                                <ion-row class="name" >{{fitem?.name_tc}}</ion-row>
+                                <ion-row class="price" >
+                                   <ion-img class="pricepic" src="assets/supermarket-img/{{fitem['minPrice'][0]?.supermarket}}.png"></ion-img>
+                                 &nbsp;$ {{fitem['minPrice'][0]?.price}}
                             </ion-row>
                         </ion-col>
                         <ion-col size="1">
@@ -33,6 +33,5 @@
                     </ion-row>
                 </ion-grid>
             </ion-item>
-
         </ion-virtual-scroll>
 </ion-content>

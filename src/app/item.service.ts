@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { Item } from './item';
-import {User} from './user';
+import {CartService} from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ItemService {
   items: Item[] = [];
   itemList = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public cartService: CartService) {
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -44,13 +44,14 @@ export class ItemService {
             (res: Item[]) => {
                 this.items = res;
                 for (const item of this.items) {
-                    this.itemList.push(item);
+                    item['minPrice'] = this.cartService.comparePrice(item);
                 }
             }
         );
     }
 
     getItemList() {
-      return this.itemList;
+      console.log(this.items);
+      return this.items;
     }
 }
