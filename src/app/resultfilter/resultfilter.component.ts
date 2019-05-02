@@ -8,7 +8,7 @@ import {NavParams} from '@ionic/angular';
   styleUrls: ['./resultfilter.component.scss']
 })
 export class ResultfilterComponent implements OnInit {
-  constructor(public modalController: ModalController, public navParams : NavParams) {
+  constructor(public modalController: ModalController, public navParams: NavParams) {
 
     this.brands = (this.navParams.get('brands'));
   }
@@ -31,13 +31,17 @@ export class ResultfilterComponent implements OnInit {
   }
 
   onCancel() {
-    const data = [this.BrandSelected, this.lowerPrice, this.upperPrice];
+    const brandSelect = this.BrandSelected.toString();
+    const data = [this.lowerPrice, this.upperPrice, brandSelect];
     this.modalController.dismiss(data, 'fail');
   }
 
   onConfirm() {
-    const data = [this.BrandSelected, this.lowerPrice, this.upperPrice];
-    this.modalController.dismiss(data, 'confirm');
+    const brandSelect = this.BrandSelected.toString();
+    const data = [this.lowerPrice, this.upperPrice];
+    console.log(data);
+    console.log(brandSelect);
+    this.modalController.dismiss(data , brandSelect, 'confirm');
   }
 }
 
