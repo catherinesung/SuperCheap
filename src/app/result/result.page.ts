@@ -33,6 +33,7 @@ export class ResultPage implements OnInit {
   itemd: string;
   selected: Item;
   brand = [];
+  sorted: Item[] = [];
 
 
   ngOnInit(): void {
@@ -115,10 +116,14 @@ export class ResultPage implements OnInit {
           role: 'done',
           handler: data => {
             console.log(data.list.value);
-            this.keywords = data.list.value;
-            this.filter();
+            if (data.list.value === 'price') {
+              this.sortPrice();
+              }
+            if (data.list.value === 'brand') {
+              this.sortBrand();
+            }
+            }
           }
-        }
       ],
       columns: [
         {
@@ -134,14 +139,27 @@ export class ResultPage implements OnInit {
             },
             {
               text: '按品牌排序',
-              value: 'marketplace'
+              value: 'brand'
             }
           ]
         }
       ]
     });
     await picker.present();
-
+  }
+  sortPrice() {
+    this.sorted = this.fitems.sort(function (obj1 , obj2) {
+      return obj1['minPrice'][0].price - obj2['minPrice'][0].price;
+    });
+    this.fitems = this.sorted;
+    console.log(this.fitems);
+  }
+  sortBrand() {
+    this.sorted = this.fitems.sort((obj1 , obj2) => (
+      obj1.brand_tc > obj2.brand_tc ? -1 : 1
+  ));
+    this.fitems = this.sorted;
+    console.log(this.fitems);
   }
 
   async showfilter() {

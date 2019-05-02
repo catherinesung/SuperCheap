@@ -12,7 +12,7 @@
     </ion-card>
 </ion-header>
 <ion-content>
-        <ion-virtual-scroll [items]="fitems">
+        <ion-virtual-scroll [items]="fitems" >
                     <ion-item  *virtualItem="let fitem" >
                         <ion-grid detail (click)="onSelect(fitem)">
                     <ion-row>
