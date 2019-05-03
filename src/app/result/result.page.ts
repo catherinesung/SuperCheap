@@ -5,11 +5,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../cart.service';
 import {PopoverComponent} from '../popover/popover.component';
 import {PopoverController, ToastController} from '@ionic/angular';
-import { AlertController } from '@ionic/angular';
 import { BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import { ModalController } from '@ionic/angular';
 import {ResultfilterComponent} from '../resultfilter/resultfilter.component';
-
+import { PickerController } from '@ionic/angular';
 
 @Component({
   selector: 'app-result',
@@ -18,11 +17,13 @@ import {ResultfilterComponent} from '../resultfilter/resultfilter.component';
 })
 
 export class ResultPage implements OnInit {
-  constructor(private itemservice: ItemService, private route: ActivatedRoute, public alertController: AlertController,
+  constructor(private itemservice: ItemService, private route: ActivatedRoute,
               private router: Router, private cartService: CartService, public popoverController: PopoverController,
-              private barcodeScanner: BarcodeScanner, public modalController: ModalController, public toastController: ToastController ) {
+              private barcodeScanner: BarcodeScanner, public modalController: ModalController, public toastController: ToastController,
+              public pickerCtrl: PickerController) {
     this.route.queryParams.subscribe(params => {
-      this.keywords = params['keywords']; });
+      this.keywords = params['keywords'];
+    });
   }
   keywords: string;
   items: Item[] = [];
@@ -32,10 +33,12 @@ export class ResultPage implements OnInit {
   itemd: string;
   selected: Item;
   brand = [];
+  sorted: Item[] = [];
 
 
   ngOnInit(): void {
     this.items = this.itemservice.getItemList();
+    console.log(this.items);
     this.filter();
   }
 
@@ -44,9 +47,7 @@ export class ResultPage implements OnInit {
       for (const item of this.items) {
         this.itemd = item.brand_en + ' ' + item.brand_tc + ' ' + item.type_en + ' ' + item.type_tc;
         if (this.itemd.toString().toLowerCase().includes(this.keywords.toLowerCase()) || item.barcode === this.keywords) {
-          item['minPrice'] = this.cartService.comparePrice(item);
           this.fitems.push(item);
-          console.log(this.fitems);
         }
       }
     }
@@ -74,7 +75,6 @@ export class ResultPage implements OnInit {
     switch (model.role) {
       case 'confirm':
         this.cartService.addProduct(fitem, Number(model.data[1]), model.data[0]);
-        console.log('confirm' + model.data[0] + model.data[1]);
         /*const alert = await this.alertController.create({
           message: model.data[1] + '件' + fitem.name_tc + '已加入購物車',
           buttons: ['OK']
@@ -100,6 +100,66 @@ export class ResultPage implements OnInit {
     }).catch(err => {
       console.log('Error', err);
     });
+  }
+  async sortItem() {
+    const picker = await this.pickerCtrl.create({
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: data => {
+            console.log(data.list.value);
+          }
+        },
+        {
+          text: '確定',
+          role: 'done',
+          handler: data => {
+            console.log(data.list.value);
+            if (data.list.value === 'price') {
+              this.sortPrice();
+              }
+            if (data.list.value === 'brand') {
+              this.sortBrand();
+            }
+            }
+          }
+      ],
+      columns: [
+        {
+          name: 'list',
+          options: [
+            {
+              text: '請選擇排序方式',
+              value: ' '
+            },
+            {
+              text: '按價錢排序',
+              value: 'price'
+            },
+            {
+              text: '按品牌排序',
+              value: 'brand'
+            }
+          ]
+        }
+      ]
+    });
+    await picker.present();
+  }
+  sortPrice() {
+    this.sorted = this.fitems.sort(function (obj1 , obj2) {
+      return obj1['minPrice'][0].price - obj2['minPrice'][0].price;
+    });
+    this.fitems = this.sorted;
+    console.log(this.fitems);
+  }
+  sortBrand() {
+    this.sorted = this.fitems.sort((obj1 , obj2) => (
+      obj1.brand_tc > obj2.brand_tc ? -1 : 1
+  ));
+    this.fitems = this.sorted;
+    console.log(this.fitems);
   }
 
   async showfilter() {
@@ -145,5 +205,11 @@ export class ResultPage implements OnInit {
       position: 'top'
     });
     toast.present();
+  }
+  imageLoaded(event) {
+    // Register the onerror event on the image in case of a 404
+    const img = event.srcElement.shadowRoot.children[1];
+    img.onerror = () => { img.src = '/assets/product-img/no-image.jpg'; };
+    event.srcElement.className = event.srcElement.className.replace('image-loading', '');
   }
 }
