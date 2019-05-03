@@ -119,8 +119,10 @@ export class Tab4Page implements OnInit {
     else {
       if (this.supermarket !== '') {
         for (let products of this.cart) {
-          products.item.displayPrice[0] = this.supermarket;
-          this.displaySupermarketChange(products);
+          if (products.item[this.supermarket] !== 0){
+            products.item.displayPrice[0] = this.supermarket;
+            this.displaySupermarketChange(products);
+          }
         }
       }
     }
