@@ -22,10 +22,13 @@ export class ResultPage implements OnInit {
               private barcodeScanner: BarcodeScanner, public modalController: ModalController, public toastController: ToastController,
               public pickerCtrl: PickerController) {
     this.route.queryParams.subscribe(params => {
+      this.types = params['type'];
+      console.log(this.types);
       this.keywords = params['keywords'];
+      console.log(this.keywords);
     });
   }
-  keywords: string;
+  keywords = '';
   items: Item[] = [];
   fitems: Item[];
   error = '';
@@ -34,23 +37,32 @@ export class ResultPage implements OnInit {
   selected: Item;
   brand = [];
   sorted: Item[] = [];
+  types = [];
 
 
   ngOnInit(): void {
     this.items = this.itemservice.getItemList();
-    console.log(this.items);
     this.filter();
+    console.log(this.types);
   }
 
   filter() {
     this.fitems = [];
+    if (this.keywords !== undefined) {
       for (const item of this.items) {
         this.itemd = item.brand_en + ' ' + item.brand_tc + ' ' + item.type_en + ' ' + item.type_tc;
         if (this.itemd.toString().toLowerCase().includes(this.keywords.toLowerCase()) || item.barcode === this.keywords) {
           this.fitems.push(item);
         }
       }
+    } else {
+      for (const item of this.items) {
+        if (this.types.includes(item.type_tc)) {
+          this.fitems.push(item);
+        }
+      }
     }
+  }
 
   onSelect(fitem: Item) {
   this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
