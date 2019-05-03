@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import {FormsModule} from '@angular/forms';
 import { PopoverComponent } from './popover/popover.component';
-import {AgmCoreModule,  } from '@agm/core';
+import {AgmCoreModule, GoogleMapsAPIWrapper,} from '@agm/core';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -59,6 +59,7 @@ export function getAuthServiceConfigs() {
       ModalController,
       InAppBrowser,
       SafariViewController,
+      GoogleMapsAPIWrapper,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
   ],

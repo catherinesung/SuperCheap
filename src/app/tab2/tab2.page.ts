@@ -11,7 +11,6 @@ import {CallNumber} from '@ionic-native/call-number/ngx';
     templateUrl: 'tab2.page.html',
     styleUrls: ['tab2.page.scss'],
 })
-
 export class Tab2Page implements OnInit {
     constructor(private locationService: LocationService,
                 private nativeGeocoder: NativeGeocoder,
@@ -27,6 +26,7 @@ export class Tab2Page implements OnInit {
     keywords = ' ';
     filterstr: string;
     previous;
+    map: any;
     ngOnInit(): void {
         this.locationService.getlocation().subscribe(
             (res: Storeinfo[]) => {
@@ -81,10 +81,13 @@ export class Tab2Page implements OnInit {
        this.keywords = value;
        this.filter();
     }
-    findOnMap(latitude: number, longtitude: number) {
-        this.gla = latitude;
-        this.glong = longtitude;
-    }
+      onSelect(store: any) {
+          setTimeout(() => {
+              this.gla = Number(store.latitude);
+              this.glong = Number(store.longtitude);
+              console.log(this.glong + this.gla);
+          });
+      }
     async openPicker2() {
         const picker = await this.pickerCtrl.create({
             buttons: [
