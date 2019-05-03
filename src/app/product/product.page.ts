@@ -1,4 +1,5 @@
 import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -11,6 +12,7 @@ import { Chart } from 'chart.js';
   selector: 'app-product',
   templateUrl: './product.page.html',
   styleUrls: ['./product.page.scss'],
+  providers: [DatePipe]
 })
 export class ProductPage implements OnInit {
     items: Item[];
@@ -20,13 +22,15 @@ export class ProductPage implements OnInit {
     recommend: Item[];
     num: number[];
     chart: any;
+    label: string[];
+    data: number[];
 
     @ViewChild('pricetrend') canvas: ElementRef;
     public ctx: CanvasRenderingContext2D;
 
     constructor(private itemservice: ItemService, private cartservice: CartService,
                 private route: ActivatedRoute, public popoverController: PopoverController,
-                public toastController: ToastController, private elementref: ElementRef) {
+                public toastController: ToastController, private datePipe: DatePipe) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
         });
@@ -34,14 +38,14 @@ export class ProductPage implements OnInit {
 
     ngOnInit(): void {
         this.getItems();
-        this.drawChart();
     }
 
-    getItems() {
+    async getItems() {
         this.prodinType = [];
         this.recommend = [];
         this.num = [0, 1, 2, 3, 4];
-        this.items = this.itemservice.getItemList();
+        this.items = await this.itemservice.getItemList();
+        console.log(this.items);
         this.InitItems();
         this.getprodinType();
         for (let i = 0; i < 5; i++) {
@@ -49,17 +53,17 @@ export class ProductPage implements OnInit {
                 this.recommend[i]['sorted'] = this.sortPrice(this.recommend[i]);
             }
         }
+        this.drawChart();
     }
 
     InitItems(): void {
         this.display = this.items.find(x => x.barcode === this.prodbarcode);
-        this.display['sorted'] = this.sortPrice(this.display);
+        if (typeof this.display !== 'undefined') {this.display['sorted'] = this.sortPrice(this.display);}
         console.log(this.display);
     }
 
     getprodinType(): void {
         this.prodinType = this.items.filter(x => x.type_tc === this.display.type_tc);
-        console.log(this.prodinType);
         this.randomItems();
     }
 
@@ -140,14 +144,30 @@ export class ProductPage implements OnInit {
     }
 
     drawChart(): void {
+        const date = new Date();
+        this.label = [];
+        this.label[6] = this.datePipe.transform(date, 'MMM d');
+        for (let i = 5; i >= 0; i--) {
+            this.label[i] = this.datePipe.transform(date.setDate(date.getDate() - 1), 'MMM d');
+        }
+        this.data = [];
+        if (typeof this.display !== 'undefined') {
+            this.data.push(this.display.d6b_price);
+            this.data.push(this.display.d5b_price);
+            this.data.push(this.display.d4b_price);
+            this.data.push(this.display.d3b_price);
+            this.data.push(this.display.d2b_price);
+            this.data.push(this.display.d1b_price);
+            this.data.push(this.display.d0b_price);
+        }
         this.ctx = (<HTMLCanvasElement> this.canvas.nativeElement).getContext('2d');
         if (this.ctx !== null) {
             this.chart = new Chart(this.ctx, {
                 type: 'line',
                 data: {
-                    labels: ['13 Apr', '14 Apr', '15 Apr', '16 Apr', '17 Apr', '18 Apr', '19 Apr'],
+                    labels: this.label,
                     datasets: [{
-                        data: [26.9, 27.9, 28.9, 29.9, 28.9, 27.9, 26.9],
+                        data: this.data,
                         borderColor: '#ff9500',
                         fill: false
                     }]},

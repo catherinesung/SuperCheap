@@ -26,4 +26,18 @@ export interface Item {
         remark_en_waston: string;
         [key: string]: any;
         bp: string;
+        d0b_price: number;
+        d1b_price: number;
+        d2b_price: number;
+        d3b_price: number;
+        d4b_price: number;
+        d5b_price: number;
+        d6b_price: number;
+        d0b_supermarket: string;
+        d1b_supermarket: string;
+        d2b_supermarket: string;
+        d3b_supermarket: string;
+        d4b_supermarket: string;
+        d5b_supermarket: string;
+        d6b_supermarket: string;
 }
