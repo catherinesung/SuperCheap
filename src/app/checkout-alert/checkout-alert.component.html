@@ -35,7 +35,7 @@
       <ion-text>Marketplace ${{total[3].toFixed(2)}}</ion-text>
     </ion-item>
 
-    <ion-item detail text-wrap *ngIf="parknshop.length !== 0">
+    <ion-item detail (click)="placeOrder()" text-wrap *ngIf="parknshop.length !== 0">
       <ion-avatar slot="start">
         <ion-img class="supermarket" src="assets/supermarket-img/price_parknshop.png"></ion-img>
       </ion-avatar>
