@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CartService} from '../cart.service';
 import {SafariViewController} from '@ionic-native/safari-view-controller/ngx';
-import {LoadingController, ToastController} from '@ionic/angular';
+import {LoadingController, PopoverController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-checkout-alert',
@@ -29,7 +29,8 @@ export class CheckoutAlertComponent implements OnInit {
 
   constructor(private cartService: CartService,
               private safariViewController: SafariViewController,
-              public loadingController: LoadingController) { }
+              public loadingController: LoadingController,
+              private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.cart = this.cartService.getCart();
@@ -67,6 +68,7 @@ export class CheckoutAlertComponent implements OnInit {
   }
 
   async placeOrder(){
+    this.cancel();
     const loading = await this.loadingController.create({
       message: '正在將貨品加入百佳網上商店購物車'
     });
@@ -76,22 +78,17 @@ export class CheckoutAlertComponent implements OnInit {
     for (let products of this.parknshop) {
       const url = 'https://www.parknshop.com/en/cart/add?productCodePost=' + products.item.bp.substr(3) + '&qty=' + products.quantity;
       console.log(url);
-      await new Promise(resolve => this.openNewTab(url, true)
+      await new Promise(resolve => this.openNewTab(url, true, products)
           .then(() => resolve()));
     }
     loading.dismiss().then(
         () => {
-          for (const products of this.cart){
-            if (products.item.displayPrice[0] === 'price_parknshop'){
-              this.cartService.removeProduct(products);
-            }
-          }
-          this.openNewTab(shoppingCart, false);
+          this.openNewTab(shoppingCart, false, null);
         }
     );
   }
 
-  openNewTab(url, hidden: boolean){
+  openNewTab(url, hidden: boolean, product){
     return new Promise ((resolve, reject) => {
       this.safariViewController.isAvailable()
           .then((available: boolean) => {
@@ -111,6 +108,9 @@ export class CheckoutAlertComponent implements OnInit {
                             }
                             else if(result.event === 'loaded') {
                               // console.log('Loaded');
+                              if (product !== null){
+                                this.cartService.removeProduct(product.item);
+                              }
                               resolve();
                               console.log(url + 'loaded');
                             }
@@ -130,6 +130,10 @@ export class CheckoutAlertComponent implements OnInit {
               }
           );
     });
+  }
+
+  cancel(){
+    this.popoverController.dismiss();
   }
 
 }
