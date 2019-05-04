@@ -65,8 +65,14 @@ export class ResultPage implements OnInit {
   }
 
   onSelect(fitem: Item) {
-  this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
-        {prodbarcode: fitem.barcode}});
+    if(this.router.url.includes('tab3')){
+      this.router.navigate(['tabs/tab3/result/product'], { queryParams:
+            {prodbarcode: fitem.barcode}});
+    }
+    if(this.router.url.includes('tab1')){
+      this.router.navigate(['tabs/tab1/result/product'], { queryParams:
+            {prodbarcode: fitem.barcode}});
+    }
   }
 
   async popOver(fitem: Item) {
