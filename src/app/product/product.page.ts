@@ -146,8 +146,11 @@ export class ProductPage implements OnInit {
                         fill: false
                     }]},
                 options: {
+                    elements: {line: {tension: 0}},
                     legend: {display: false},
-                    scales: {XAxes: [{display: true}], YAxes: [{display: false}]
+                    scales: {
+                        XAxes: [{display: true}],
+                        YAxes: [{display: false}]
                     }
                 }
             });
