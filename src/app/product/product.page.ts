@@ -62,24 +62,6 @@ export class ProductPage implements OnInit {
         console.log(this.display);
     }
 
-    getprodinType(): void {
-        this.prodinType = this.items.filter(x => x.type_tc === this.display.type_tc);
-        this.randomItems();
-    }
-
-    randomItems(): void {
-        /*let arr = [];
-        while (arr.length < 5) {
-            let r = Math.floor(Math.random() * this.prodinType.length);
-            if (arr.indexOf(r) === -1) {arr.push(r); }
-        }*/
-        for (let i = 0; i < 5; i++) {
-            if (typeof this.prodinType[i] !== 'undefined') {
-                this.recommend[i] = this.prodinType[i];
-            }
-        }
-    }
-
     sortPrice(itemm: Item) {
         let supermarketarr = ['parknshop', 'wellcome', 'marketplace', 'aeon', 'dch', 'waston'];
         let pricearr = [itemm.price_wellcome, itemm.price_parknshop, itemm.price_marketplace, itemm.price_aeon, itemm.price_dch,
@@ -133,16 +115,6 @@ export class ProductPage implements OnInit {
         }
     }
 
-    async presentToast(message: string, duration: number) {
-        const toast = await this.toastController.create({
-            message: message,
-            duration: duration,
-            color: 'secondary',
-            position: 'top'
-        });
-        toast.present();
-    }
-
     drawChart(): void {
         const date = new Date();
         this.label = [];
@@ -179,4 +151,40 @@ export class ProductPage implements OnInit {
             });
         }
     }
+
+    getprodinType(): void {
+        this.prodinType = this.items.filter(x => x.type_tc === this.display.type_tc);
+        this.randomItems();
+    }
+
+    randomItems(): void {
+        /*let arr = [];
+        while (arr.length < 5) {
+            let r = Math.floor(Math.random() * this.prodinType.length);
+            if (arr.indexOf(r) === -1) {arr.push(r); }
+        }*/
+        for (let i = 0; i < 5; i++) {
+            if (typeof this.prodinType[i] !== 'undefined') {
+                this.recommend[i] = this.prodinType[i];
+            }
+        }
+    }
+
+    onSelect(fitem: Item) {
+        this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
+                {prodbarcode: fitem.barcode}});
+    }
+
+
+    async presentToast(message: string, duration: number) {
+        const toast = await this.toastController.create({
+            message: message,
+            duration: duration,
+            color: 'secondary',
+            position: 'top'
+        });
+        toast.present();
+    }
+
+
 }
