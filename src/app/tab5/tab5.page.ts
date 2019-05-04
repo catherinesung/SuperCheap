@@ -15,21 +15,22 @@ import {UserRecordService} from '../user-record.service';
 export class Tab5Page implements OnInit {
   theuser: User;
   login: boolean;
-  couponpage: boolean;
+  parknshop: boolean;
 
   constructor( private socialAuthService: AuthService, private http: HttpClient,
                private userservice: UserService, private userrecordservice: UserRecordService) {}
 
   ngOnInit(): void {
       this.login = false;
-      this.couponpage = false;
+      this.parknshop = false;
   }
 
   public socialSignIn(socialPlatform: string) {
     let socialPlatformProvider;
     if (socialPlatform === 'facebook') {
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-    } else if (socialPlatform === 'google') {
+    }
+    if (socialPlatform === 'google') {
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     }
     this.socialAuthService.signIn(socialPlatformProvider).then((userData) => {
@@ -41,12 +42,12 @@ export class Tab5Page implements OnInit {
     });
   }
 
-  coupon(): void {
-    this.couponpage = true;
+  openParknShop(): void {
+    this.parknshop = true;
   }
 
-  couponout(): void {
-    this.couponpage = false;
+  backtoAC(): void {
+    this.parknshop = false;
   }
 
   logout(): void {

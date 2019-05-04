@@ -28,9 +28,9 @@ export class ProductPage implements OnInit {
     @ViewChild('pricetrend') canvas: ElementRef;
     public ctx: CanvasRenderingContext2D;
 
-    constructor(private itemservice: ItemService, private cartservice: CartService,
-                private route: ActivatedRoute, public popoverController: PopoverController,
-                public toastController: ToastController, private datePipe: DatePipe) {
+    constructor(private cartservice: CartService, private datePipe: DatePipe, private itemservice: ItemService,
+                public popoverController: PopoverController, private route: ActivatedRoute, private router: Router,
+                public toastController: ToastController) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
         });
@@ -170,11 +170,10 @@ export class ProductPage implements OnInit {
         }
     }
 
-    onSelect(fitem: Item) {
-        this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
-                {prodbarcode: fitem.barcode}});
+    onSelect(item: Item) {
+        this.router.navigate(['../product'], { queryParams:
+                {prodbarcode: item.barcode}});
     }
-
 
     async presentToast(message: string, duration: number) {
         const toast = await this.toastController.create({
@@ -185,6 +184,4 @@ export class ProductPage implements OnInit {
         });
         toast.present();
     }
-
-
 }
