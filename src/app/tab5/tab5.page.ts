@@ -3,7 +3,7 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular
 import { HttpClient } from '@angular/common/http';
 
 import {User} from '../user';
-import {UserService, user} from '../user.service';
+import {UserService} from '../user.service';
 
 @Component({
   selector: 'app-tab4',

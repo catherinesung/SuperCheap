@@ -185,6 +185,10 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tab4/product',
+        loadChildren: '../product/product.module#ProductPageModule'
+      },
+      {
         path: 'tab5',
         children: [
           {
