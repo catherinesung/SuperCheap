@@ -5,42 +5,42 @@
           <ion-img class="supermarket" src="assets/supermarket-img/price_aeon.png"></ion-img>
         </ion-avatar>
         <ion-label>Aeon ${{fitem.price_aeon}}</ion-label>
-        <ion-radio value="price_aeon" ></ion-radio>
+        <ion-radio [disabled]="fitem.price_aeon === 0" value="price_aeon" ></ion-radio>
       </ion-item>
       <ion-item text-wrap>
         <ion-avatar slot="start">
           <ion-img class="supermarket" src="assets/supermarket-img/price_dch.png"></ion-img>
         </ion-avatar>
         <ion-label>大昌行 ${{fitem.price_dch}}</ion-label>
-        <ion-radio value="price_dch" ></ion-radio>
+        <ion-radio [disabled]="fitem.price_dch === 0" value="price_dch" ></ion-radio>
       </ion-item>
       <ion-item text-wrap>
         <ion-avatar slot="start">
           <ion-img class="supermarket" src="assets/supermarket-img/price_marketplace.png"></ion-img>
         </ion-avatar>
         <ion-label>Marketplace ${{fitem.price_marketplace}}</ion-label>
-        <ion-radio value="price_marketplace" ></ion-radio>
+        <ion-radio [disabled]="fitem.price_marketplace === 0" value="price_marketplace" ></ion-radio>
       </ion-item>
       <ion-item text-wrap>
         <ion-avatar slot="start">
           <ion-img class="supermarket" src="assets/supermarket-img/price_parknshop.png"></ion-img>
         </ion-avatar>
         <ion-label>百佳 ${{fitem.price_parknshop}}</ion-label>
-        <ion-radio value="price_parknshop" ></ion-radio>
+        <ion-radio [disabled]="fitem.price_parknshop === 0" value="price_parknshop" ></ion-radio>
       </ion-item>
       <ion-item text-wrap>
         <ion-avatar slot="start">
           <ion-img class="supermarket" src="assets/supermarket-img/price_wellcome.png"></ion-img>
         </ion-avatar>
         <ion-label>惠康 ${{fitem.price_wellcome}}</ion-label>
-        <ion-radio value="price_wellcome"></ion-radio>
+        <ion-radio [disabled]="fitem.price_wellcome === 0" value="price_wellcome"></ion-radio>
       </ion-item>
       <ion-item text-wrap>
         <ion-avatar slot="start">
           <ion-img class="supermarket" src="assets/supermarket-img/price_waston.png"></ion-img>
         </ion-avatar>
         <ion-label>屈臣氏 ${{fitem.price_waston}}</ion-label>
-        <ion-radio value="price_waston"></ion-radio>
+        <ion-radio [disabled]="fitem.price_waston === 0" value="price_waston"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>
