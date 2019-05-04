@@ -69,8 +69,6 @@ export class ItemService {
 
     getItemList() {
       console.log(this.items);
-      for (let item of this.items) {
-      }
       return this.items;
     }
 }
