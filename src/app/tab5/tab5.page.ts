@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import {User} from '../user';
 import {UserService} from '../user.service';
 import {UserRecordService} from '../user-record.service';
+import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
+import {SafariViewController} from '@ionic-native/safari-view-controller/ngx';
 
 @Component({
   selector: 'app-tab4',
@@ -18,7 +20,8 @@ export class Tab5Page implements OnInit {
   parknshop: boolean;
 
   constructor( private socialAuthService: AuthService, private http: HttpClient,
-               private userservice: UserService, private userrecordservice: UserRecordService) {}
+               private userservice: UserService, private userrecordservice: UserRecordService,
+               private theInAppBrowser: InAppBrowser, private safariViewController: SafariViewController) {}
 
   ngOnInit(): void {
       this.login = false;
@@ -44,6 +47,8 @@ export class Tab5Page implements OnInit {
 
   openParknShop(): void {
     this.parknshop = true;
+    const shoppingCart = 'https://www.parknshop.com/zh-hk/shoppingCart';
+    this.openNewTab(shoppingCart, false);
   }
 
   backtoAC(): void {
@@ -52,5 +57,46 @@ export class Tab5Page implements OnInit {
 
   logout(): void {
     this.login = false;
+  }
+
+  openNewTab(url, hidden: boolean){
+    return new Promise ((resolve, reject) => {
+      this.safariViewController.isAvailable()
+          .then((available: boolean) => {
+                if (available) {
+                  this.safariViewController.show({
+                    url: url,
+                    hidden: hidden,
+                    animated: false,
+                    transition: 'curl',
+                    enterReaderModeIfAvailable: false,
+                    tintColor: '#ff0000'
+                  })
+                      .subscribe((result: any) => {
+                            if (result.event === 'opened') {
+                              // console.log('Opened');
+                              console.log(url + 'opened');
+                            }
+                            else if(result.event === 'loaded') {
+                              // console.log('Loaded');
+                              resolve();
+                              console.log(url + 'loaded');
+                            }
+                            else if(result.event === 'closed') {
+                              console.log('Closed');
+                            }
+                          },
+                          (error: any) => {
+                            console.error(error);
+                            reject();
+                          }
+                      );
+
+                } else {
+                  // use fallback browser, example InAppBrowser
+                }
+              }
+          );
+    });
   }
 }
