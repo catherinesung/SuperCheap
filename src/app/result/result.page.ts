@@ -38,10 +38,6 @@ export class ResultPage implements OnInit {
   brand = [];
   sorted: Item[] = [];
   types = [];
-  ffitems: Item[] = [];
-  fffitems: Item[] = [];
-  ffffitems: Item[] = [];
-  modeldata = [];
 
 
   ngOnInit(): void {
@@ -199,10 +195,13 @@ export class ResultPage implements OnInit {
 
     switch (model.role) {
       case 'confirm':
-        console.log(model.data);
-        this.modeldata = model.data;
-        console.log(this.modeldata);
-        this.addfilter();
+        const ffitems = this.fitems;
+        this.fitems = [];
+        for (const ffitem of ffitems) {
+          if (ffitem.brand_tc === model.data[0] && ffitem.price_parknshop < model.data[2] && ffitem.price_parknshop > model.data[1]) {
+            this.fitems.push(ffitem);
+          }
+        }
         break;
       case 'fail':
         console.log('fail');
@@ -224,35 +223,5 @@ export class ResultPage implements OnInit {
     const img = event.srcElement.shadowRoot.children[1];
     img.onerror = () => { img.src = '/assets/product-img/no-image.jpg'; };
     event.srcElement.className = event.srcElement.className.replace('image-loading', '');
-  }
-  addfilter() {
-    this.ffitems = this.fitems;
-    console.log(this.ffitems);
-    if (this.modeldata[0] !== undefined || this.modeldata[1] !== undefined) {
-      for (const ffitem of this.ffitems) {
-        if ( ffitem['minPrice'][0].price > this.modeldata[0] &&
-            ffitem['minPrice'][0].price < this.modeldata[1] ) {
-          this.fffitems.push(ffitem);
-        }
-      }
-    } else {
-      this.fffitems = this.ffitems;
-    }
-    console.log(this.fffitems);
-    const filterbrand = this.modeldata.slice(2);
-    console.log(filterbrand[0]);
-    if (filterbrand !== '' ) {
-      console.log('inloop');
-      for (const fffitem of this.fffitems) {
-        if (filterbrand[0].includes(fffitem.brand_tc)) {
-          console.log(fffitem.brand_tc);
-          this.ffffitems.push(fffitem);
-        }
-      }
-    } else {
-      this.ffffitems = this.fffitems;
-    }
-    console.log(this.ffffitems);
-    this.fitems = this.ffffitems;
   }
 }

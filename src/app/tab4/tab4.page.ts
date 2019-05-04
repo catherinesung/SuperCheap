@@ -10,6 +10,8 @@ import {PopoverController } from '@ionic/angular';
 import {PopoverComponent} from '../popover/popover.component';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {SafariViewController} from '@ionic-native/safari-view-controller/ngx';
+import {CheckoutAlertComponent} from '../checkout-alert/checkout-alert.component';
+
 
 @Component({
   selector: 'app-tab4',
@@ -21,10 +23,13 @@ export class Tab4Page implements OnInit {
   cart = [];
   items = [];
   total = [0];
-  supermarket = 'min_price';
+  supermarket = 'cal_default';
   delivery = false;
   deliveryDetails = [];
   editToggled = false;
+  sort = 'sort_default';
+
+  private supermarketArr = ['price_parknshop', 'price_wellcome', 'price_marketplace', 'price_aeon', 'price_dch', 'price_waston'];
 
   @ViewChild('slidingList') slidingList: IonList;
 
@@ -37,7 +42,7 @@ export class Tab4Page implements OnInit {
               private theInAppBrowser: InAppBrowser,
               private safariViewController: SafariViewController,
               public toastController: ToastController,
-              public loadingController: LoadingController
+              public loadingController: LoadingController,
   ) {}
 
   ngOnInit() {
@@ -84,11 +89,28 @@ export class Tab4Page implements OnInit {
     await alert.present();
   }
 
-  emptyCart() {
-    this.cartService.clearCart();
-    this.calculateTotal();
-    console.log('Cart:');
-    console.log(this.cart);
+  async emptyCart() {
+    const alert = await this.alertController.create({
+      header: '清空購物車',
+      message: '你是否確定要清空購物車？',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: '確定',
+          handler: () => {
+            this.cartService.clearCart();
+            this.editToggled = false;
+          }
+        }
+      ],
+    });
+    await alert.present();
   }
 
   editCart(){
@@ -105,7 +127,15 @@ export class Tab4Page implements OnInit {
   }
 
   calculateMethodChange() {
-    if (this.supermarket !== 'min_price') {
+    if (this.supermarket === 'cal_default') {
+    }
+    else if (this.supermarket === 'min_price') {
+      for (let products of this.cart) {
+        products.item.displayPrice[0] = products.minPrice[0].supermarket;
+        this.displaySupermarketChange(products);
+      }
+    }
+    else {
       if (this.supermarket !== '') {
         for (let products of this.cart) {
           if (products.item[this.supermarket] !== 0){
@@ -114,14 +144,9 @@ export class Tab4Page implements OnInit {
           }
         }
       }
-    } else {
-      for (let products of this.cart) {
-        products.item.displayPrice[0] = products.minPrice[0].supermarket;
-        this.displaySupermarketChange(products);
-      }
     }
-
   }
+
 
   displaySupermarketChange(product: Item) {
     console.log(product.item[product.item.displayPrice[0]]);
@@ -129,7 +154,6 @@ export class Tab4Page implements OnInit {
     for (let products of this.cart) {
       if (this.supermarket !== 'min_price') {
         if (products.item.displayPrice[0] !== this.supermarket) {
-          //this.supermarket = '';
           console.log('debug');
         }
       }
@@ -151,6 +175,18 @@ export class Tab4Page implements OnInit {
   }
 
   async placeOrder(){
+    const popover = await this.popoverController.create({
+      component: CheckoutAlertComponent,
+      componentProps: {
+        'calledBy': 'cart'
+      },
+      backdropDismiss: false,
+      animated: true,
+      showBackdrop: true,
+    });
+
+    await popover.present();
+    /*
     const loading = await this.loadingController.create({
       message: '正在將貨品加入百佳網上商店購物車'
     });
@@ -167,7 +203,7 @@ export class Tab4Page implements OnInit {
         () => {
           this.openNewTab(shoppingCart, false);
         }
-    );
+    );*/
   }
 
   openNewTab(url, hidden: boolean){
@@ -211,7 +247,6 @@ export class Tab4Page implements OnInit {
     });
   }
 
-
   refreshCart(event) {
     this.cartService.calculateTotal();
     setTimeout(() => {
@@ -252,6 +287,8 @@ export class Tab4Page implements OnInit {
         this.cartService.changeQuantity(product, Number(model.data[1]), model.data[0]);
         this.presentToast( product.brand_tc + product.name_tc + '已更新', 2000);
         console.log('confirm' + model.data[0] + model.data[1]);
+        this.supermarket = 'cal_default';
+        this.sort = 'sort_default';
         break;
 
       case 'fail':
