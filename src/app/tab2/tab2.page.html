@@ -12,25 +12,28 @@
     </ion-segment>
 </ion-header>
 <ion-content>
-<agm-map [zoom]="15" [latitude]= 'this.gla' [longitude]= 'this.glong' [usePanning]="true">
-    <agm-marker *ngFor= "let store of fstoreinfos"
-                [latitude]="store.latitude"
-                [longitude]="store.longtitude"
-                (markerClick)="markerclick(infowindow)">
-        <agm-info-window #infowindow >
-                地址: {{store.address }} <br> 營業時間：{{store.ohfri}} <br> 電話：{{store.phone}}
-            <ion-button (onClick)="navigation(store.address)"> click me</ion-button>
-        </agm-info-window>
-    </agm-marker>
-</agm-map>
-
+    <agm-map [zoom]="15" [latitude]= 'this.gla' [longitude]= 'this.glong' [usePanning]="true">
+        <agm-marker *ngFor= "let store of fstoreinfos"
+                    [latitude]="store.latitude"
+                    [longitude]="store.longtitude"
+                    (markerClick)="markerclick(infowindow)">
+            <agm-info-window #infowindow >
+                地址: {{store.address }} <br> 營業時間：{{store.ohfri}} <br> 電話：
+                <button (click)="callphone(store)">{{store.phone}}</button>
+                <button (click)="navigation(store)" > 導航 </button>
+            </agm-info-window>
+        </agm-marker>
+        <agm-marker [latitude]="myLat" [longitude]="myLong" [label]="{color: 'blue'}" ></agm-marker>
+    </agm-map>
+</ion-content>
+<ion-content>
   <ion-list *ngFor="let store of fstoreinfos" lines = none>
       <ion-grid (click)="onSelect(store)">
           <ion-row class="name">{{store.type}}<br></ion-row>
           <ion-row>  </ion-row>
           <ion-row class="info">{{store.address}}</ion-row>
           <ion-row class="info">營業時間：{{store.ohfri}}</ion-row>
-          <ion-row  class="info" (click)="callphone(store.phone)">電話：{{store.phone}}</ion-row>
+          <ion-row  class="info" (click)="callphone(store)">電話：{{store.phone}}</ion-row>
       </ion-grid>
   </ion-list>
 </ion-content>

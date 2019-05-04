@@ -6,6 +6,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {WheelSelector} from '@ionic-native/wheel-selector/ngx';
 import { PickerController } from '@ionic/angular';
 import {CallNumber} from '@ionic-native/call-number/ngx';
+import { LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
 @Component({
     selector: 'app-tab2',
     templateUrl: 'tab2.page.html',
@@ -16,6 +17,7 @@ export class Tab2Page implements OnInit {
                 private nativeGeocoder: NativeGeocoder,
                 private geolocation: Geolocation,
                 private selector: WheelSelector,
+                private launchNavigator: LaunchNavigator,
                 private pickerCtrl: PickerController,
                 private callNumber: CallNumber) {
     }
@@ -27,6 +29,8 @@ export class Tab2Page implements OnInit {
     filterstr: string;
     previous;
     map: any;
+    myLat: number;
+    myLong: number;
     ngOnInit(): void {
         this.locationService.getlocation().subscribe(
             (res: Storeinfo[]) => {
@@ -34,8 +38,8 @@ export class Tab2Page implements OnInit {
                 this.location();
             });
     }
-    callphone(phone) {
-        this.callNumber.callNumber(phone, true)
+    callphone(store) {
+        this.callNumber.callNumber(store.phone, true)
             .then(() => console.log('Dialer Launched!'))
             .catch(() => console.log('Error launching dialer'));
     }
@@ -49,6 +53,8 @@ export class Tab2Page implements OnInit {
         this.geolocation.getCurrentPosition().then((resp) => {
             this.gla = resp.coords.latitude;
             this.glong = resp.coords.longitude;
+            this.myLat = resp.coords.latitude;
+            this.myLong = resp.coords.longitude;
             this.filter();
         });
     }
@@ -87,6 +93,15 @@ export class Tab2Page implements OnInit {
               this.glong = Number(store.longtitude);
               console.log(this.glong + this.gla);
           });
+      }
+      navigation(store: any) {
+          const position = [this.myLat, this.myLong];
+          console.log('yo');
+          this.launchNavigator.navigate([store.latitude, store.longtitude], { start: position})
+              .then(
+              success => console.log('Launched navigator'),
+              error => console.log('Error launching navigator', error)
+          );
       }
     async openPicker2() {
         const picker = await this.pickerCtrl.create({

@@ -164,17 +164,15 @@ export class ResultPage implements OnInit {
     await picker.present();
   }
   sortPrice() {
-    this.sorted = this.fitems.sort(function (obj1 , obj2) {
+    this.fitems = this.fitems.sort(function (obj1 , obj2) {
       return obj1['minPrice'][0].price - obj2['minPrice'][0].price;
     });
-    this.fitems = this.sorted;
     console.log(this.fitems);
   }
   sortBrand() {
-    this.sorted = this.fitems.sort((obj1 , obj2) => (
+    this.fitems = this.fitems.sort((obj1 , obj2) => (
       obj1.brand_tc > obj2.brand_tc ? -1 : 1
   ));
-    this.fitems = this.sorted;
     console.log(this.fitems);
   }
 
@@ -241,7 +239,7 @@ export class ResultPage implements OnInit {
     console.log(this.fffitems);
     const filterbrand = this.modeldata.slice(2);
     console.log(filterbrand[0]);
-    if (filterbrand !== '' ) {
+    if (filterbrand !== [] ) {
       console.log('inloop');
       for (const fffitem of this.fffitems) {
         if (filterbrand[0].includes(fffitem.brand_tc)) {

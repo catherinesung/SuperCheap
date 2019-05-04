@@ -1,10 +1,13 @@
 agm-map {
   position: sticky;
   width: 100%;
-  height: 60%;
+  height: 100%;
+}
+agm-info-window{
+  color: #ff9500;
 }
 ion-header{
-  position: absolute;
+  position: sticky;
   height: 10%;
 }
 ion-segment{
@@ -30,6 +33,7 @@ ion-searchbar {
   height: 90%;
 }
 ion-content{
+  position: relative;
   --color:#ff9500;
 }
 ion-list{
@@ -59,4 +63,9 @@ ion-item{
 }
 ion-grid{
   padding-left: 5%;
+}
+button{
+  size: A3;
+  background-color: #ff9500;
+  color: white;
 }

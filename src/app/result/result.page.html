@@ -1,6 +1,6 @@
 <ion-header >
     <ion-toolbar>
-        <ion-searchbar #box placeholder="搜尋商品"  cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)"> </ion-searchbar>
+        <ion-searchbar #box cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)" placeholder= "keyword"> </ion-searchbar>
         <ion-icon name="barcode" class="scanner" slot="primary" (click)="scanCode()"></ion-icon>
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/"></ion-back-button>
@@ -12,8 +12,8 @@
     </ion-card>
 </ion-header>
 <ion-content>
-        <ion-virtual-scroll [items]="fitems" >
-                    <ion-item  *virtualItem="let fitem" >
+        <ion-list>
+                    <ion-item   *ngFor="let fitem of fitems">
                         <ion-grid detail (click)="onSelect(fitem)">
                     <ion-row>
                         <ion-col size="3" ><ion-img src="assets/product-img/{{fitem?.barcode}}.jpg" (ionImgDidLoad)="imageLoaded($event)"></ion-img></ion-col>
@@ -33,5 +33,5 @@
                     </ion-row>
                 </ion-grid>
             </ion-item>
-        </ion-virtual-scroll>
+        </ion-list>
 </ion-content>
