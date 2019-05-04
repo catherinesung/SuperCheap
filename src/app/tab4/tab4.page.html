@@ -22,7 +22,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding *ngIf="cart.length === 0">
+<ion-content *ngIf="cart.length === 0">
   <ion-icon name="cart"></ion-icon>
   沒有貨品在購物車
 </ion-content>
@@ -32,7 +32,6 @@
     <ion-row>
       <ion-col size = "7">
         <ion-select [(ngModel)]="supermarket" (ionChange) = "calculateMethodChange()">
-            <ion-select-option value="cal_default" selected>計算方式</ion-select-option>
           <ion-select-option value="min_price" selected>按每件商品最低價計算</ion-select-option>
           <ion-select-option value="price_aeon">按Aeon計算</ion-select-option>
           <ion-select-option value="price_dch">按大昌行計算</ion-select-option>
@@ -44,8 +43,7 @@
       </ion-col>
 
       <ion-col size = "5">
-        <ion-select [(ngModel)]="sort" (ionChange) = "sortMethodChange()">
-            <ion-select-option value="sort_default" selected>排序方式</ion-select-option>
+        <ion-select>
           <ion-select-option value="sort_by_price" selected>按價格排序</ion-select-option>
           <ion-select-option value="sort_by_shop">按店舖排序</ion-select-option>
         </ion-select>
@@ -61,7 +59,7 @@
         <ion-checkbox *ngIf="editToggled" slot="start" [(ngModel)]="products.item.checked"></ion-checkbox>
 
         <ion-avatar slot="start">
-          <img src="assets/product-img/{{products.item.barcode}}.jpg" onError="this.src='assets/product-img/noimage.jpg'">
+          <img src="assets/product-img/{{products.item.barcode}}.jpg">
         </ion-avatar>
 
         <ion-label class="name_tc" text-wrap>
@@ -72,10 +70,23 @@
         <ion-buttons slot="end" (click)="popOver(products.item);$event.stopPropagation();">
           <ion-chip color="primary">
             <ion-avatar><img src="assets/supermarket-img/{{products.item.displayPrice[0]}}.png"></ion-avatar>
-            <ion-label>${{(products.item.displayPrice[1] * products.quantity).toFixed(2)}}&nbsp;</ion-label>
+            <ion-label>${{products.item.displayPrice[1] * products.quantity}}&nbsp;</ion-label>
             <ion-badge color="secondary">{{products.quantity}}件</ion-badge>
           </ion-chip>
         </ion-buttons>
+
+        <!--
+        <ion-select [(ngModel)]="products.item.displayPrice[0]" (ionChange) = "displaySupermarketChange(products)">
+          <ion-select-option value="price_aeon">Aeon ${{products.item.price_aeon}}</ion-select-option>
+          <ion-select-option value="price_dch">大昌行 ${{products.item.price_dch}}</ion-select-option>
+          <ion-select-option value="price_marketplace">Marketplace ${{products.item.price_marketplace}}</ion-select-option>
+          <ion-select-option value="price_parknshop">百佳 ${{products.item.price_parknshop}}</ion-select-option>
+          <ion-select-option value="price_wellcome">惠康 ${{products.item.price_wellcome}}</ion-select-option>
+          <ion-select-option value="price_waston">屈臣氏 ${{products.item.price_waston}}</ion-select-option>
+        </ion-select>
+        -->
+
+
 
       </ion-item>
 
@@ -84,111 +95,6 @@
       </ion-item-options>
 
     </ion-item-sliding>
-
-      <ion-item-group *ngIf="supermarketExistedInCart('price_aeon')">
-          <ion-item (click)="deliverySettings('price_aeon')">
-              <ion-avatar slot="start">
-                  <img src="assets/supermarket-img/price_aeon.png">
-              </ion-avatar>
-
-              <ion-label class="name_tc" text-wrap>
-                  <h3>Aeon：送貨費</h3>
-                  <ion-text class="name">購物滿$800可免送貨費</ion-text>
-              </ion-label>
-
-              <ion-chip slot="end" color="primary">
-                  <ion-label>${{total[1]}}&nbsp;</ion-label>
-              </ion-chip>
-          </ion-item>
-      </ion-item-group>
-
-      <ion-item-group *ngIf="supermarketExistedInCart('price_dch')">
-          <ion-item (click)="deliverySettings('price_dch')">
-              <ion-avatar slot="start">
-                  <img src="assets/supermarket-img/price_dch.png">
-              </ion-avatar>
-
-              <ion-label class="name_tc" text-wrap>
-                  <h3>大昌行：送貨費</h3>
-                  <ion-text class="name">購物滿$800可免送貨費</ion-text>
-              </ion-label>
-
-              <ion-chip color="primary" slot="end">
-                  <ion-label>${{total[2]}}&nbsp;</ion-label>
-              </ion-chip>
-          </ion-item>
-      </ion-item-group>
-
-      <ion-item-group *ngIf="supermarketExistedInCart('price_marketplace')">
-          <ion-item (click)="deliverySettings('price_marketplace')">
-              <ion-avatar slot="start">
-                  <img src="assets/supermarket-img/price_marketplace.png">
-              </ion-avatar>
-
-              <ion-label class="name_tc" text-wrap>
-                  <h3>Marketplace：送貨費</h3>
-                  <ion-text class="name">購物滿$500可免送貨費</ion-text>
-              </ion-label>
-
-              <ion-chip color="primary" slot="end">
-                  <ion-label>${{total[3]}}&nbsp;</ion-label>
-              </ion-chip>
-          </ion-item>
-      </ion-item-group>
-
-      <ion-item-group *ngIf="supermarketExistedInCart('price_parknshop')">
-          <ion-item (click)="deliverySettings('price_parknshop')">
-              <ion-avatar slot="start">
-                  <img src="assets/supermarket-img/price_parknshop.png">
-              </ion-avatar>
-
-              <ion-label class="name_tc" text-wrap>
-                  <h3>百佳：送貨費</h3>
-                  <ion-text class="name">購物滿$500可免送貨費</ion-text>
-              </ion-label>
-
-              <ion-chip color="primary" slot="end">
-                  <ion-label>${{total[4]}}</ion-label>
-              </ion-chip>
-          </ion-item>
-      </ion-item-group>
-
-      <ion-item-group *ngIf="supermarketExistedInCart('price_wellcome')">
-          <ion-item (click)="deliverySettings('price_wellcome')">
-              <ion-avatar slot="start">
-                  <img src="assets/supermarket-img/price_wellcome.png">
-              </ion-avatar>
-
-              <ion-label class="name_tc" text-wrap>
-                  <h3>惠康：送貨費</h3>
-                  <ion-text class="name">購物滿$500可免送貨費</ion-text>
-              </ion-label>
-
-              <ion-chip color="primary" slot="end">
-                  <ion-label>${{total[5]}}&nbsp;</ion-label>
-              </ion-chip>
-          </ion-item>
-      </ion-item-group>
-
-      <ion-item-group *ngIf="supermarketExistedInCart('price_waston')">
-          <ion-item (click)="deliverySettings('price_waston')">
-              <ion-avatar slot="start">
-                  <img src="assets/supermarket-img/price_waston.png">
-              </ion-avatar>
-
-              <ion-label class="name_tc" text-wrap>
-                  <h3>屈臣氏：送貨費</h3>
-                  <ion-text class="name">購物滿$250可免送貨費</ion-text>
-              </ion-label>
-
-              <ion-chip color="primary" slot="end">
-                  <ion-label>${{total[6]}}&nbsp;</ion-label>
-              </ion-chip>
-          </ion-item>
-      </ion-item-group>
-
-  </ion-list>
-
 
     <!--
     <ion-item>
@@ -262,11 +168,13 @@
         <ion-text class="deliveryFee"> 總數(連送貨費) {{total[7]}}</ion-text>
       </ion-item>
     </ion-item-group>
-
+-->
     <ion-button (click)="emptyCart()">Clear Cart</ion-button>
     <ion-button (click)="debug()">cart</ion-button>
     <ion-button (click)="debug2()">total</ion-button>
-    <ion-button (click)="redirectToParknshop()">parknshop</ion-button>-->
+    <ion-button (click)="redirectToParknshop()">parknshop</ion-button>
+
+  </ion-list>
 
 </ion-content>
 
@@ -275,30 +183,17 @@
   <ion-toolbar>
     <ion-row>
       <ion-col size="6">
-        <ion-text class="total" color="primary"> 總數<br></ion-text>
-        <ion-text class="totalamount"> ${{total[7].toFixed(2)}} <br></ion-text>
-        <!--<ion-text color="danger" class="orderfee"> + 送貨費 ${{total[4]}} </ion-text>-->
+        <ion-text class="total" color="primary"> 總數 <br></ion-text>
+        <ion-text class="totalamount"> ${{total[0]}}</ion-text>
+        <ion-text color="danger" class="orderfee"> + 送貨費 ${{total[4]}} </ion-text>
         <!--
         <br>
         <ion-button size="small" color="secondary" expand="full" fill="solid" (click)="placeOrder()">送貨設定</ion-button>-->
       </ion-col>
       <ion-col size="6">
-        <ion-button color="primary" expand="full" fill="solid" (click)="placeOrder()" [disabled]="total[7]===0">結帳</ion-button>
+        <ion-button color="primary" expand="full" fill="solid" (click)="placeOrder()">結帳 ${{total[7]}}</ion-button>
       </ion-col>
     </ion-row>
-
-    <ion-row *ngIf="editToggled">
-      <ion-buttons>
-        <ion-button (click)="selectAll()">
-          全選
-        </ion-button>
-        <ion-button (click)="emptyCart()">
-          清空
-        </ion-button>
-      </ion-buttons>
-    </ion-row>
-
   </ion-toolbar>
-
 </ion-footer>
 

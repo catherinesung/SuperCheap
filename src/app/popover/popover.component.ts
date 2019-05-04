@@ -17,7 +17,7 @@ export class PopoverComponent implements OnInit {
   constructor(public popoverController: PopoverController, private cartService: CartService) { }
 
   ngOnInit() {
-    this.supermarket = this.fitem['minPrice'][0].supermarket;
+    this.supermarket = 'price_wellcome';
     this.quantity = 1;
     // if it is called by cart
     if (this.calledBy === 'cart'){
