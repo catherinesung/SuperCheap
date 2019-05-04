@@ -1,9 +1,8 @@
-import { User } from './user';
 
 export interface UserRecord {
-    user: User;
-    time: Date;
+    provider: string;
+    id: string;
+    time: string;
     action: string;
-    keyword?: string;
-    barcode?: string;
+    reference: string;
 }

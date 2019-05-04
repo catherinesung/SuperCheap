@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import {User} from '../user';
 import {UserService} from '../user.service';
+import {UserRecordService} from '../user-record.service';
 
 @Component({
   selector: 'app-tab4',
@@ -17,7 +18,7 @@ export class Tab5Page implements OnInit {
   couponpage: boolean;
 
   constructor( private socialAuthService: AuthService, private http: HttpClient,
-               private userservice: UserService) {}
+               private userservice: UserService, private userrecordservice: UserRecordService) {}
 
   ngOnInit(): void {
       this.login = false;
@@ -36,6 +37,7 @@ export class Tab5Page implements OnInit {
       this.theuser = userData;
       this.userservice.postUser(this.theuser).subscribe();
       this.login = true;
+      this.userrecordservice.userIdentity(this.theuser.provider, this.theuser.id);
     });
   }
 
