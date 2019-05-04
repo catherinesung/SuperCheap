@@ -24,6 +24,7 @@ import { ModalController } from '@ionic/angular';
 import { InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {SafariViewController} from '@ionic-native/safari-view-controller/ngx';
 import {ResultfilterComponent} from './resultfilter/resultfilter.component';
+import { CheckoutAlertComponent } from './checkout-alert/checkout-alert.component';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -41,8 +42,8 @@ export function getAuthServiceConfigs() {
 }
 
 @NgModule({
-  declarations: [AppComponent, PopoverComponent, ResultfilterComponent],
-  entryComponents: [PopoverComponent, ResultfilterComponent ],
+  declarations: [AppComponent, PopoverComponent, ResultfilterComponent, CheckoutAlertComponent],
+  entryComponents: [PopoverComponent, ResultfilterComponent, CheckoutAlertComponent ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule, AgmCoreModule, SocialLoginModule,
     AgmCoreModule.forRoot({
     apiKey: 'AIzaSyD0POsH6N_XE7PSJtt1SIHmsJtvnSOT5pE'
