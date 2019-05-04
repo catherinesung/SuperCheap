@@ -7,6 +7,7 @@ import {CartService} from '../cart.service';
 import {PopoverComponent} from '../popover/popover.component';
 import {PopoverController, ToastController} from '@ionic/angular';
 import { Chart } from 'chart.js';
+import {UserRecordService} from '../user-record.service';
 
 @Component({
   selector: 'app-product',
@@ -29,8 +30,9 @@ export class ProductPage implements OnInit {
     public ctx: CanvasRenderingContext2D;
 
     constructor(private cartservice: CartService, private datePipe: DatePipe, private itemservice: ItemService,
-                public popoverController: PopoverController, private route: ActivatedRoute, private router: Router,
-                public toastController: ToastController) {
+                public popoverController: PopoverController, private route: ActivatedRoute,
+                private router: Router, public toastController: ToastController,
+                private userrecordservice: UserRecordService) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
         });
