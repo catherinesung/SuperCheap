@@ -4,18 +4,25 @@ ion-row {
   justify-content: center;
 }
 .facebook{
+  position: relative;
+  left:5%;
   --background: #3C5A99;
   --border-color: #3C5A99;
   color: white;
-  height: 40%;
+  height: 60%;
+  width: 40%;
   align-content: center;
   --background-activated: #6180c1;
 }
 .google{
+  position: relative;
+  left: 10%;
   --background: #DB4437;
   --border-color: #DB4437;
   color: white;
-  height: 40%;
+  height: 60%;
+  width: 40%;
+  align-content: center;
   --background-activated: #e78178;
 }
 ion-button{
@@ -31,5 +38,11 @@ ion-grid{
   position: relative;
   height: 70%;
 }
-
+ion-item{
+  position: relative;
+}
+ion-icon{
+  height: content-box;
+  width: content-box;
+}
 

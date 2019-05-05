@@ -11,7 +11,15 @@
 
     <ion-list *ngIf = "!parknshop">
         <ion-item *ngIf="!login">
-            <ion-label>訪客</ion-label>
+            <ion-label>訪客 </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-button (click)="socialSignIn('facebook')" class="facebook" *ngIf="!login">
+                <ion-icon name="logo-facebook" ></ion-icon>使用Facebook登入
+            </ion-button>
+            <ion-button (click)="socialSignIn('google')" class="google" *ngIf="!login">
+                <ion-icon name="logo-google" ></ion-icon>使用Google登入
+            </ion-button>
         </ion-item>
 
         <ion-item *ngIf="login">
@@ -21,17 +29,6 @@
             <ion-label>{{theuser.name}}<br>{{theuser.email}}</ion-label>
         </ion-item>
 
-        <ion-item *ngIf="!login">
-            <ion-button (click)="socialSignIn('facebook')" class="facebook">
-                <ion-icon size="large" name="logo-facebook" class="facebook"></ion-icon>使用Facebook登入
-            </ion-button>
-        </ion-item>
-
-        <ion-item *ngIf="!login">
-            <ion-button (click)="socialSignIn('google')" class="google">
-                <ion-icon size="large" name="logo-google" class="google"></ion-icon>使用Google登入
-            </ion-button>
-        </ion-item>
 
         <ion-item (click)="openParknShop()">
             <ion-img src="assets/supermarket-img/price_parknshop.png"></ion-img>
