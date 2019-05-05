@@ -42,6 +42,9 @@ export class ResultPage implements OnInit {
   fffitems: Item[] = [];
   ffffitems: Item[] = [];
   modeldata = [];
+  displayPrice = false;
+  displayBrand = false;
+  sortfitem: Item[];
 
 
   ngOnInit(): void {
@@ -198,6 +201,7 @@ export class ResultPage implements OnInit {
     switch (model.role) {
       case 'confirm':
         console.log(model.data);
+        this.modeldata = [];
         this.modeldata = model.data;
         console.log(this.modeldata);
         this.addfilter();
@@ -224,33 +228,43 @@ export class ResultPage implements OnInit {
     event.srcElement.className = event.srcElement.className.replace('image-loading', '');
   }
   addfilter() {
-    this.ffitems = this.fitems;
-    console.log(this.ffitems);
+    console.log(this.fitems);
+    this.sortfitem = this.fitems;
     if (this.modeldata[0] !== undefined || this.modeldata[1] !== undefined) {
+      for (const fitem of this.fitems) {
+        if ( fitem['minPrice'][0].price > this.modeldata[0] &&
+            fitem['minPrice'][0].price < this.modeldata[1] ) {
+          this.ffitems.push(fitem);
+        }
+        this.displayPrice = true;
+      }
+    } else {
+      this.ffitems = this.fitems;
+      this.displayPrice = false;
+    }
+    const filterbrand = this.modeldata.slice(2);
+    if (filterbrand !== [] ) {
       for (const ffitem of this.ffitems) {
-        if ( ffitem['minPrice'][0].price > this.modeldata[0] &&
-            ffitem['minPrice'][0].price < this.modeldata[1] ) {
+        if (filterbrand[0].includes(ffitem.brand_tc)) {
           this.fffitems.push(ffitem);
         }
       }
+      this.displayBrand = true;
     } else {
       this.fffitems = this.ffitems;
+      this.displayBrand = false;
     }
     console.log(this.fffitems);
-    const filterbrand = this.modeldata.slice(2);
-    console.log(filterbrand[0]);
-    if (filterbrand !== [] ) {
-      console.log('inloop');
-      for (const fffitem of this.fffitems) {
-        if (filterbrand[0].includes(fffitem.brand_tc)) {
-          console.log(fffitem.brand_tc);
-          this.ffffitems.push(fffitem);
-        }
-      }
-    } else {
-      this.ffffitems = this.fffitems;
-    }
-    console.log(this.ffffitems);
-    this.fitems = this.ffffitems;
+    this.fitems = this.fffitems;
   }
+  delprice() {
+    console.log('deleting');
+    this.modeldata = this.modeldata.fill(undefined, 0, 2);
+    this.addfilter();
+  }
+  delbrand(filbrand: any) {
+    this.modeldata = this.modeldata.filter(filbrand);
+    this.addfilter();
+  }
+
 }

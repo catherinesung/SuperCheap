@@ -19,14 +19,14 @@
             </ion-col>
         </ion-row>
 
-        <ion-row *ngIf="display">
+        <ion-row *ngIf="displayPrice">
             <ion-button (click)="popOver(display)">
                 <ion-icon name="cart"></ion-icon>
                 <ion-text>&nbsp;&nbsp;加到購物車</ion-text>
             </ion-button>
         </ion-row>
 
-        <ion-row *ngIf="display">
+        <ion-row *ngIf="displayBrand">
             <ion-col size="8">
                 <ion-text class="brand">{{display.brand_tc}}<br></ion-text>
                 <ion-text class="name">{{display.name_tc}}</ion-text>

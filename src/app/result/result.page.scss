@@ -31,19 +31,18 @@ ion-row{
 .bar{
   position: relative;
   background-color: #ffd59a;
-  text-align: end;
   height: 27%;
   box-shadow: none;
   margin:0;
   left: 5%;
   width: 90%;
+  text-align: end;
 }
 .filter{
   --background: opacity(0);
   align-content: start;
   color: #ff9500;
   font-size: 130%;
-  padding-top: 1%;
   padding-right: 3%;
 }
 .shop{
@@ -88,5 +87,33 @@ ion-toolbar{
 .cart{
   font-size: 170%;
 }
-
-
+ion-chip{
+  width: auto;
+  height: 60%;
+  align-content: center;
+  padding: 2%;
+  margin: 0;
+  border: 0;
+  --color: #ff9500 ;
+  --background:#ffeed6;
+  font-size: 50%;
+  white-space: nowrap;
+}
+ion-card{
+  vertical-align: center;
+}
+.fil{
+  position: relative;
+  background-color: #ffd59a;
+  height: 27%;
+  box-shadow: none;
+  margin:0;
+  left: 5%;
+  width: 90%;
+  text-align: start;
+}
+ion-grid{
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
