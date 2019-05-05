@@ -150,6 +150,14 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tab1/result',
+        loadChildren: '../result/result.module#ResultPageModule'
+      },
+      {
+        path: 'tab1/result/product',
+        loadChildren: '../product/product.module#ProductPageModule'
+      },
+      {
         path: 'tab2',
         children: [
           {
@@ -183,6 +191,10 @@ const routes: Routes = [
             loadChildren: '../tab4/tab4.module#Tab4PageModule'
           }
         ]
+      },
+      {
+        path: 'tab4/product',
+        loadChildren: '../product/product.module#ProductPageModule'
       },
       {
         path: 'tab5',

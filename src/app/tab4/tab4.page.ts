@@ -60,14 +60,33 @@ export class Tab4Page implements OnInit {
     console.log(this.cart);
   }
 
-  removeMultiple(){
-    for (const products of this.cart){
-      if (products.item.checked){
-        this.removeProduct(products.item);
-      }
-      this.editToggled = false;
-    }
-    this.cartService.calculateTotal();
+  async removeMultiple(){
+    const alert = await this.alertController.create({
+      header: '刪除貨品',
+      message: '你是否確定要刪除所選貨品？',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: '確定',
+          handler: () => {
+            for (const products of this.cart){
+              if (products.item.checked){
+                this.removeProduct(products.item);
+              }
+              this.editToggled = false;
+            }
+            this.cartService.calculateTotal();
+          }
+        }
+      ],
+    });
+    await alert.present();
   }
 
   async emptyCart() {
@@ -109,18 +128,18 @@ export class Tab4Page implements OnInit {
 
   calculateMethodChange() {
     if (this.supermarket === 'cal_default') {
-    }
-    else if (this.supermarket === 'min_price') {
+    } else if (this.supermarket === 'min_price') {
       for (let products of this.cart) {
         products.item.displayPrice[0] = products.minPrice[0].supermarket;
         this.displaySupermarketChange(products);
       }
-    }
-    else {
+    } else {
       if (this.supermarket !== '') {
         for (let products of this.cart) {
-          products.item.displayPrice[0] = this.supermarket;
-          this.displaySupermarketChange(products);
+          if (products.item[this.supermarket] !== 0){
+            products.item.displayPrice[0] = this.supermarket;
+            this.displaySupermarketChange(products);
+          }
         }
       }
     }
@@ -286,7 +305,7 @@ export class Tab4Page implements OnInit {
     toast.present();
   }
 
-  async openPicker2(){
+  async openPicker2() {
     const picker = await this.pickerCtrl.create({
       buttons: [
           {
@@ -337,14 +356,18 @@ export class Tab4Page implements OnInit {
     console.log(supermarket);
   }
 
-  sortMethodChange(){
-    if(this.sort === 'sort_by_price'){
+  sortMethodChange() {
+    if (this.sort === 'sort_by_price'){
       this.cart = this.cart.sort(function (obj1, obj2){
         return obj1.item.displayPrice[1] - obj2.item.displayPrice[1];
       });
     }
-    if(this.sort === 'sort_by_shop'){
+    if (this.sort === 'sort_by_shop'){
       this.cart = this.cart.sort((obj1, obj2) => (obj1.item.displayPrice[0] > obj2.item.displayPrice[0]) ? 1 : -1);
     }
+  }
+  productDetail(product){
+    this.router.navigate(['/tabs/tab4/product'], { queryParams:
+          {prodbarcode: product.item.barcode}});
   }
 }
