@@ -18,10 +18,10 @@
   </ion-item>
   <ion-item>品牌</ion-item>
   <ion-list>
-  <ion-radio-group *ngFor=" let brand of this.brands">
+  <ion-radio-group *ngFor=" let brand of this.brands" >
     <ion-chip>
       <ion-label>{{brand}}</ion-label>
-      <ion-radio value="brand"></ion-radio>
+      <ion-radio  value="brand" (ionSelect) = 'addbrand(brand)'></ion-radio>
     </ion-chip>
   </ion-radio-group>
   </ion-list>

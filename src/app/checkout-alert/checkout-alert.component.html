@@ -19,9 +19,6 @@
         <ion-img class="supermarket" src="assets/supermarket-img/price_aeon.png"></ion-img>
       </ion-avatar>
       <ion-text>Aeon ${{total[1].toFixed(2)}}</ion-text>
-
-      <ion-badge slot="end" color="secondary">{{aeon.length}}款貨品</ion-badge>
-
     </ion-item>
 
     <ion-item detail text-wrap *ngIf="dch.length !== 0">
@@ -29,9 +26,6 @@
         <ion-img class="supermarket" src="assets/supermarket-img/price_dch.png"></ion-img>
       </ion-avatar>
       <ion-text>大昌行 ${{total[2].toFixed(2)}}</ion-text>
-
-      <ion-badge slot="end" color="secondary">{{dch.length}}款貨品</ion-badge>
-
     </ion-item>
 
     <ion-item detail text-wrap *ngIf="marketplace.length !== 0">
@@ -39,9 +33,6 @@
         <ion-img class="supermarket" src="assets/supermarket-img/price_marketplace.png"></ion-img>
       </ion-avatar>
       <ion-text>Marketplace ${{total[3].toFixed(2)}}</ion-text>
-
-      <ion-badge slot="end" color="secondary">{{marketplace.length}}款貨品</ion-badge>
-
     </ion-item>
 
     <ion-item detail (click)="placeOrder()" text-wrap *ngIf="parknshop.length !== 0">
@@ -57,9 +48,6 @@
         <ion-img class="supermarket" src="assets/supermarket-img/price_wellcome.png"></ion-img>
       </ion-avatar>
       <ion-text>惠康 ${{total[5].toFixed(2)}}</ion-text>
-
-      <ion-badge slot="end" color="secondary">{{wellcome.length}}款貨品</ion-badge>
-
     </ion-item>
 
     <ion-item detail text-wrap *ngIf="waston.length !== 0">
@@ -67,9 +55,6 @@
         <ion-img class="supermarket" src="assets/supermarket-img/price_waston.png"></ion-img>
       </ion-avatar>
       <ion-text>屈臣氏 ${{total[6].toFixed(2)}}</ion-text>
-
-      <ion-badge slot="end" color="secondary">{{waston.length}}款貨品</ion-badge>
-
     </ion-item>
   </ion-list>
 </ion-content>

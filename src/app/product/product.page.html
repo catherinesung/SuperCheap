@@ -65,7 +65,7 @@
             <ion-col>
                 <ion-slides>
                     <ion-slide *ngFor="let i of recommend">
-                        <ion-card *ngIf="i" (click)="onSelect(i)">
+                        <ion-card *ngIf="i">
                             <ion-card-content>
                                 <img src="assets/product-img/{{i.barcode}}.jpg"
                                      onError="this.src='assets/product-img/noimage.jpg'" />

@@ -8,14 +8,11 @@ import {HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-
 export class UserRecordService {
-  record = {} as UserRecord;
+  record: UserRecord;
   baseurl = 'http://www-std.se.cuhk.edu.hk/~fyp_r18';
 
-
   constructor(private http: HttpClient) {
-    this.record.provider = 'guest';
     this.record.id = 'guest';
   }
 
@@ -28,8 +25,7 @@ export class UserRecordService {
     this.record.action = action;
     this.record.reference = ref;
     this.record.time = Date();
-    console.log(this.record);
-    this.postRecord(this.record).subscribe();
+    this.postRecord(this.record);
   }
 
   postRecord(userrecord: UserRecord): Observable<UserRecord> {
