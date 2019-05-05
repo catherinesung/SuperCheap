@@ -2,18 +2,18 @@
   <ion-toolbar>
       <ion-searchbar #box  cancelButtonText="Custom Cancel" (keyup.enter)="Search(box.value)" placeholder="搜尋商店"  > </ion-searchbar>
   </ion-toolbar>
+    <ion-segment>
+        <ion-segment-button (click) = "openPicker()" >
+            <ion-label>區域</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="openPicker3()">
+            <ion-label>地區</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="openPicker2()">
+            <ion-label>商店</ion-label>
+        </ion-segment-button>
+    </ion-segment>
 </ion-header>
-<ion-segment>
-    <ion-segment-button (click) = "openPicker()" >
-        <ion-label>區域</ion-label>
-    </ion-segment-button>
-    <ion-segment-button (click)="openPicker3()">
-        <ion-label>地區</ion-label>
-    </ion-segment-button>
-    <ion-segment-button (click)="openPicker2()">
-        <ion-label>商店</ion-label>
-    </ion-segment-button>
-</ion-segment>
 <ion-content>
     <agm-map [zoom]="15" [latitude]= 'this.gla' [longitude]= 'this.glong' [usePanning]="true">
         <agm-marker *ngFor= "let store of fstoreinfos"

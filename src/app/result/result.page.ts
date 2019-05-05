@@ -10,7 +10,6 @@ import { ModalController } from '@ionic/angular';
 import {ResultfilterComponent} from '../resultfilter/resultfilter.component';
 import { PickerController } from '@ionic/angular';
 import {UserRecordService} from '../user-record.service';
-import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-result',
@@ -22,8 +21,7 @@ export class ResultPage implements OnInit {
   constructor(private itemservice: ItemService, private route: ActivatedRoute,
               private router: Router, private cartService: CartService, public popoverController: PopoverController,
               private barcodeScanner: BarcodeScanner, public modalController: ModalController, public toastController: ToastController,
-              public pickerCtrl: PickerController, private userRecordService: UserRecordService,
-              public loadingController: LoadingController) {
+              public pickerCtrl: PickerController, private userRecordService: UserRecordService) {
     this.route.queryParams.subscribe(params => {
       this.types = params['type'];
       console.log(this.types);
@@ -49,11 +47,9 @@ export class ResultPage implements OnInit {
 
 
   ngOnInit(): void {
-    this.presentLoading().then(() => {
     this.items = this.itemservice.getItemList();
     this.filter();
     console.log(this.types);
-    });
   }
 
   filter() {
@@ -74,7 +70,6 @@ export class ResultPage implements OnInit {
     }
     this.sortfitem = this.fitems;
     console.log(this.sortfitem);
-    this.loadingController.dismiss();
   }
 
   onSelect(fitem: Item) {
@@ -280,11 +275,5 @@ export class ResultPage implements OnInit {
     this.modeldata[2] = this.modeldata[2].filter(brand => brand !== filbrand);
     console.log(this.modeldata);
     this.addfilter();
-  }
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: '請稍候..正在下載地圖',
-    });
-    await loading.present();
   }
 }
