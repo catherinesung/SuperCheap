@@ -370,14 +370,14 @@ export class CartService {
       if (products.item[checkKey][0] !== -1 && products.item[checkKey][1] !== -1){
         // Buy x at $x
         if(products.item[checkKey][2] === 0){
-          console.log('Buy x at $x');
+          // console.log('Buy x at $x');
           return(
               (Math.floor(products.quantity / products.item[checkKey][0]) * products.item[checkKey][1])
               + (products.quantity) % products.item[checkKey][0] * products.item.displayPrice[1]);
         }
         // Buy x get x free
         if(products.item[checkKey][2] === 1){
-          console.log('Buy' + products.item[checkKey][3] + 'get' + products.item[checkKey][4] + 'free');
+          // console.log('Buy' + products.item[checkKey][3] + 'get' + products.item[checkKey][4] + 'free');
           let remainingPrice = 0;
           if ((products.quantity % products.item[checkKey][0]) > products.item[checkKey][3] || (products.quantity % products.item[checkKey][0]) === 0 ){
             remainingPrice = 0;
@@ -392,8 +392,8 @@ export class CartService {
         }
       }
       else{
+        // console.log('no remarks');
         return -1;
-        console.log('no remarks');
       }
     }
 }
