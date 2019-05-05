@@ -44,9 +44,6 @@ ion-row {
   font-size: 15px;
 }
 
-.remark{
-  align-content: end;
-}
 ion-grid{
   width: 100%;
   margin: 0;
@@ -57,10 +54,35 @@ ion-chip{
   --color: #ff9500 ;
   --background:#ffeed6;
   white-space: nowrap;
+  width: fit-content;
 }
 ion-col{
   vertical-align: center;
 }
 ion-text{
-  padding: 7%;
+  padding-top: 7%;
+  align-content: center;
+}
+.chip{
+  align-content: end;
+}
+ion-content{
+  color: #ff9500;
+  align-content: center;
+}
+ion-card-content{
+  color: #ff9500;
+}
+ion-row{
+  vertical-align: center;
+  align-content: center;
+}
+.last{
+  padding-left: 30%;
+}
+.prodname{
+  font-weight: bold;
+}
+pad{
+  padding-top: 3%;
 }

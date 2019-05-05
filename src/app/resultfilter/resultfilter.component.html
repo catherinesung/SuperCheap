@@ -11,7 +11,7 @@
 <ion-content>
   <ion-item>價格</ion-item>
   <ion-item>
-    <ion-range dualKnobs="true" min="0" max="999" step="1" from="0" to="900" [(ngModel)]="knobValues" (ionChange)="setprice(knobValues)">
+    <ion-range dualKnobs="true" min="0" max="650" step="1" from="0" to="900" [(ngModel)]="knobValues" (ionChange)="setprice(knobValues)">
       <div slot="start">{{knobValues.lower}}</div>
       <div slot="end">{{knobValues.upper}}</div>
     </ion-range>

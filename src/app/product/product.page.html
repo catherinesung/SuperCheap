@@ -19,7 +19,7 @@
             </ion-col>
         </ion-row>
 
-        <ion-row *ngIf="displayPrice">
+        <ion-row *ngIf="display">
             <ion-button (click)="popOver(display)">
                 <ion-icon name="cart"></ion-icon>
                 <ion-text>&nbsp;&nbsp;加到購物車</ion-text>
@@ -42,11 +42,11 @@
                         <ion-img src="assets/supermarket-img/price_{{i[0]}}.png"></ion-img>
                     </ion-col>
                     <ion-col >
-                        <ion-text class="price">&nbsp;&nbsp;{{i[1]}}</ion-text>
+                        <ion-text class="price">{{i[1]}}</ion-text>
                     </ion-col>
-                    <ion-col class="remark">
+                    <ion-col class="chip">
                         <ion-chip *ngIf="i[2] != ''">
-                            <ion-text>&nbsp;&nbsp;{{i[2]}}</ion-text>
+                            <ion-label>{{i[2]}}</ion-label>
                         </ion-chip>
                     </ion-col>
                 </ion-row>
@@ -69,24 +69,19 @@
                             <ion-card-content>
                                 <img src="assets/product-img/{{i.barcode}}.jpg"
                                      onError="this.src='assets/product-img/noimage.jpg'" />
-                                <ion-text>
-                                    {{i.brand_tc}}<br>{{i.name_tc}}
-                                </ion-text>
+                                <ion-text class="pad">{{i.brand_tc}}</ion-text>
+                                <ion-text class="prodname" class="pad">{{i.name_tc}}</ion-text><br>
                                 <ion-grid>
-                                    <ion-row>
-                                        <ion-col>
+                                    <ion-row text-center="true" class="last">
                                             <ion-img
-                                                    src="assets/supermarket-img/price_{{i['sorted'][0][0]}}.png">
+                                                    src="assets/supermarket-img/price_{{i['sorted'][0][0]}}.png" >
                                             </ion-img>
-                                        </ion-col>
-                                        <ion-col>
-                                            <ion-text>{{i['sorted'][0][1]}}</ion-text>
-                                        </ion-col>
+                                            {{i['sorted'][0][1]}}
                                     </ion-row>
                                 </ion-grid>
-                                <ion-button *ngIf="display" (click)="popOver(display)">
+                                <ion-button *ngIf="i" (click)="popOver(i);$event.stopPropagation();">
                                     <ion-icon name="cart"></ion-icon>
-                                    <ion-text>&nbsp;&nbsp;加到購物車</ion-text>
+                                    <ion-label>&nbsp;&nbsp;加到購物車</ion-label>
                                 </ion-button>
                             </ion-card-content>
                         </ion-card>
