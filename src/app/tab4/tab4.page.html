@@ -72,7 +72,8 @@
         <ion-buttons slot="end" (click)="popOver(products.item);$event.stopPropagation();">
           <ion-chip color="primary">
             <ion-avatar><img src="assets/supermarket-img/{{products.item.displayPrice[0]}}.png"></ion-avatar>
-            <ion-label>${{(products.item.displayPrice[1] * products.quantity).toFixed(2)}}&nbsp;</ion-label>
+            <ion-label *ngIf="checkRemark(products) === -1">${{(products.item.displayPrice[1] * products.quantity).toFixed(2)}}&nbsp;</ion-label>
+            <ion-label *ngIf="checkRemark(products) !== -1">${{checkRemark(products).toFixed(2)}}&nbsp;</ion-label>
             <ion-badge color="secondary">{{products.quantity}}件</ion-badge>
           </ion-chip>
         </ion-buttons>

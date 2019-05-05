@@ -373,4 +373,8 @@ export class Tab4Page implements OnInit {
     this.router.navigate(['/tabs/tab4/product'], { queryParams:
           {prodbarcode: product.item.barcode}});
   }
+
+  checkRemark(product){
+    return this.cartService.checkRemarks(product);
+  }
 }
