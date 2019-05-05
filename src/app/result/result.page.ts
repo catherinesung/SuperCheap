@@ -56,7 +56,7 @@ export class ResultPage implements OnInit {
     this.fitems = [];
     if (this.keywords !== undefined) {
       for (const item of this.items) {
-        this.itemd = item.brand_en + ' ' + item.brand_tc + ' ' + item.type_en + ' ' + item.type_tc;
+        this.itemd = item.brand_en + ' ' + item.brand_tc + ' ' + item.type_en + ' ' + item.type_tc + ' ' +item.name_tc + ' ' + item.name_en;
         if (this.itemd.toString().toLowerCase().includes(this.keywords.toLowerCase()) || item.barcode === this.keywords) {
           this.fitems.push(item);
         }
