@@ -4,28 +4,36 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>帳戶</ion-title>
-        <ion-buttons slot="start" *ngIf="login && parknshop">
+        <ion-buttons slot="start" *ngIf="parknshop">
             <ion-back-button defaultHref="/tabs/tab5" (click)="backtoAC()"></ion-back-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-grid *ngIf="!login">
-        <ion-row style="font-weight: bold">請選擇登入方式</ion-row>
-        <ion-row ><ion-button (click)="socialSignIn('facebook')" class="facebook">
-            <ion-icon size="large" name="logo-facebook" class="facebook"></ion-icon>使用Facebook登入
-        </ion-button>
-        </ion-row>
-        <ion-row><ion-button (click)="socialSignIn('google')" class="google"><ion-icon size="large" name="logo-google" class="google"></ion-icon> 使用Google登入</ion-button>
-        </ion-row>
-    </ion-grid>
 
-    <ion-list *ngIf = "login && !parknshop">
-        <ion-item>
+
+    <ion-list *ngIf = "!parknshop">
+        <ion-item *ngIf="!login">
+            <ion-label>訪客</ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="login">
             <ion-thumbnail slot="end">
                 <ion-img src={{theuser.image}}></ion-img>
             </ion-thumbnail>
             <ion-label>{{theuser.name}}<br>{{theuser.email}}</ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="!login">
+            <ion-button (click)="socialSignIn('facebook')" class="facebook">
+                <ion-icon size="large" name="logo-facebook" class="facebook"></ion-icon>使用Facebook登入
+            </ion-button>
+        </ion-item>
+
+        <ion-item *ngIf="!login">
+            <ion-button (click)="socialSignIn('google')" class="google">
+                <ion-icon size="large" name="logo-google" class="google"></ion-icon>使用Google登入
+            </ion-button>
         </ion-item>
 
         <ion-item (click)="openParknShop()">
@@ -33,12 +41,22 @@
             <ion-label>&nbsp;&nbsp;開啟我的百佳購物車</ion-label>
         </ion-item>
 
-        <ion-item (click)="logout()">
+        <ion-item *ngIf="login" (click)="logout()">
             <ion-label>登出</ion-label>
         </ion-item>
     </ion-list>
 
-    <ion-grid *ngIf = "login && parknshop">
+    <!--<ion-grid *ngIf = "!login && !parknshop">
+        <ion-row style="font-weight: bold">請選擇登入方式</ion-row>
+        <ion-row ><ion-button (click)="socialSignIn('facebook')" class="facebook">
+            <ion-icon size="large" name="logo-facebook" class="facebook"></ion-icon>使用Facebook登入
+        </ion-button>
+        </ion-row>
+        <ion-row><
+        </ion-row>
+    </ion-grid>-->
+
+    <ion-grid *ngIf = "parknshop">
     </ion-grid>
 
 </ion-content>
