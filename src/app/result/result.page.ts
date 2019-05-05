@@ -9,6 +9,7 @@ import { BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import { ModalController } from '@ionic/angular';
 import {ResultfilterComponent} from '../resultfilter/resultfilter.component';
 import { PickerController } from '@ionic/angular';
+import {UserRecordService} from '../user-record.service';
 
 @Component({
   selector: 'app-result',
@@ -20,7 +21,7 @@ export class ResultPage implements OnInit {
   constructor(private itemservice: ItemService, private route: ActivatedRoute,
               private router: Router, private cartService: CartService, public popoverController: PopoverController,
               private barcodeScanner: BarcodeScanner, public modalController: ModalController, public toastController: ToastController,
-              public pickerCtrl: PickerController) {
+              public pickerCtrl: PickerController, private userRecordService: UserRecordService) {
     this.route.queryParams.subscribe(params => {
       this.types = params['type'];
       console.log(this.types);
@@ -36,8 +37,13 @@ export class ResultPage implements OnInit {
   itemd: string;
   selected: Item;
   brand = [];
-  sorted: Item[] = [];
   types = [];
+  ffitems: Item[] = [];
+  fffitems: Item[] = [];
+  modeldata = [];
+  displayPrice = false;
+  displayBrand = false;
+  sortfitem: Item[];
 
 
   ngOnInit(): void {
@@ -62,17 +68,14 @@ export class ResultPage implements OnInit {
         }
       }
     }
+    this.sortfitem = this.fitems;
+    console.log(this.sortfitem);
   }
 
   onSelect(fitem: Item) {
-    if(this.router.url.includes('tab3')){
-      this.router.navigate(['tabs/tab3/result/product'], { queryParams:
-            {prodbarcode: fitem.barcode}});
-    }
-    if(this.router.url.includes('tab1')){
-      this.router.navigate(['tabs/tab1/result/product'], { queryParams:
-            {prodbarcode: fitem.barcode}});
-    }
+    this.userRecordService.recordAction('view', fitem.barcode);
+    this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
+          {prodbarcode: fitem.barcode}});
   }
 
   async popOver(fitem: Item) {
@@ -107,13 +110,15 @@ export class ResultPage implements OnInit {
   }
 
   Search(value: string) {
-   this.keywords = value;
-   this.filter();
+    this.userRecordService.recordAction('search', value);
+    this.keywords = value;
+    this.filter();
   }
 
   scanCode() {
     this.barcodeScanner.scan().then(barcodeData => {
       this.keywords = barcodeData.text;
+      this.userRecordService.recordAction('scan', this.keywords);
       this.filter();
     }).catch(err => {
       console.log('Error', err);
@@ -136,12 +141,12 @@ export class ResultPage implements OnInit {
             console.log(data.list.value);
             if (data.list.value === 'price') {
               this.sortPrice();
-              }
+            }
             if (data.list.value === 'brand') {
               this.sortBrand();
             }
-            }
           }
+        }
       ],
       columns: [
         {
@@ -166,17 +171,15 @@ export class ResultPage implements OnInit {
     await picker.present();
   }
   sortPrice() {
-    this.sorted = this.fitems.sort(function (obj1 , obj2) {
+    this.fitems = this.fitems.sort(function (obj1 , obj2) {
       return obj1['minPrice'][0].price - obj2['minPrice'][0].price;
     });
-    this.fitems = this.sorted;
     console.log(this.fitems);
   }
   sortBrand() {
-    this.sorted = this.fitems.sort((obj1 , obj2) => (
-      obj1.brand_tc > obj2.brand_tc ? -1 : 1
-  ));
-    this.fitems = this.sorted;
+    this.fitems = this.fitems.sort((obj1 , obj2) => (
+        obj1.brand_tc > obj2.brand_tc ? -1 : 1
+    ));
     console.log(this.fitems);
   }
 
@@ -201,13 +204,11 @@ export class ResultPage implements OnInit {
 
     switch (model.role) {
       case 'confirm':
-        const ffitems = this.fitems;
-        this.fitems = [];
-        for (const ffitem of ffitems) {
-          if (ffitem.brand_tc === model.data[0] && ffitem.price_parknshop < model.data[2] && ffitem.price_parknshop > model.data[1]) {
-            this.fitems.push(ffitem);
-          }
-        }
+        console.log(model.data);
+        this.modeldata = [];
+        this.modeldata = model.data;
+        console.log(this.modeldata);
+        this.addfilter();
         break;
       case 'fail':
         console.log('fail');
@@ -229,5 +230,50 @@ export class ResultPage implements OnInit {
     const img = event.srcElement.shadowRoot.children[1];
     img.onerror = () => { img.src = '/assets/product-img/no-image.jpg'; };
     event.srcElement.className = event.srcElement.className.replace('image-loading', '');
+  }
+  addfilter() {
+    this.ffitems = [];
+    this.fffitems = [];
+    this.fitems = this.sortfitem;
+    console.log(this.fitems);
+    if (this.modeldata[0] !== undefined || this.modeldata[1] !== undefined) {
+      for (const fitem of this.fitems) {
+        if ( fitem['minPrice'][0].price > this.modeldata[0] &&
+            fitem['minPrice'][0].price < this.modeldata[1] ) {
+          this.ffitems.push(fitem);
+        }
+        this.displayPrice = true;
+      }
+    } else {
+      this.ffitems = this.fitems;
+      this.displayPrice = false;
+    }
+    console.log(this.ffitems);
+    const filterbrand = this.modeldata[2];
+    console.log(filterbrand.length);
+    if (filterbrand.length !== 0 ) {
+      this.displayBrand = true;
+      for (const ffitem of this.ffitems) {
+        if (filterbrand.includes(ffitem.brand_tc)) {
+          this.fffitems.push(ffitem);
+        }
+      }
+    } else {
+      this.fffitems = this.ffitems;
+      this.displayBrand = false;
+    }
+    console.log(this.fffitems);
+    this.fitems = this.fffitems;
+  }
+  delprice() {
+    this.modeldata = this.modeldata.fill(undefined, 0, 2);
+    console.log(this.modeldata);
+    this.addfilter();
+  }
+  delbrand(filbrand: any) {
+    console.log(this.modeldata);
+    this.modeldata[2] = this.modeldata[2].filter(brand => brand !== filbrand);
+    console.log(this.modeldata);
+    this.addfilter();
   }
 }

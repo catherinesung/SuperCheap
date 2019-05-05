@@ -25,6 +25,7 @@ import { InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {SafariViewController} from '@ionic-native/safari-view-controller/ngx';
 import {ResultfilterComponent} from './resultfilter/resultfilter.component';
 import { CheckoutAlertComponent } from './checkout-alert/checkout-alert.component';
+import { LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -50,8 +51,8 @@ export function getAuthServiceConfigs() {
   })],
   providers: [
       StatusBar,
-    SplashScreen,
-    BarcodeScanner,
+      SplashScreen,
+      BarcodeScanner,
       NativeGeocoder,
       Geolocation,
       WheelSelector,
@@ -61,6 +62,7 @@ export function getAuthServiceConfigs() {
       InAppBrowser,
       SafariViewController,
       GoogleMapsAPIWrapper,
+      LaunchNavigator,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
   ],
