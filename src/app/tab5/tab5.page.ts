@@ -25,7 +25,6 @@ export class Tab5Page implements OnInit {
 
   ngOnInit(): void {
       this.login = false;
-      this.parknshop = false;
   }
 
   public socialSignIn(socialPlatform: string) {
@@ -46,7 +45,6 @@ export class Tab5Page implements OnInit {
   }
 
   openParknShop(): void {
-    this.parknshop = true;
     const shoppingCart = 'https://www.parknshop.com/zh-hk/shoppingCart';
     this.openNewTab(shoppingCart, false);
   }
