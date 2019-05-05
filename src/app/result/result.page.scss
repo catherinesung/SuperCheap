@@ -3,6 +3,7 @@ ion-col{
   padding-bottom: 0;
   margin-top: 0;
   margin-bottom: 0;
+  vertical-align: center;
 }
 ion-row{
   padding-top: 0;
@@ -10,6 +11,7 @@ ion-row{
   margin-top: 0;
   margin-bottom: 0;
   align-items: center;
+  height: 100%;
 }
 .brand{
   font-size: small;
@@ -31,7 +33,7 @@ ion-row{
 .bar{
   position: relative;
   background-color: #ffd59a;
-  height: 27%;
+  height: 35%;
   box-shadow: none;
   margin:0;
   left: 5%;
@@ -92,7 +94,7 @@ ion-chip{
   height: 60%;
   align-content: center;
   padding: 2%;
-  margin: 0;
+  margin: 2px;
   border: 0;
   --color: #ff9500 ;
   --background:#ffeed6;
@@ -106,7 +108,7 @@ ion-card{
 .fil{
   position: relative;
   background-color: #ffd59a;
-  height: 27%;
+  height: 60%;
   box-shadow: none;
   margin:0;
   left: 5%;
@@ -114,7 +116,18 @@ ion-card{
   text-align: start;
 }
 ion-grid{
+  align-content: end;
   padding: 0;
   border: 0;
   margin: 0;
+}
+ion-content{
+  color: #ff9500;
+  position: relative;
+}
+ion-header{
+  position: sticky;
+}
+.sort{
+  column-width: fit-content;
 }

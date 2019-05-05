@@ -9,18 +9,15 @@
     <ion-card  no-shadow class="bar">
         <ion-grid >
             <ion-row>
-                <ion-col class="fil">
+                <ion-col class="fil" >
                     <ion-chip *ngIf="displayPrice">
                         <ion-label class="filter">{{modeldata[0] }}-{{modeldata[1]}} <ion-icon name="close" (click)="delprice()" ></ion-icon></ion-label>
                     </ion-chip>
-                </ion-col>
-                <ion-col *ngIf="displayBrand">
                     <ion-chip  *ngFor="let filbrand of modeldata[2]">
-                        <ion-label class="filter" > {{filbrand}} <ion-icon name="close" (click)="delbrand(filbrand)"></ion-icon></ion-label>
+                        <ion-label class="filter" *ngIf="displayBrand"> {{filbrand}} <ion-icon name="close" (click)="delbrand(filbrand)"></ion-icon></ion-label>
                     </ion-chip>
-                    &nbsp;
                 </ion-col>
-                <ion-col>
+                <ion-col class="sort">
                     <ion-icon name="options"class="filter" (click)="showfilter()"></ion-icon>
                     <ion-icon name="funnel" class="filter"(click)="sortItem()"></ion-icon></ion-col>
             </ion-row>

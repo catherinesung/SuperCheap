@@ -9,6 +9,7 @@ import { BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import { ModalController } from '@ionic/angular';
 import {ResultfilterComponent} from '../resultfilter/resultfilter.component';
 import { PickerController } from '@ionic/angular';
+import {UserRecordService} from '../user-record.service';
 
 @Component({
   selector: 'app-result',
@@ -20,7 +21,7 @@ export class ResultPage implements OnInit {
   constructor(private itemservice: ItemService, private route: ActivatedRoute,
               private router: Router, private cartService: CartService, public popoverController: PopoverController,
               private barcodeScanner: BarcodeScanner, public modalController: ModalController, public toastController: ToastController,
-              public pickerCtrl: PickerController) {
+              public pickerCtrl: PickerController, private userRecordService: UserRecordService) {
     this.route.queryParams.subscribe(params => {
       this.types = params['type'];
       console.log(this.types);
@@ -72,6 +73,7 @@ export class ResultPage implements OnInit {
   }
 
   onSelect(fitem: Item) {
+    this.userRecordService.recordAction('view', fitem.barcode);
     this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
           {prodbarcode: fitem.barcode}});
   }
@@ -108,6 +110,7 @@ export class ResultPage implements OnInit {
   }
 
   Search(value: string) {
+    this.userRecordService.recordAction('search', value);
     this.keywords = value;
     this.filter();
   }
@@ -115,6 +118,7 @@ export class ResultPage implements OnInit {
   scanCode() {
     this.barcodeScanner.scan().then(barcodeData => {
       this.keywords = barcodeData.text;
+      this.userRecordService.recordAction('scan', this.keywords);
       this.filter();
     }).catch(err => {
       console.log('Error', err);

@@ -186,7 +186,7 @@ export class Tab2Page implements OnInit {
                     name: 'list',
                     options: [
                         {
-                            text: '請選撰地區 ',
+                            text: '請選撰區域 ',
                             value: ' '
                         },
                         {
@@ -200,6 +200,100 @@ export class Tab2Page implements OnInit {
                         {
                             text: '香港島',
                             value: 'HK'
+                        }
+                    ]
+                }
+            ]
+        });
+        await picker.present();
+    }
+    async openPicker3() {
+        const picker = await this.pickerCtrl.create({
+            buttons: [
+                {
+                    text: '取消',
+                    role: 'cancel',
+                    handler: data => {
+                        console.log(data.list.value);
+                    }
+                },
+                {
+                    text: '確定',
+                    role: 'done',
+                    handler: data => {
+                        console.log(data.list.value);
+                        this.keywords = data.list.value;
+                        this.filter();
+                    }
+                }
+            ],
+            columns: [
+                {
+                    name: 'list',
+                    options: [
+                        {
+                            text: '請選撰地區 ',
+                            value: ' '
+                        },
+                        {
+                            text: '中西區',
+                            value: '中西區'
+                        },
+                        {
+                            text: '灣仔',
+                            value: '灣仔'
+                        },
+                        {
+                            text: '東區',
+                            value: '東區'
+                        },
+                        {
+                            text: '南區',
+                            value: '南區'
+                        },
+                        {
+                            text: '油尖旺',
+                            value: '油尖旺'
+                        },
+                        {
+                            text: '深水埗',
+                            value: '深水埗'
+                        },
+                        {
+                            text: '九龍城',
+                            value: '九龍城'
+                        },
+                        {
+                            text: '黃大仙',
+                            value: '黃大仙'
+                        },
+                        {
+                            text: '觀塘',
+                            value: '觀塘'
+                        },
+                        {
+                            text: '葵青',
+                            value: '葵青'
+                        },
+                        {
+                            text: '屯門',
+                            value: '屯門'
+                        },
+                        {
+                            text: '元朗',
+                            value: '元朗'
+                        },
+                        {
+                            text: '北區',
+                            value: '北區'
+                        },
+                        {
+                            text: '大埔',
+                            value: '大埔'
+                        },
+                        {
+                            text: '沙田',
+                            value: '沙田'
                         }
                     ]
                 }
