@@ -31,19 +31,11 @@
                 <ion-text class="brand">{{display.brand_tc}}<br></ion-text>
                 <ion-text class="name">{{display.name_tc}}</ion-text>
             </ion-col>
-
-            <ion-col size="2">
-                <ion-img src="assets/supermarket-img/price_{{display['sorted'][0][0]}}.png"></ion-img>
-            </ion-col>
-
-            <ion-col size="2">
-                <ion-text class="price">{{display['sorted'][0][1]}}</ion-text>
-            </ion-col>
-
         </ion-row>
+    </ion-grid>
 
-        <ion-row *ngIf="display">
-            <ion-col size="4"*ngFor="let i of display['sorted'] | slice: 1">
+    <ion-list *ngIf="display">
+        <ion-item size="4"*ngFor="let i of display['sorted']">
                 <ion-row>
                     <ion-col>
                         <ion-img src="assets/supermarket-img/price_{{i[0]}}.png"></ion-img>
@@ -51,10 +43,14 @@
                     <ion-col>
                         <ion-text class="price">{{i[1]}}</ion-text>
                     </ion-col>
+                    <ion-col>
+                        <ion-text>{{i[2]}}</ion-text>
+                    </ion-col>
                 </ion-row>
-            </ion-col>
-        </ion-row>
+        </ion-item>
+    </ion-list>
 
+    <ion-grid>
         <ion-row>
             <ion-col>
                     <canvas #pricetrend>{{ chart }}</canvas>
