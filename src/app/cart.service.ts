@@ -361,7 +361,7 @@ export class CartService {
 
   checkRemarks(){
     for (const products of this.cart){
-      console.log('remarks');
+      console.log (products.item.displayPrice[0]);
     }
   }
 }
