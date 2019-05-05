@@ -10,7 +10,6 @@ import { ModalController } from '@ionic/angular';
 import {ResultfilterComponent} from '../resultfilter/resultfilter.component';
 import { PickerController } from '@ionic/angular';
 import {UserRecordService} from '../user-record.service';
-import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-result',
@@ -22,8 +21,7 @@ export class ResultPage implements OnInit {
   constructor(private itemservice: ItemService, private route: ActivatedRoute,
               private router: Router, private cartService: CartService, public popoverController: PopoverController,
               private barcodeScanner: BarcodeScanner, public modalController: ModalController, public toastController: ToastController,
-              public pickerCtrl: PickerController, private userRecordService: UserRecordService,
-              public loadingController: LoadingController) {
+              public pickerCtrl: PickerController, private userRecordService: UserRecordService) {
     this.route.queryParams.subscribe(params => {
       this.types = params['type'];
       console.log(this.types);

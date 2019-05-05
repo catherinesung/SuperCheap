@@ -33,6 +33,7 @@ ion-row{
 .bar{
   position: relative;
   background-color: #ffd59a;
+  height: 35%;
   box-shadow: none;
   margin:0;
   left: 5%;
@@ -101,7 +102,6 @@ ion-chip{
   white-space: nowrap;
 }
 ion-card{
-  position: sticky;
   vertical-align: center;
   min-height: fit-content;
 }
@@ -124,7 +124,6 @@ ion-grid{
 ion-content{
   color: #ff9500;
   position: relative;
-  padding-top: 10%;
 }
 ion-header{
   position: sticky;
