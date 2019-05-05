@@ -367,8 +367,10 @@ export class Tab4Page implements OnInit {
     }
   }
   productDetail(product){
-    this.router.navigate(['/tabs/tab4/product'], { queryParams:
-          {prodbarcode: product.item.barcode}});
+    if(!this.editToggled){
+      this.router.navigate(['/tabs/tab4/product'], { queryParams:
+            {prodbarcode: product.item.barcode}});
+    }
   }
 
   checkRemark(product){

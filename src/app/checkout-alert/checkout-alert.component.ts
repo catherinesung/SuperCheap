@@ -62,7 +62,13 @@ export class CheckoutAlertComponent implements OnInit {
   calculateTotal(supermarketArr){
     let temp = 0;
     for(const products of supermarketArr){
-      temp += +products.item.displayPrice [1] * products.quantity;
+      let subTotal = this.cartService.checkRemarks(products);
+      if (subTotal === -1){
+        temp += +products.item.displayPrice[1] * products.quantity;
+      }
+      else{
+        temp += subTotal;
+      }
     }
     return temp;
   }
@@ -74,9 +80,9 @@ export class CheckoutAlertComponent implements OnInit {
     });
     await loading.present();
 
-    const shoppingCart = 'https://www.parknshop.com/en/shoppingCart';
+    const shoppingCart = 'https://www.parknshop.com/zh-hk/shoppingCart';
     for (let products of this.parknshop) {
-      const url = 'https://www.parknshop.com/en/cart/add?productCodePost=' + products.item.bp.substr(3) + '&qty=' + products.quantity;
+      const url = 'https://www.parknshop.com/zh-hk/cart/add?productCodePost=' + products.item.bp.substr(3) + '&qty=' + products.quantity;
       console.log(url);
       await new Promise(resolve => this.openNewTab(url, true, products)
           .then(() => resolve()));

@@ -51,10 +51,6 @@ export class Tab5Page implements OnInit {
     this.openNewTab(shoppingCart, false);
   }
 
-  backtoAC(): void {
-    this.parknshop = false;
-  }
-
   logout(): void {
     this.login = false;
   }
