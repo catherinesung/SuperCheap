@@ -49,6 +49,7 @@ export class CartService {
       this.cart.push({item: product, quantity: quantity});
       this.solutionPricePerProduct();
     }
+    this.checkRemarks();
     this.calculateTotal();
     console.log('added ' + product.name_tc);
   }
@@ -69,6 +70,7 @@ export class CartService {
       result.item.displayPrice[0] = supermarket;
       result.item.displayPrice[1] = result.item[result.item.displayPrice[0]];
     }
+    this.checkRemarks();
     this.calculateTotal();
   }
 
@@ -78,6 +80,7 @@ export class CartService {
     }
     else return false;
   }
+
   clearCart() {
     while(this.cart.length > 0 ){
       this.cart.pop();
@@ -354,5 +357,11 @@ export class CartService {
       }
     }
     return minPriceArr; // return minPriceArr with the structure of [{name of supermarket,price},{...},{...}]
+  }
+
+  checkRemarks(){
+    for (const products of this.cart){
+      console.log('remarks');
+    }
   }
 }
