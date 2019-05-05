@@ -7,7 +7,6 @@ import {CartService} from '../cart.service';
 import {PopoverComponent} from '../popover/popover.component';
 import {PopoverController, ToastController} from '@ionic/angular';
 import { Chart } from 'chart.js';
-import {UserRecordService} from '../user-record.service';
 
 @Component({
   selector: 'app-product',
@@ -29,10 +28,9 @@ export class ProductPage implements OnInit {
     @ViewChild('pricetrend') canvas: ElementRef;
     public ctx: CanvasRenderingContext2D;
 
-    constructor(private cartservice: CartService, private datePipe: DatePipe, private itemservice: ItemService,
-                public popoverController: PopoverController, private route: ActivatedRoute,
-                private router: Router, public toastController: ToastController,
-                private userrecordservice: UserRecordService) {
+    constructor(private itemservice: ItemService, private cartservice: CartService,
+                private route: ActivatedRoute, public popoverController: PopoverController,
+                public toastController: ToastController, private datePipe: DatePipe) {
         this.route.queryParams.subscribe(params => {
             this.prodbarcode = params['prodbarcode'];
         });
@@ -62,6 +60,24 @@ export class ProductPage implements OnInit {
         this.display = this.items.find(x => x.barcode === this.prodbarcode);
         if (typeof this.display !== 'undefined') {this.display['sorted'] = this.sortPrice(this.display);}
         console.log(this.display);
+    }
+
+    getprodinType(): void {
+        this.prodinType = this.items.filter(x => x.type_tc === this.display.type_tc);
+        this.randomItems();
+    }
+
+    randomItems(): void {
+        /*let arr = [];
+        while (arr.length < 5) {
+            let r = Math.floor(Math.random() * this.prodinType.length);
+            if (arr.indexOf(r) === -1) {arr.push(r); }
+        }*/
+        for (let i = 0; i < 5; i++) {
+            if (typeof this.prodinType[i] !== 'undefined') {
+                this.recommend[i] = this.prodinType[i];
+            }
+        }
     }
 
     sortPrice(itemm: Item) {
@@ -117,6 +133,16 @@ export class ProductPage implements OnInit {
         }
     }
 
+    async presentToast(message: string, duration: number) {
+        const toast = await this.toastController.create({
+            message: message,
+            duration: duration,
+            color: 'secondary',
+            position: 'top'
+        });
+        toast.present();
+    }
+
     drawChart(): void {
         const date = new Date();
         this.label = [];
@@ -146,47 +172,11 @@ export class ProductPage implements OnInit {
                         fill: false
                     }]},
                 options: {
-                    elements: {line: {tension: 0}},
                     legend: {display: false},
-                    scales: {
-                        XAxes: [{display: true}],
-                        YAxes: [{display: false}]
+                    scales: {XAxes: [{display: true}], YAxes: [{display: false}]
                     }
                 }
             });
         }
-    }
-
-    getprodinType(): void {
-        this.prodinType = this.items.filter(x => x.type_tc === this.display.type_tc);
-        this.randomItems();
-    }
-
-    randomItems(): void {
-        /*let arr = [];
-        while (arr.length < 5) {
-            let r = Math.floor(Math.random() * this.prodinType.length);
-            if (arr.indexOf(r) === -1) {arr.push(r); }
-        }*/
-        for (let i = 0; i < 5; i++) {
-            if (typeof this.prodinType[i] !== 'undefined') {
-                this.recommend[i] = this.prodinType[i];
-            }
-        }
-    }
-
-    onSelect(item: Item) {
-        this.router.navigate(['../product'], { queryParams:
-                {prodbarcode: item.barcode}});
-    }
-
-    async presentToast(message: string, duration: number) {
-        const toast = await this.toastController.create({
-            message: message,
-            duration: duration,
-            color: 'secondary',
-            position: 'top'
-        });
-        toast.present();
     }
 }

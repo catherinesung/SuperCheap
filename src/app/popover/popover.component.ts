@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Item} from '../item';
 import { PopoverController} from '@ionic/angular';
 import {CartService} from '../cart.service';
-import {UserRecordService} from '../user-record.service';
 
 @Component({
   selector: 'app-popover',
@@ -15,7 +14,7 @@ export class PopoverComponent implements OnInit {
   fitem: Item;
   calledBy: string;
 
-  constructor(public popoverController: PopoverController, private cartService: CartService, private userRecordService: UserRecordService) { }
+  constructor(public popoverController: PopoverController, private cartService: CartService) { }
 
   ngOnInit() {
     this.supermarket = this.fitem['minPrice'][0].supermarket;
@@ -40,9 +39,6 @@ export class PopoverComponent implements OnInit {
     console.log(this.quantity);
     const data = [this.supermarket, this.quantity];
     if(this.quantity != null && this.quantity !== 0){
-      if (this.calledBy !== 'cart'){
-        this.userRecordService.recordAction('addToCart', this.fitem.barcode);
-      }
       this.popoverController.dismiss( data, 'confirm');
     }
     else{

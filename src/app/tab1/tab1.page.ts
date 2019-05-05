@@ -11,12 +11,12 @@ export class Tab1Page {
   barcode: string;
   constructor(private router: Router, private barcodeScanner: BarcodeScanner) { }
   Search(value: string) {
-    this.router.navigate(['tabs/tab1/result'], {queryParams: { keywords: value}});
+    this.router.navigate(['tabs/tab3/result'], {queryParams: { keywords: value}});
   }
   scanCode() {
     this.barcodeScanner.scan().then(barcodeData => {
       this.barcode = barcodeData.text;
-      this.router.navigate(['tabs/tab1/result'], {queryParams: { keywords: this.barcode}});
+      this.router.navigate(['tabs/tab3/result'], {queryParams: { keywords: this.barcode}});
     }).catch(err => {
       console.log('Error', err);
     });

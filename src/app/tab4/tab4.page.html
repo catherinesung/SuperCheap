@@ -56,7 +56,7 @@
   <ion-list #slidingList>
     <ion-item-sliding *ngFor="let products of cart">
 
-      <ion-item (click)="productDetail(products)" *ngIf="products.quantity!==0">
+      <ion-item *ngIf="products.quantity!==0">
 
         <ion-checkbox *ngIf="editToggled" slot="start" [(ngModel)]="products.item.checked"></ion-checkbox>
 
@@ -64,12 +64,14 @@
           <img src="assets/product-img/{{products.item.barcode}}.jpg" onError="this.src='assets/product-img/noimage.jpg'">
         </ion-avatar>
 
+
+
         <ion-label class="name_tc" text-wrap>
           <h3>{{products.item.brand_tc}}</h3>
           <ion-text class="name">{{products.item.name_tc}}</ion-text>
         </ion-label>
 
-        <ion-buttons slot="end" (click)="popOver(products.item);$event.stopPropagation();">
+        <ion-buttons slot="end" (click)="popOver(products.item)">
           <ion-chip color="primary">
             <ion-avatar><img src="assets/supermarket-img/{{products.item.displayPrice[0]}}.png"></ion-avatar>
             <ion-label>${{(products.item.displayPrice[1] * products.quantity).toFixed(2)}}&nbsp;</ion-label>
