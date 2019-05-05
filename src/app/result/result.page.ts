@@ -72,8 +72,14 @@ export class ResultPage implements OnInit {
   }
 
   onSelect(fitem: Item) {
-  this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
-        {prodbarcode: fitem.barcode}});
+    if(this.router.url.includes('tab3')){
+      this.router.navigate(['tabs/tab3/result/product'], { queryParams:
+            {prodbarcode: fitem.barcode}});
+    }
+    if(this.router.url.includes('tab1')){
+      this.router.navigate(['tabs/tab1/result/product'], { queryParams:
+            {prodbarcode: fitem.barcode}});
+    }
   }
 
   async popOver(fitem: Item) {
@@ -205,6 +211,13 @@ export class ResultPage implements OnInit {
         this.modeldata = model.data;
         console.log(this.modeldata);
         this.addfilter();
+        const ffitems = this.fitems;
+        this.fitems = [];
+        for (const ffitem of ffitems) {
+          if (ffitem.brand_tc === model.data[0] && ffitem.price_parknshop < model.data[2] && ffitem.price_parknshop > model.data[1]) {
+            this.fitems.push(ffitem);
+          }
+        }
         break;
       case 'fail':
         console.log('fail');
@@ -266,5 +279,4 @@ export class ResultPage implements OnInit {
     this.modeldata = this.modeldata.filter(filbrand);
     this.addfilter();
   }
-
 }
