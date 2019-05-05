@@ -91,9 +91,14 @@ export class CartService {
 
   calculateTotal(){
     this.total[0] = 0;
-    this.checkRemarks();
     for (let product of this.cart){
-      this.total[0] += +product.item.displayPrice[1] * product.quantity;
+      let subTotal = this.checkRemarks(product);
+      if (subTotal === -1){
+        this.total[0] += +product.item.displayPrice[1] * product.quantity;
+      }
+      else{
+        this.total[0] += subTotal;
+      }
     }
     this.calculateDeliveryFee();
     this.total[7] = this.total[0] + this.total[1] + this.total[2] + this.total[3] + this.total[4] + this.total[5] + this.total[6];
@@ -360,10 +365,35 @@ export class CartService {
     return minPriceArr; // return minPriceArr with the structure of [{name of supermarket,price},{...},{...}]
   }
 
-  checkRemarks(){
-    for (const products of this.cart){
+  checkRemarks(products){
       let checkKey = 'remark_' + products.item.displayPrice[0].substr(6);
-      console.log (checkKey);
+      if (products.item[checkKey][0] !== -1 && products.item[checkKey][1] !== -1){
+        // Buy x at $x
+        if(products.item[checkKey][2] === 0){
+          console.log('Buy x at $x');
+          return(
+              (Math.floor(products.quantity / products.item[checkKey][0]) * products.item[checkKey][1])
+              + (products.quantity) % products.item[checkKey][0] * products.item.displayPrice[1]);
+        }
+        // Buy x get x free
+        if(products.item[checkKey][2] === 1){
+          console.log('Buy' + products.item[checkKey][3] + 'get' + products.item[checkKey][4] + 'free');
+          let remainingPrice = 0;
+          if ((products.quantity % products.item[checkKey][0]) > products.item[checkKey][3] || (products.quantity % products.item[checkKey][0]) === 0 ){
+            remainingPrice = 0;
+          }
+          else{
+            remainingPrice = (products.quantity) % products.item[checkKey][0] * products.item.displayPrice[1];
+          }
+          return(
+              (Math.floor(products.quantity / products.item[checkKey][0]) * products.item[checkKey][1])
+              + remainingPrice
+          );
+        }
+      }
+      else{
+        return -1;
+        console.log('no remarks');
+      }
     }
-  }
 }
