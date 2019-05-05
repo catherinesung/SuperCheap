@@ -76,7 +76,9 @@
                                             <ion-img
                                                     src="assets/supermarket-img/price_{{i['sorted'][0][0]}}.png" >
                                             </ion-img>
+                                            <ion-text class="price">
                                             {{i['sorted'][0][1]}}
+                                            </ion-text>
                                     </ion-row>
                                 </ion-grid>
                                 <ion-button *ngIf="i" (click)="popOver(i);$event.stopPropagation();">
