@@ -49,7 +49,7 @@ export class CartService {
       this.cart.push({item: product, quantity: quantity});
       this.solutionPricePerProduct();
     }
-    this.checkRemarks();
+    //this.checkRemarks();
     this.calculateTotal();
     console.log('added ' + product.name_tc);
   }
@@ -70,7 +70,7 @@ export class CartService {
       result.item.displayPrice[0] = supermarket;
       result.item.displayPrice[1] = result.item[result.item.displayPrice[0]];
     }
-    this.checkRemarks();
+    //this.checkRemarks();
     this.calculateTotal();
   }
 
@@ -91,6 +91,7 @@ export class CartService {
 
   calculateTotal(){
     this.total[0] = 0;
+    this.checkRemarks();
     for (let product of this.cart){
       this.total[0] += +product.item.displayPrice[1] * product.quantity;
     }
@@ -361,7 +362,8 @@ export class CartService {
 
   checkRemarks(){
     for (const products of this.cart){
-      console.log (products.item.displayPrice[0]);
+      let checkKey = 'remark_' + products.item.displayPrice[0].substr(6);
+      console.log (checkKey);
     }
   }
 }
