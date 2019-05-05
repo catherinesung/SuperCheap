@@ -9,7 +9,7 @@
 <ion-content>
 
 
-    <ion-list>
+    <ion-list *ngIf = "!parknshop">
         <ion-item *ngIf="!login">
             <ion-label>訪客</ion-label>
         </ion-item>
@@ -54,5 +54,4 @@
     </ion-grid>-->
 
 </ion-content>
-
 
