@@ -15,6 +15,7 @@ ion-img {
 ion-row {
   width: 100%;
   align-content: start;
+  vertical-align: center;
 }
 
 .brand {
@@ -50,4 +51,16 @@ ion-grid{
   width: 100%;
   margin: 0;
   padding: 0;
+}
+ion-chip{
+  align-content: start;
+  --color: #ff9500 ;
+  --background:#ffeed6;
+  white-space: nowrap;
+}
+ion-col{
+  vertical-align: center;
+}
+ion-text{
+  padding: 7%;
 }

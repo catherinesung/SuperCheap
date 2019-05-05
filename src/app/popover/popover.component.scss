@@ -11,3 +11,18 @@ ion-button{
 ion-input{
   text-align: center;
 }
+ion-chip{
+  width: auto;
+  height: 60%;
+  align-content: center;
+  padding: 2%;
+  margin: 2px;
+  border: 0;
+  --color: #ff9500 ;
+  --background:#ffeed6;
+  font-size: 70%;
+  white-space: nowrap;
+}
+ion-label{
+  white-space: nowrap;
+}

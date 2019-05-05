@@ -4,67 +4,78 @@
         <ion-avatar slot="start">
           <ion-img class="supermarket" src="assets/supermarket-img/price_aeon.png"></ion-img>
         </ion-avatar>
-        <ion-label>Aeon ${{fitem.price_aeon}}</ion-label>
+        <ion-label>Aeon ${{fitem.price_aeon}}
+          <div *ngIf="(fitem.remark_aeon[0] != -1) && (fitem.remark_aeon[1] != -1)">
+            <ion-chip *ngIf="fitem.remark_aeon[2] == 0">＄{{fitem.remark_aeon[1]}} / {{fitem.remark_aeon[0]}}件</ion-chip>
+            <ion-chip *ngIf="fitem.remark_aeon[2] == 1">買{{fitem.remark_aeon[3]}}送{{fitem.remark_aeon[4]}}</ion-chip>
+          </div>
+        </ion-label>
         <ion-radio [disabled]="fitem.price_aeon === 0" value="price_aeon" ></ion-radio>
-        <div *ngIf="(fitem.remark_aeon[0] != -1) && (fitem.remark_aeon[1] != -1)">
-          <ion-chip *ngIf="fitem.remark_aeon[2] == 0">＄{{fitem.remark_aeon[1]}} / {{fitem.remark_aeon[0]}}件</ion-chip>
-          <ion-chip *ngIf="fitem.remark_aeon[2] == 1">買{{fitem.remark_aeon[3]}}送{{fitem.remark_aeon[4]}}</ion-chip>
-        </div>
+
       </ion-item>
       <ion-item text-wrap>
         <ion-avatar slot="start">
           <ion-img class="supermarket" src="assets/supermarket-img/price_dch.png"></ion-img>
         </ion-avatar>
-        <ion-label>大昌行 ${{fitem.price_dch}}</ion-label>
+        <ion-label>大昌行 ${{fitem.price_dch}}
+          <div *ngIf="(fitem.remark_dch[0] != -1) && (fitem.remark_dch[1] != -1)">
+            <ion-chip *ngIf="fitem.remark_dch[2] == 0">＄{{fitem.remark_dch[1]}} / {{fitem.remark_dch[0]}}件</ion-chip>
+            <ion-chip *ngIf="fitem.remark_dch[2] == 1">買{{fitem.remark_dch[3]}}送{{fitem.remark_dch[4]}}</ion-chip>
+          </div>
+        </ion-label>
         <ion-radio [disabled]="fitem.price_dch === 0" value="price_dch" ></ion-radio>
-        <div *ngIf="(fitem.remark_dch[0] != -1) && (fitem.remark_dch[1] != -1)">
-          <ion-chip *ngIf="fitem.remark_dch[2] == 0">＄{{fitem.remark_dch[1]}} / {{fitem.remark_dch[0]}}件</ion-chip>
-          <ion-chip *ngIf="fitem.remark_dch[2] == 1">買{{fitem.remark_dch[3]}}送{{fitem.remark_dch[4]}}</ion-chip>
-        </div>
+
       </ion-item>
       <ion-item text-wrap>
         <ion-avatar slot="start">
           <ion-img class="supermarket" src="assets/supermarket-img/price_marketplace.png"></ion-img>
         </ion-avatar>
-        <ion-label>Marketplace ${{fitem.price_marketplace}}</ion-label>
+        <ion-label>Marketplace ${{fitem.price_marketplace}}
+          <div *ngIf="(fitem.remark_marketplace[0] != -1) && (fitem.remark_marketplace[1] != -1)">
+            <ion-chip *ngIf="fitem.remark_marketplace[2] == 0">＄{{fitem.remark_marketplace[1]}} / {{fitem.remark_marketplace[0]}}件</ion-chip>
+            <ion-chip *ngIf="fitem.remark_marketplace[2] == 1">買{{fitem.remark_marketplace[3]}}送{{fitem.remark_marketplace[4]}}</ion-chip>
+          </div>
+        </ion-label>
         <ion-radio [disabled]="fitem.price_marketplace === 0" value="price_marketplace" ></ion-radio>
-        <div *ngIf="(fitem.remark_marketplace[0] != -1) && (fitem.remark_marketplace[1] != -1)">
-          <ion-chip *ngIf="fitem.remark_marketplace[2] == 0">＄{{fitem.remark_marketplace[1]}} / {{fitem.remark_marketplace[0]}}件</ion-chip>
-          <ion-chip *ngIf="fitem.remark_marketplace[2] == 1">買{{fitem.remark_marketplace[3]}}送{{fitem.remark_marketplace[4]}}</ion-chip>
-        </div>
+
       </ion-item>
       <ion-item text-wrap>
         <ion-avatar slot="start">
           <ion-img class="supermarket" src="assets/supermarket-img/price_parknshop.png"></ion-img>
         </ion-avatar>
-        <ion-label>百佳 ${{fitem.price_parknshop}}</ion-label>
+        <ion-label>百佳 ${{fitem.price_parknshop}}
+          <div *ngIf="(fitem.remark_parknshop[0] != -1) && (fitem.remark_parknshop[1] != -1)">
+            <ion-chip *ngIf="fitem.remark_parknshop[2] == 0">＄{{fitem.remark_parknshop[1]}} / {{fitem.remark_parknshop[0]}}件</ion-chip>
+            <ion-chip *ngIf="fitem.remark_parknshop[2] == 1">買{{fitem.remark_parknshop[3]}}送{{fitem.remark_parknshop[4]}}</ion-chip>
+          </div>
+        </ion-label>
         <ion-radio [disabled]="fitem.price_parknshop === 0" value="price_parknshop" ></ion-radio>
-        <div *ngIf="(fitem.remark_parknshop[0] != -1) && (fitem.remark_parknshop[1] != -1)">
-          <ion-chip *ngIf="fitem.remark_parknshop[2] == 0">＄{{fitem.remark_parknshop[1]}} / {{fitem.remark_parknshop[0]}}件</ion-chip>
-          <ion-chip *ngIf="fitem.remark_parknshop[2] == 1">買{{fitem.remark_parknshop[3]}}送{{fitem.remark_parknshop[4]}}</ion-chip>
-        </div>
       </ion-item>
       <ion-item text-wrap>
         <ion-avatar slot="start">
           <ion-img class="supermarket" src="assets/supermarket-img/price_wellcome.png"></ion-img>
         </ion-avatar>
-        <ion-label>惠康 ${{fitem.price_wellcome}}</ion-label>
+        <ion-label>惠康 ${{fitem.price_wellcome}}
+          <div *ngIf="(fitem.remark_wellcome[0] != -1) && (fitem.remark_wellcome[1] != -1)">
+            <ion-chip *ngIf="fitem.remark_wellcome[2] == 0">＄{{fitem.remark_wellcome[1]}} / {{fitem.remark_wellcome[0]}}件</ion-chip>
+            <ion-chip *ngIf="fitem.remark_wellcome[2] == 1">買{{fitem.remark_wellcome[3]}}送{{fitem.remark_wellcome[4]}}</ion-chip>
+          </div>
+        </ion-label>
         <ion-radio [disabled]="fitem.price_wellcome === 0" value="price_wellcome"></ion-radio>
-        <div *ngIf="(fitem.remark_wellcome[0] != -1) && (fitem.remark_wellcome[1] != -1)">
-          <ion-chip *ngIf="fitem.remark_wellcome[2] == 0">＄{{fitem.remark_wellcome[1]}} / {{fitem.remark_wellcome[0]}}件</ion-chip>
-          <ion-chip *ngIf="fitem.remark_wellcome[2] == 1">買{{fitem.remark_wellcome[3]}}送{{fitem.remark_wellcome[4]}}</ion-chip>
-        </div>
+
       </ion-item>
       <ion-item text-wrap>
         <ion-avatar slot="start">
           <ion-img class="supermarket" src="assets/supermarket-img/price_waston.png"></ion-img>
         </ion-avatar>
-        <ion-label>屈臣氏 ${{fitem.price_waston}}</ion-label>
+        <ion-label>屈臣氏 ${{fitem.price_waston}}
+          <div *ngIf="(fitem.remark_waston[0] != -1) && (fitem.remark_waston[1] != -1)">
+            <ion-chip *ngIf="fitem.remark_waston[2] == 0">＄{{fitem.remark_waston[1]}} / {{fitem.remark_waston[0]}}件</ion-chip>
+            <ion-chip *ngIf="fitem.remark_waston[2] == 1">買{{fitem.remark_waston[3]}}送{{fitem.remark_waston[4]}}</ion-chip>
+          </div>
+        </ion-label>
         <ion-radio [disabled]="fitem.price_waston === 0" value="price_waston"></ion-radio>
-        <div *ngIf="(fitem.remark_waston[0] != -1) && (fitem.remark_waston[1] != -1)">
-          <ion-chip *ngIf="fitem.remark_waston[2] == 0">＄{{fitem.remark_waston[1]}} / {{fitem.remark_waston[0]}}件</ion-chip>
-          <ion-chip *ngIf="fitem.remark_waston[2] == 1">買{{fitem.remark_waston[3]}}送{{fitem.remark_waston[4]}}</ion-chip>
-        </div>
+
       </ion-item>
     </ion-radio-group>
   </ion-list>
