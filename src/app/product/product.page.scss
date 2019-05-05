@@ -12,6 +12,11 @@ ion-img {
   width: 30px;
 }
 
+ion-row {
+  width: 100%;
+  align-content: start;
+}
+
 .brand {
   color: darkorange;
   font-size: 15px;
@@ -38,4 +43,11 @@ ion-img {
   font-size: 15px;
 }
 
-
+.remark{
+  align-content: end;
+}
+ion-grid{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}

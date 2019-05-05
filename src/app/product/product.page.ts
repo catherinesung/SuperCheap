@@ -33,9 +33,9 @@ export class ProductPage implements OnInit {
                 public popoverController: PopoverController, private route: ActivatedRoute,
                 private router: Router, public toastController: ToastController,
                 private userrecordservice: UserRecordService) {
-        this.route.queryParams.subscribe(params => {
-            this.prodbarcode = params['prodbarcode'];
-        });
+                this.route.queryParams.subscribe(params => {
+                    this.prodbarcode = params['prodbarcode'];
+                });
     }
 
     ngOnInit(): void {
@@ -85,12 +85,13 @@ export class ProductPage implements OnInit {
                     num = j;
                 }
             }
-            if (num !== -1) {;
+            if (num !== -1) {
+                let text = '';
                 if ((remark[num][0] !== -1) && (remark[num][1] !== -1)) {
                     if (remark[num][2] === 0) {
-                        let text = currformat.format(remark[num][1]) + ' / ' + remark[num][0] + '件';
-                    } else {let text = '買' + remark[num][3] + '送' + remark[num][4]; }
-                } else {let text = ''; }
+                        text = currformat.format(remark[num][1]) + ' / ' + remark[num][0] + '件';
+                    } else {text = '買' + remark[num][3] + '送' + remark[num][4]; }
+                }
                 sorted.push([supermarketarr[num], currformat.format(pricearr[num]), text]);
                 pricearr[num] = 0;
             }
@@ -175,15 +176,17 @@ export class ProductPage implements OnInit {
             let r = Math.floor(Math.random() * this.prodinType.length);
             if (arr.indexOf(r) === -1) {arr.push(r); }
         }*/
+        let j = 0;
         for (let i = 0; i < 5; i++) {
-            if (typeof this.prodinType[i] !== 'undefined') {
-                this.recommend[i] = this.prodinType[i];
+            if ((typeof this.prodinType[i] !== 'undefined') && (this.prodinType[i].barcode !== this.display.barcode)) {
+                this.recommend[j] = this.prodinType[i];
+                j++;
             }
         }
     }
 
     onSelect(item: Item) {
-        this.router.navigate(['../product'], { queryParams:
+        this.router.navigate(['./product'], { queryParams:
                 {prodbarcode: item.barcode}});
     }
 
