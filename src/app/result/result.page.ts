@@ -283,7 +283,7 @@ export class ResultPage implements OnInit {
   }
   async presentLoading() {
     const loading = await this.loadingController.create({
-      message: '請稍候..正在下載資料',
+      message: '請稍候..正在下載地圖',
     });
     await loading.present();
   }
