@@ -13,16 +13,16 @@ export class ResultfilterComponent implements OnInit {
     this.brands = (this.navParams.get('brands'));
   }
   brands: any;
-  lowerPrice: number;
-  upperPrice: number;
-  BrandSelected: string;
+  lowerPrice: any;
+  upperPrice: any;
+  BrandSelect = [];
   knobValues: {
     upper: any,
     lower: any
   };
 
   ngOnInit() {
-      console.log(this.brands);
+    console.log(this.brands);
   }
 
   setprice(knobValues) {
@@ -31,17 +31,18 @@ export class ResultfilterComponent implements OnInit {
   }
 
   onCancel() {
-    const brandSelect = this.BrandSelected.toString();
-    const data = [this.lowerPrice, this.upperPrice, brandSelect];
+    const data = [];
     this.modalController.dismiss(data, 'fail');
   }
-
   onConfirm() {
-    const brandSelect = this.BrandSelected.toString();
     const data = [this.lowerPrice, this.upperPrice];
-    console.log(data);
-    console.log(brandSelect);
-    this.modalController.dismiss(data , brandSelect, 'confirm');
+    data.push(this.BrandSelect);
+    this.modalController.dismiss(data , 'confirm');
+  }
+  addbrand(brand) {
+    console.log(brand);
+    this.BrandSelect.push(brand);
   }
 }
+
 

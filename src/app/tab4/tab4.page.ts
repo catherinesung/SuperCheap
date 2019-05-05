@@ -128,14 +128,12 @@ export class Tab4Page implements OnInit {
 
   calculateMethodChange() {
     if (this.supermarket === 'cal_default') {
-    }
-    else if (this.supermarket === 'min_price') {
+    } else if (this.supermarket === 'min_price') {
       for (let products of this.cart) {
         products.item.displayPrice[0] = products.minPrice[0].supermarket;
         this.displaySupermarketChange(products);
       }
-    }
-    else {
+    } else {
       if (this.supermarket !== '') {
         for (let products of this.cart) {
           if (products.item[this.supermarket] !== 0){
@@ -307,7 +305,7 @@ export class Tab4Page implements OnInit {
     toast.present();
   }
 
-  async openPicker2(){
+  async openPicker2() {
     const picker = await this.pickerCtrl.create({
       buttons: [
           {
@@ -358,17 +356,16 @@ export class Tab4Page implements OnInit {
     console.log(supermarket);
   }
 
-  sortMethodChange(){
-    if(this.sort === 'sort_by_price'){
+  sortMethodChange() {
+    if (this.sort === 'sort_by_price'){
       this.cart = this.cart.sort(function (obj1, obj2){
         return obj1.item.displayPrice[1] - obj2.item.displayPrice[1];
       });
     }
-    if(this.sort === 'sort_by_shop'){
+    if (this.sort === 'sort_by_shop'){
       this.cart = this.cart.sort((obj1, obj2) => (obj1.item.displayPrice[0] > obj2.item.displayPrice[0]) ? 1 : -1);
     }
   }
-
   productDetail(product){
     if(!this.editToggled){
       this.router.navigate(['/tabs/tab4/product'], { queryParams:
