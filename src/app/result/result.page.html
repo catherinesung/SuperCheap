@@ -25,8 +25,8 @@
     </ion-card>
 </ion-header>
 <ion-content>
-        <ion-list>
-                    <ion-item   *ngFor="let fitem of fitems">
+    <ion-virtual-scroll [items]="fitems">
+                    <ion-item   *virtualItem ="let fitem">
                         <ion-grid detail (click)="onSelect(fitem)">
                     <ion-row>
                         <ion-col size="3" ><ion-img src="assets/product-img/{{fitem?.barcode}}.jpg" (ionImgDidLoad)="imageLoaded($event)"></ion-img></ion-col>
@@ -46,5 +46,5 @@
                     </ion-row>
                 </ion-grid>
             </ion-item>
-        </ion-list>
+    </ion-virtual-scroll>
 </ion-content>

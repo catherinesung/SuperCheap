@@ -265,11 +265,14 @@ export class ResultPage implements OnInit {
     console.log(this.fffitems);
     this.fitems = this.fffitems;
   }
+
+
   delprice() {
     this.modeldata = this.modeldata.fill(undefined, 0, 2);
     console.log(this.modeldata);
     this.addfilter();
   }
+
   delbrand(filbrand: any) {
     console.log(this.modeldata);
     this.modeldata[2] = this.modeldata[2].filter(brand => brand !== filbrand);
