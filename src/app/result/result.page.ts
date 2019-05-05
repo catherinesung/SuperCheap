@@ -36,11 +36,9 @@ export class ResultPage implements OnInit {
   itemd: string;
   selected: Item;
   brand = [];
-  sorted: Item[] = [];
   types = [];
   ffitems: Item[] = [];
   fffitems: Item[] = [];
-  ffffitems: Item[] = [];
   modeldata = [];
   displayPrice = false;
   displayBrand = false;
@@ -69,17 +67,13 @@ export class ResultPage implements OnInit {
         }
       }
     }
+    this.sortfitem = this.fitems;
+    console.log(this.sortfitem);
   }
 
   onSelect(fitem: Item) {
-    if(this.router.url.includes('tab3')){
-      this.router.navigate(['tabs/tab3/result/product'], { queryParams:
-            {prodbarcode: fitem.barcode}});
-    }
-    if(this.router.url.includes('tab1')){
-      this.router.navigate(['tabs/tab1/result/product'], { queryParams:
-            {prodbarcode: fitem.barcode}});
-    }
+    this.router.navigate(['/tabs/tab3/result/product'], { queryParams:
+          {prodbarcode: fitem.barcode}});
   }
 
   async popOver(fitem: Item) {
@@ -114,8 +108,8 @@ export class ResultPage implements OnInit {
   }
 
   Search(value: string) {
-   this.keywords = value;
-   this.filter();
+    this.keywords = value;
+    this.filter();
   }
 
   scanCode() {
@@ -143,12 +137,12 @@ export class ResultPage implements OnInit {
             console.log(data.list.value);
             if (data.list.value === 'price') {
               this.sortPrice();
-              }
+            }
             if (data.list.value === 'brand') {
               this.sortBrand();
             }
-            }
           }
+        }
       ],
       columns: [
         {
@@ -180,8 +174,8 @@ export class ResultPage implements OnInit {
   }
   sortBrand() {
     this.fitems = this.fitems.sort((obj1 , obj2) => (
-      obj1.brand_tc > obj2.brand_tc ? -1 : 1
-  ));
+        obj1.brand_tc > obj2.brand_tc ? -1 : 1
+    ));
     console.log(this.fitems);
   }
 
@@ -211,13 +205,6 @@ export class ResultPage implements OnInit {
         this.modeldata = model.data;
         console.log(this.modeldata);
         this.addfilter();
-        const ffitems = this.fitems;
-        this.fitems = [];
-        for (const ffitem of ffitems) {
-          if (ffitem.brand_tc === model.data[0] && ffitem.price_parknshop < model.data[2] && ffitem.price_parknshop > model.data[1]) {
-            this.fitems.push(ffitem);
-          }
-        }
         break;
       case 'fail':
         console.log('fail');
@@ -241,8 +228,10 @@ export class ResultPage implements OnInit {
     event.srcElement.className = event.srcElement.className.replace('image-loading', '');
   }
   addfilter() {
+    this.ffitems = [];
+    this.fffitems = [];
+    this.fitems = this.sortfitem;
     console.log(this.fitems);
-    this.sortfitem = this.fitems;
     if (this.modeldata[0] !== undefined || this.modeldata[1] !== undefined) {
       for (const fitem of this.fitems) {
         if ( fitem['minPrice'][0].price > this.modeldata[0] &&
@@ -255,14 +244,16 @@ export class ResultPage implements OnInit {
       this.ffitems = this.fitems;
       this.displayPrice = false;
     }
-    const filterbrand = this.modeldata.slice(2);
-    if (filterbrand !== [] ) {
+    console.log(this.ffitems);
+    const filterbrand = this.modeldata[2];
+    console.log(filterbrand.length);
+    if (filterbrand.length !== 0 ) {
+      this.displayBrand = true;
       for (const ffitem of this.ffitems) {
-        if (filterbrand[0].includes(ffitem.brand_tc)) {
+        if (filterbrand.includes(ffitem.brand_tc)) {
           this.fffitems.push(ffitem);
         }
       }
-      this.displayBrand = true;
     } else {
       this.fffitems = this.ffitems;
       this.displayBrand = false;
@@ -271,12 +262,14 @@ export class ResultPage implements OnInit {
     this.fitems = this.fffitems;
   }
   delprice() {
-    console.log('deleting');
     this.modeldata = this.modeldata.fill(undefined, 0, 2);
+    console.log(this.modeldata);
     this.addfilter();
   }
   delbrand(filbrand: any) {
-    this.modeldata = this.modeldata.filter(filbrand);
+    console.log(this.modeldata);
+    this.modeldata[2] = this.modeldata[2].filter(brand => brand !== filbrand);
+    console.log(this.modeldata);
     this.addfilter();
   }
 }
