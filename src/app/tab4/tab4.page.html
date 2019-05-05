@@ -67,6 +67,13 @@
         <ion-label class="name_tc" text-wrap>
           <h3>{{products.item.brand_tc}}</h3>
           <ion-text class="name">{{products.item.name_tc}}</ion-text>
+            <br>
+            <ion-text *ngIf="products.item['remark_' + products.item.displayPrice[0].substr(6)][0] !== -1 && products.item['remark_' + products.item.displayPrice[0].substr(6)][1] !== -1 && products.item['remark_' + products.item.displayPrice[0].substr(6)][2] === 0">
+                *${{products.item['remark_' + products.item.displayPrice[0].substr(6)][1] + ' / ' + products.item['remark_' + products.item.displayPrice[0].substr(6)][0] + '件'}}
+            </ion-text>
+            <ion-text *ngIf="products.item['remark_' + products.item.displayPrice[0].substr(6)][0] !== -1 && products.item['remark_' + products.item.displayPrice[0].substr(6)][1] !== -1 && products.item['remark_' + products.item.displayPrice[0].substr(6)][2] === 1">
+                *買{{products.item['remark_' + products.item.displayPrice[0].substr(6)][3] + '送' + products.item['remark_' + products.item.displayPrice[0].substr(6)][4]}}
+            </ion-text>
         </ion-label>
 
         <ion-buttons slot="end" (click)="popOver(products.item);$event.stopPropagation();">
