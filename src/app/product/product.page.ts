@@ -66,8 +66,10 @@ export class ProductPage implements OnInit {
 
     sortPrice(itemm: Item) {
         let supermarketarr = ['parknshop', 'wellcome', 'marketplace', 'aeon', 'dch', 'waston'];
-        let pricearr = [itemm.price_wellcome, itemm.price_parknshop, itemm.price_marketplace, itemm.price_aeon, itemm.price_dch,
+        let pricearr = [itemm.price_parknshop, itemm.price_wellcome, itemm.price_marketplace, itemm.price_aeon, itemm.price_dch,
             itemm.price_waston];
+        let remark = [itemm.remark_parknshop, itemm.remark_wellcome, itemm.remark_marketplace,
+            itemm.remark_aeon, itemm.remark_dch, itemm.remark_waston];
         const currformat = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
@@ -83,8 +85,13 @@ export class ProductPage implements OnInit {
                     num = j;
                 }
             }
-            if (num !== -1) {
-                sorted.push([supermarketarr[num], currformat.format(pricearr[num])]);
+            if (num !== -1) {;
+                if ((remark[num][0] !== -1) && (remark[num][1] !== -1)) {
+                    if (remark[num][2] === 0) {
+                        let text = currformat.format(remark[num][1]) + ' / ' + remark[num][0] + '件';
+                    } else {let text = '買' + remark[num][3] + '送' + remark[num][4]; }
+                } else {let text = ''; }
+                sorted.push([supermarketarr[num], currformat.format(pricearr[num]), text]);
                 pricearr[num] = 0;
             }
         }
