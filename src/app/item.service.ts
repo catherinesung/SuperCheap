@@ -25,6 +25,9 @@ export class ItemService {
   calRemark(remark_en: string, price: number) {
       let amount = -1;
       let value = -1;
+      let index = 0;
+      let buyindex = -1;
+      let freeindex = -1
       if (remark_en !== null) {
           if (remark_en.includes(' at $')) {
               const buyend = remark_en.indexOf(' at $');
@@ -50,19 +53,22 @@ export class ItemService {
               const buyend = remark_en.lastIndexOf(' get ', atend);
               const buy = Number(remark_en.substring(buystart, buyend));
               const atstart = buyend + 5;
-              const at = Number(remark_en.substring(atstart, atend));
-              amount = buy;
-              value = at;
+              const free = Number(remark_en.substring(atstart, atend));
+              const at = price * buy;
+              amount = buy + free;
+              value = Number(at.toFixed(1));
+              index = 1;
+              buyindex = buy;
+              freeindex = free;
           } else if (remark_en.includes(' for $')) {
               const buystart = 0;
               const buyend = remark_en.indexOf(' for $');
               const buy = Number(remark_en.substring(buystart, buyend));
               const atstart = buyend + 6;
               const atend = remark_en.indexOf(' ', atstart);
-              const free = Number(remark_en.substring(atstart, atend));
-              const at = price * buy;
-              amount = buy + free;
-              value = Number(at.toFixed(1));
+              const at = Number(remark_en.substring(atstart, atend));
+              amount = buy;
+              value = at;
           } else if (remark_en.includes(' (Average @ $')) {
               const buystart = remark_en.indexOf('Buy ') + 4;
               const buyend = remark_en.indexOf(' ', buystart);
@@ -78,7 +84,7 @@ export class ItemService {
           amount = -1;
           value = -1;
       }
-      return [amount, value];
+      return [amount, value, index, buyindex, freeindex];
   }
 
   getAll(): Observable<Item[]> {
