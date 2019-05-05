@@ -23,6 +23,8 @@ export class ItemService {
   }
 
   calRemark(remark_en: string, price: number) {
+      let amount = -1;
+      let value = -1;
       if (remark_en !== null) {
           if (remark_en.includes(' at $')) {
               const buyend = remark_en.indexOf(' at $');
@@ -31,7 +33,8 @@ export class ItemService {
               const atstart = buyend + 5;
               const atend = remark_en.indexOf(' ', atstart);
               const at = Number(remark_en.substring(atstart, atend));
-              return [buy, at];
+              amount = buy;
+              value = at;
           } else if (remark_en.includes(' to save $')) {
               const buyend = remark_en.indexOf(' at $');
               const buystart = remark_en.lastIndexOf('Buy ', buyend) + 4;
@@ -39,19 +42,43 @@ export class ItemService {
               const atstart = buyend + 10;
               const atend = remark_en.indexOf(' ', atstart);
               const at = price * buy - Number(remark_en.substring(atstart, atend));
-              return [buy, Number(at.toFixed(1))];
+              amount = buy;
+              value = Number(at.toFixed(1));
+          } else if (remark_en.includes(' free (')) {
+              const atend = remark_en.indexOf(' free (');
+              const buystart = remark_en.lastIndexOf('Buy ', atend) + 4;
+              const buyend = remark_en.lastIndexOf(' get ', atend);
+              const buy = Number(remark_en.substring(buystart, buyend));
+              const atstart = buyend + 5;
+              const at = Number(remark_en.substring(atstart, atend));
+              amount = buy;
+              value = at;
+          } else if (remark_en.includes(' for $')) {
+              const buystart = 0;
+              const buyend = remark_en.indexOf(' for $');
+              const buy = Number(remark_en.substring(buystart, buyend));
+              const atstart = buyend + 6;
+              const atend = remark_en.indexOf(' ', atstart);
+              const free = Number(remark_en.substring(atstart, atend));
+              const at = price * buy;
+              amount = buy + free;
+              value = Number(at.toFixed(1));
           } else if (remark_en.includes(' (Average @ $')) {
-              if (remark_en.indexOf('Buy ') !== -1) {
-                  const buystart = remark_en.indexOf('Buy ') + 4;
-              } else {const buystart = 0; }
+              const buystart = remark_en.indexOf('Buy ') + 4;
               const buyend = remark_en.indexOf(' ', buystart);
               const buy = Number(remark_en.substring(buystart, buyend));
               const atstart = remark_en.indexOf(' (Average @ $') + 13;
               const atend = remark_en.indexOf(')', atstart);
-              const at = (buy * Number(remark_en.substring(atstart, atend));
-              return [buy, Number(at.toFixed(1))];
-          } else {return [-1, -1]; }
-      } else {return [-1, -1]; }
+              const at = buy * Number(remark_en.substring(atstart, atend));
+              amount = buy;
+              value = Number(at.toFixed(1));
+          }
+      }
+      if ((isNaN(amount)) || (isNaN(value))) {
+          amount = -1;
+          value = -1;
+      }
+      return [amount, value];
   }
 
   getAll(): Observable<Item[]> {
