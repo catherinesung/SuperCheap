@@ -49,11 +49,9 @@ export class ResultPage implements OnInit {
 
 
   ngOnInit(): void {
-    this.presentLoading().then(() => {
     this.items = this.itemservice.getItemList();
     this.filter();
     console.log(this.types);
-    });
   }
 
   filter() {
@@ -74,7 +72,6 @@ export class ResultPage implements OnInit {
     }
     this.sortfitem = this.fitems;
     console.log(this.sortfitem);
-    this.loadingController.dismiss();
   }
 
   onSelect(fitem: Item) {
@@ -280,11 +277,5 @@ export class ResultPage implements OnInit {
     this.modeldata[2] = this.modeldata[2].filter(brand => brand !== filbrand);
     console.log(this.modeldata);
     this.addfilter();
-  }
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: '請稍候..正在下載資料',
-    });
-    await loading.present();
   }
 }
