@@ -1,4 +1,5 @@
 ion-row {
+  position: relative;
   height: 30%;
   color: #ff9500;
   justify-content: center;
@@ -7,19 +8,21 @@ ion-row {
   --background: #3C5A99;
   --border-color: #3C5A99;
   color: white;
-  height: 40%;
-  align-content: center;
+  align-content: start;
   --background-activated: #6180c1;
+  height: 60%;
+  width: 50%;
 }
 .google{
+  height: fit-content;
   --background: #DB4437;
   --border-color: #DB4437;
   color: white;
-  height: 40%;
+  align-content: start;
+  height: 60%;
   --background-activated: #e78178;
-}
-ion-button{
-  width: 70%;
+  width: 50%;
+
 }
 
 ion-img {
@@ -31,4 +34,7 @@ ion-grid{
   position: relative;
   height: 70%;
 }
-
+ion-icon{
+  height: border-box;
+  width: border-box;
+}

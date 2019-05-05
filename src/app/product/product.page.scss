@@ -26,6 +26,13 @@ ion-row {
   height: 100%;
   width: 100%;
 }
+ion-chip{
+  align-content: center;
+  --color: #ff9500 ;
+  --background:#ffeed6;
+  white-space: nowrap;
+  align-self: end;
+}
 
 .name {
   color: darkorange;
@@ -50,4 +57,8 @@ ion-grid{
   width: 100%;
   margin: 0;
   padding: 0;
+}
+ion-card {
+  height: 5%;
+  display: flex;
 }
