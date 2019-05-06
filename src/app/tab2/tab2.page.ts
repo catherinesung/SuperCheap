@@ -7,6 +7,7 @@ import {WheelSelector} from '@ionic-native/wheel-selector/ngx';
 import { PickerController } from '@ionic/angular';
 import {CallNumber} from '@ionic-native/call-number/ngx';
 import { LaunchNavigator} from '@ionic-native/launch-navigator/ngx';
+import { LoadingController } from '@ionic/angular';
 @Component({
     selector: 'app-tab2',
     templateUrl: 'tab2.page.html',
@@ -19,7 +20,8 @@ export class Tab2Page implements OnInit {
                 private selector: WheelSelector,
                 private launchNavigator: LaunchNavigator,
                 private pickerCtrl: PickerController,
-                private callNumber: CallNumber) {
+                private callNumber: CallNumber,
+                public loadingController: LoadingController) {
     }
     storeinfos: Storeinfo[];
     fstoreinfos: Storeinfo[];
@@ -32,12 +34,21 @@ export class Tab2Page implements OnInit {
     myLat: number;
     myLong: number;
     ngOnInit(): void {
-        this.locationService.getlocation().subscribe(
-            (res: Storeinfo[]) => {
-                this.storeinfos = res;
-                this.location();
-            });
+        this.presentLoading().then(()=>{
+                this.locationService.getlocation().subscribe(
+                    (res: Storeinfo[]) => {
+                        this.storeinfos = res;
+                        this.location();
+                    });
+        });
     }
+    async presentLoading() {
+        const loading = await this.loadingController.create({
+            message: '請稍候..正在下載地圖',
+        });
+        await loading.present();
+    }
+
     callphone(store) {
         this.callNumber.callNumber(store.phone, true)
             .then(() => console.log('Dialer Launched!'))
@@ -56,6 +67,7 @@ export class Tab2Page implements OnInit {
             this.myLat = resp.coords.latitude;
             this.myLong = resp.coords.longitude;
             this.filter();
+            this.loadingController.dismiss();
         });
     }
     filter() {

@@ -8,12 +8,11 @@ agm-info-window{
 }
 ion-header{
   position: sticky;
-  height: 10%;
 }
 ion-segment{
-  padding-top: 3%;
-  width: 90%;
-  padding-left: 6%;
+  position: sticky;
+  padding-left: 3%;
+  padding-right: 3%;
 }
 ion-segment-button{
   --color-activated: #ffff;
