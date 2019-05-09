@@ -94,6 +94,7 @@
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
     <plugin name="cordova-plugin-safariviewcontroller" spec="^1.5.4" />
     <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^5.0.4">
+        <variable name="LOCATION_USAGE_DESCRIPTION" value="This app requires access to your location for navigation purposes" />
         <variable name="GOOGLE_API_KEY_FOR_IOS" value="AIzaSyAbuGXGg7ShS_EoyKlL6A-UIcuTT0upAO4" />
     </plugin>
 </widget>

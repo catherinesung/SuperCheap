@@ -118,7 +118,8 @@
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-safariviewcontroller": {},
       "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-        "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes"
+        "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes",
+        "GOOGLE_API_KEY_FOR_IOS": "AIzaSyAbuGXGg7ShS_EoyKlL6A-UIcuTT0upAO4"
       }
     },
     "platforms": [

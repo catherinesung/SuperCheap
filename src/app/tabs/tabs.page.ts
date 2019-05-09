@@ -12,8 +12,8 @@ import {Router} from '@angular/router';
 
 
 export class TabsPage implements OnInit {
-  private cart = [];
-  constructor(private cartService: CartService) {}
+  public cart = [];
+  constructor(public cartService: CartService) {}
 
   ngOnInit(): void {
     this.cart = this.cartService.getCart();
